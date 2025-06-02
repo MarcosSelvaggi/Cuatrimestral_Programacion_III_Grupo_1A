@@ -1,0 +1,126 @@
+﻿#layoutSidenav {
+    display: flex;
+}
+
+#layoutSidenav_content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    transition: margin 0.25s ease-in-out;
+}
+
+.sidenav {
+    background-color: #343a40;
+    min-height: 100vh;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+}
+
+    .sidenav .sidenav-menu {
+        padding-top: 1rem;
+    }
+
+    .sidenav .nav,
+    .sidenav-menu-nested.nav {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sidenav .sidenav-menu-heading {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #adb5bd;
+        display: block;
+        width: 100%;
+    }
+
+    .sidenav .nav-link {
+        color: #cfd8dc;
+        padding: 0.65rem 1.5rem;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+        .sidenav .nav-link:hover,
+        .sidenav .nav-link.active {
+            background-color: #495057;
+            color: #fff;
+        }
+
+        .sidenav .nav-link .nav-link-icon {
+            margin-right: 0.5rem;
+            font-size: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+    .sidenav .sidenav-collapse-arrow {
+        margin-left: auto;
+        color: #adb5bd;
+    }
+
+.sidenav-menu-nested .nav-link {
+    padding-left: 2.5rem;
+    font-size: 0.95rem;
+}
+
+#sidebarToggle {
+    margin-left: 11.5rem;
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.5);
+    border: none;
+    padding: 0;
+    background: none;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+    #sidebarToggle:hover {
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+body.sidenav-toggled #layoutSidenav_nav {
+    margin-left: -250px;
+    transition: margin 0.25s ease-in-out;
+}
+
+body.sidenav-toggled #layoutSidenav_content {
+    margin-left: 0;
+    transition: margin 0.25s ease-in-out;
+}
+
+#layoutSidenav_nav {
+    width: 250px;
+    transition: margin 0.25s ease-in-out;
+}
+
+.navbar-brand {
+    z-index: 1;
+}
+
+.topnav .d-flex.w-100.align-items-center {
+    position: relative;
+    justify-content: space-between;
+}
+
+#sidebarToggleMobile {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.5);
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+    #sidebarToggleMobile:hover {
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+.rotate-icon {
+    transition: transform 0.3s ease;
+}
+
+    .rotate-icon.rotated {
+        transform: rotate(-90deg);
+    }
