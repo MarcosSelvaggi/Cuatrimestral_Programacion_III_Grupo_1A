@@ -24,7 +24,8 @@ namespace Negocio
 
         public AccesoADatos()
         {
-            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=PROMOS_DB; integrated security=true;");
+            conexion = new SqlConnection("server=.\\SQLEXPRESS; database=DB_Ecommerce_DB_Programacion_III_Pruebas; integrated security=true;");
+            //conexion = new SqlConnection("server=.\\SQLEXPRESS; database=DB_Ecommerce_DB_Programacion_III; integrated security=true;");
             comando = new SqlCommand();
         }
 
