@@ -1,9 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMaster.Master" AutoEventWireup="true" CodeBehind="GestionPedidos.aspx.cs" Inherits="UI.Admin.GestionPedidos" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container mt-4">
-        <h2><i class="bi bi-receipt-cutoff"></i> Gestión de Pedidos</h2>
+        <h2><i class="bi bi-receipt-cutoff"></i>Gestión de Pedidos</h2>
 
         <table class="table table-striped">
             <thead>

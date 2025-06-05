@@ -1,9 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMaster.Master" AutoEventWireup="true" CodeBehind="GestionProductos.aspx.cs" Inherits="UI.Admin.GestionProductos" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container mt-4">
-        <h2><i class="bi bi-box-seam-fill"></i> Gestión de Productos</h2>
+        <h2><i class="bi bi-box-seam-fill"></i>Gestión de Productos</h2>
 
         <table class="table table-striped">
             <thead>
