@@ -38,6 +38,7 @@ namespace Negocio
                     aux.Precio = Decimal.Parse(conexion.Lector["Precio"].ToString());
                     aux.Estado = (bool)conexion.Lector["Estado"];
 
+                    //int idCategoria = (int)conexion.Lector["IdCategoria"];
                     int idCategoria = (byte)conexion.Lector["IdCategoria"];
                     aux.Categoria.Id = idCategoria;
 
@@ -49,7 +50,7 @@ namespace Negocio
                             break;
                         }
                     }
-
+                    //int idMarca = (int)conexion.Lector["IdMarca"];
                     int idMarca = (byte)conexion.Lector["IdMarca"];
                     aux.Marca.Id = idMarca;
 

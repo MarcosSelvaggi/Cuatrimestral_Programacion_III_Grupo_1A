@@ -36,7 +36,7 @@
                                 <%if (Session["Usuario"] == null)
                                 { %>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/Logearse.aspx">Iniciar sesión</a>
+                                    <a class="nav-link" href="/Usuario/Logearse.aspx">Iniciar sesión</a>
                                 </li>
                                 <%}
                                 else

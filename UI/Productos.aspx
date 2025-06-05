@@ -5,26 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
-            <div class="container-fluid">
-                <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarSupportedContent">
-                    <ul class="navbar-nav mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/Productos.aspx">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/Logearse.aspx">Iniciar Sesión</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/Contacto.aspx">Contacto</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
+    <br />
     <div class="container text-center" id="DivSeparador">
         <div class="row">
             <div class="col" id="Categorias" >
@@ -83,7 +64,7 @@
                                 <a href="/ProductoDetalle.aspx?id=<%: producto.Id %>">
                                     <h5 class="card-title" style="font-palette: dark"><%: producto.Nombre %></h5>
                                 </a>
-                                <p class="card-text">$ <%: Math.Round(producto.Precio, 2, MidpointRounding.AwayFromZero) %></p>
+                                <p class="card-text"> <%= producto.Precio.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("es-ar")) %></p>
                             </div>
                         </div>
                         <br />

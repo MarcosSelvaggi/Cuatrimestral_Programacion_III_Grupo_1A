@@ -22,6 +22,7 @@ namespace Negocio
                 while (conexion.Lector.Read())
                 {
                     Categoria aux = new Categoria();
+                    //aux.Id = (int)conexion.Lector["IdCategoria"];
                     aux.Id = (byte)conexion.Lector["IdCategoria"];
                     try
                     {

@@ -1,0 +1,38 @@
+﻿body {
+}
+
+.logos-marcas {
+    background-color:white ;
+}
+
+.logo-marca img {
+    max-height: 60px;
+    width: auto;
+    object-fit: contain;
+    padding: 0 1rem;
+    background-color: white;
+}
+
+#grillaArticulos {
+    padding:0 20px 0 50px;
+    width: 500px;
+    
+}
+
+#headerInicio {
+    background-image: url("https://static1.xdaimages.com/wordpress/wp-content/uploads/2022/09/Nvidia-GeForce-RTX-4090.jpg");
+    background-size: contain;
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.rgbLetras {
+    animation: rgbCycle 4s infinite;
+}
+
+@keyframes rgbCycle {
+    0% {color:red;}
+    33% {color:green;}
+    66% {color:blue;}
+    100%{color:red;}
+}

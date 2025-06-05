@@ -77,15 +77,22 @@
     <Content Include="Admin\GestionPedidos.aspx" />
     <Content Include="Admin\GestionProductos.aspx" />
     <Content Include="Admin\Inicio.aspx" />
+    <Content Include="Contacto\Contacto.aspx" />
+    <Content Include="Contacto\Styles\StyleContacto.css" />
+    <Content Include="Perfil.aspx" />
+    <Content Include="Usuario\Contrasena.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Inicio.aspx" />
+    <Content Include="Usuario\Js\JsLogearse.js" />
+    <Content Include="Usuario\Logearse.aspx" />
     <Content Include="ProductoDetalle.aspx" />
     <Content Include="Productos.aspx" />
     <Content Include="Registro.aspx" />
-    <Content Include="Styles\EstiloImagenes.css" />
     <Content Include="Usuario\Carrito.aspx" />
     <Content Include="Usuario\Checkout.aspx" />
     <Content Include="Usuario\Favoritos.aspx" />
+    <Content Include="Inicio\StylesInicio\EstiloImagenes.css" />
+    <Content Include="Inicio\StylesInicio\styles.css" />
     <Content Include="Usuario\Pedidos.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -139,12 +146,40 @@
     <Compile Include="Admin\Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Contacto\Contacto.aspx.cs">
+      <DependentUpon>Contacto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Contacto\Contacto.aspx.designer.cs">
+      <DependentUpon>Contacto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Perfil.aspx.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Perfil.aspx.designer.cs">
+      <DependentUpon>Perfil.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario\Contrasena.aspx.cs">
+      <DependentUpon>Contrasena.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuario\Contrasena.aspx.designer.cs">
+      <DependentUpon>Contrasena.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario\Logearse.aspx.cs">
+      <DependentUpon>Logearse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuario\Logearse.aspx.designer.cs">
+      <DependentUpon>Logearse.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
@@ -233,6 +268,7 @@
       <Name>Negocio</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

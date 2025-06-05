@@ -11,7 +11,7 @@ namespace UI
 {
 
 
-    public partial class Inicio
+    public partial class Contacto
     {
     }
 }
