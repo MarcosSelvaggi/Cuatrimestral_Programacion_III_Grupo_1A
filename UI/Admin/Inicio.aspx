@@ -21,15 +21,15 @@
                 <tbody>
                     <tr>
                         <td>Ana García</td>
-                        <td>Mochila Gamer</td>
+                        <td>Monitor 24"</td>
                         <td>2025-05-30</td>
-                        <td>$1200.00</td>
+                        <td>$120.000</td>
                     </tr>
                     <tr>
                         <td>Juan Pérez</td>
-                        <td>Teclado Mecánico RGB</td>
+                        <td>Teclado Mecánico</td>
                         <td>2025-05-29</td>
-                        <td>$4500.00</td>
+                        <td>$35.000</td>
                     </tr>
                 </tbody>
             </table>

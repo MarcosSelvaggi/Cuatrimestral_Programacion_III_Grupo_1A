@@ -71,6 +71,9 @@
     <Content Include="Admin\Content\Imágenes\favicon.ico" />
     <Content Include="Admin\Content\Imágenes\logo.svg" />
     <Content Include="Admin\Content\Scripts\ScriptMaster.js" />
+    <Content Include="Admin\GestionClientes.aspx" />
+    <Content Include="Admin\GestionPedidos.aspx" />
+    <Content Include="Admin\GestionProductos.aspx" />
     <Content Include="Admin\Inicio.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Inicio.aspx" />
@@ -91,6 +94,27 @@
     </Compile>
     <Compile Include="Admin\AdminMaster.Master.designer.cs">
       <DependentUpon>AdminMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\GestionClientes.aspx.cs">
+      <DependentUpon>GestionClientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\GestionClientes.aspx.designer.cs">
+      <DependentUpon>GestionClientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\GestionPedidos.aspx.cs">
+      <DependentUpon>GestionPedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\GestionPedidos.aspx.designer.cs">
+      <DependentUpon>GestionPedidos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\GestionProductos.aspx.cs">
+      <DependentUpon>GestionProductos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\GestionProductos.aspx.designer.cs">
+      <DependentUpon>GestionProductos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
