@@ -60,9 +60,7 @@
         %>
         <div id="nombreCategoria">
             <h1><%= categoria.Descripcion %>
-                <a href="/Productos.aspx">
-                    <asp:Button CssClass="btn btn-dark" Text="Ver más" runat="server" />
-                </a>
+               <a href="/Productos.aspx" class="btn btn-dark">Ver Más</a>
             </h1>
         </div>
         <div class="row row-cols-md-3" style="font-family: Calibri;">
@@ -96,7 +94,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <a href="/Productos.aspx">
+                        <a href="/ProductoDetalle.aspx?id=<%: producto.Id %>">
                             <h5 class="card-title" style="font-palette: dark"><%: producto.Nombre %></h5>
                         </a>
                         <p class="card-text">$ <%: Math.Round(producto.Precio, 2, MidpointRounding.AwayFromZero) %></p>

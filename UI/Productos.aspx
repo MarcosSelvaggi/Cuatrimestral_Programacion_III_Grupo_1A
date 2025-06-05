@@ -80,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <a href="/Productos.aspx">
+                                <a href="/ProductoDetalle.aspx?id=<%: producto.Id %>">
                                     <h5 class="card-title" style="font-palette: dark"><%: producto.Nombre %></h5>
                                 </a>
                                 <p class="card-text">$ <%: Math.Round(producto.Precio, 2, MidpointRounding.AwayFromZero) %></p>

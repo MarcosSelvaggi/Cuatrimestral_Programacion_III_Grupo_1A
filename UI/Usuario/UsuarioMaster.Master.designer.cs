@@ -7,11 +7,11 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace UI
+namespace UI.Usuario
 {
 
 
-    public partial class MasterPage
+    public partial class UsuarioMaster
     {
 
         /// <summary>

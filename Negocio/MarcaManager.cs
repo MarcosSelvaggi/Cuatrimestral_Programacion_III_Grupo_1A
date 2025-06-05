@@ -22,7 +22,7 @@ namespace Negocio
                 while (conexion.Lector.Read())
                 {
                     Marca aux = new Marca();
-                    aux.Id = (int)conexion.Lector["IdMarca"];
+                    aux.Id = (byte)conexion.Lector["IdMarca"];
                     try
                     {
                         aux.Descripcion = (string)conexion.Lector["Descripcion"];

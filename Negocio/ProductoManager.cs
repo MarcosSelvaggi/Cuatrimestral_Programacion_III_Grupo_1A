@@ -25,7 +25,7 @@ namespace Negocio
 
             try
             {
-                string query = "Select IdProducto, Nombre, Descripcion, Precio, Estado, IdMarca, IdCategoria from Productos";
+                string query = "Select IdProducto, Nombre, Precio, Estado, IdMarca, IdCategoria from Productos";
                 conexion.setearConsulta(query);
                 conexion.ejecutarQuery();
 
@@ -35,11 +35,10 @@ namespace Negocio
 
                     aux.Id = (int)conexion.Lector["IdProducto"];
                     aux.Nombre = (string)conexion.Lector["Nombre"];
-                    aux.Descripcion = (string)conexion.Lector["Descripcion"];
                     aux.Precio = Decimal.Parse(conexion.Lector["Precio"].ToString());
                     aux.Estado = (bool)conexion.Lector["Estado"];
 
-                    int idCategoria = (int)conexion.Lector["IdCategoria"];
+                    int idCategoria = (byte)conexion.Lector["IdCategoria"];
                     aux.Categoria.Id = idCategoria;
 
                     foreach (Categoria cat in listaCategorias)
@@ -51,7 +50,7 @@ namespace Negocio
                         }
                     }
 
-                    int idMarca = (int)conexion.Lector["IdMarca"];
+                    int idMarca = (byte)conexion.Lector["IdMarca"];
                     aux.Marca.Id = idMarca;
 
                     foreach (Marca m in listaMarcas)
