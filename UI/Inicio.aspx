@@ -99,7 +99,7 @@
                                 <!-- Product actions-->
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                     <div class="text-center">
-                                        <a class="btn btn-outline-dark mt-auto" href="/ProductoInfo">Ver más información</a>
+                                        <a class="btn btn-outline-dark mt-auto" href="/ProductoDetalle.aspx?id=<%: producto.Id %>">Ver más información</a>
                                     </div>
                                 </div>
                             </div>

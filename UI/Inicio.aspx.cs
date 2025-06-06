@@ -22,9 +22,6 @@ namespace UI
             listaImagenes = imagenManager.listarImagenes();
             ProductoManager productoManager = new ProductoManager();
             listaProductos = productoManager.ListarProductos();
-           
-
-
         }
     }
 }

@@ -77,5 +77,68 @@ namespace Negocio
 
             return listaProductos;
         }
+
+        public Producto BuscarProductoPorId(int id)
+        {
+            CategoriaManager categoriaManager = new CategoriaManager();
+            MarcaManager marcaManager = new MarcaManager();
+
+            listaCategorias = categoriaManager.listar();
+            listaMarcas = marcaManager.listar();
+
+            AccesoADatos conexion = new AccesoADatos();
+            Producto producto = new Producto();
+
+            try
+            {
+                string query = "Select IdProducto, Nombre, Precio, Estado, IdCategoria, IdMarca from Productos Where IdProducto = @id";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@id", id);
+                conexion.ejecutarQuery();
+
+                if (conexion.Lector.Read())
+                {
+                    producto = new Producto();
+                    producto.Id = (int)conexion.Lector["IdProducto"];
+                    producto.Nombre = conexion.Lector["Nombre"].ToString();
+                    producto.Precio = Decimal.Parse(conexion.Lector["Precio"].ToString());
+                    producto.Estado = (bool)conexion.Lector["Estado"];
+
+                    int idCategoria = (byte)conexion.Lector["IdCategoria"];
+                    producto.Categoria.Id = idCategoria;
+
+                    foreach (Categoria cat in listaCategorias)
+                    {
+                        if (cat.Id == idCategoria)
+                        {
+                            producto.Categoria.Descripcion = cat.Descripcion;
+                            break;
+                        }
+                    }
+
+                    int idMarca = (byte)conexion.Lector["IdMarca"];
+                    producto.Marca.Id = idMarca;
+
+                    foreach (Marca m in listaMarcas)
+                    {
+                        if (m.Id == idMarca)
+                        {
+                            producto.Marca.Descripcion = m.Descripcion;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+
+            return producto;
+        }
     }
 }
