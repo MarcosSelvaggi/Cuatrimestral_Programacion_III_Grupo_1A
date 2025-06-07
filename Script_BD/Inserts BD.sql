@@ -17,7 +17,7 @@ INSERT INTO Marcas (Descripcion) VALUES
 ('MSI'),
 ('SteelSeries');
 
-INSERT INTO Productos (Nombre, Precio, Estado, IdCategoria, IdMarca) VALUES
+INSERT INTO Productos (Nombre, Precio, Activo, IdCategoria, IdMarca) VALUES
 ('Mouse Gamer Logitech G502 Hero', 28000, 1, 1, 1),
 ('Teclado Mecánico Corsair K95 RGB', 42000, 1, 1, 2),
 ('Auriculares HyperX Cloud II', 33000, 1, 4, 4),

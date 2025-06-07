@@ -9,7 +9,7 @@
         public int Stock { get; set; }
         public Categoria Categoria { get; set; }
         public Marca Marca { get; set; }
-        public bool Estado { get; set; }
+        public bool Activo { get; set; }
 
         public Producto()
         {

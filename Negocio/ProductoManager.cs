@@ -25,7 +25,7 @@ namespace Negocio
 
             try
             {
-                string query = "Select IdProducto, Nombre, Precio, Estado, IdMarca, IdCategoria from Productos";
+                string query = "Select IdProducto, Nombre, Precio, Activo, IdMarca, IdCategoria from Productos";
                 conexion.setearConsulta(query);
                 conexion.ejecutarQuery();
 
@@ -36,7 +36,7 @@ namespace Negocio
                     aux.Id = (int)conexion.Lector["IdProducto"];
                     aux.Nombre = (string)conexion.Lector["Nombre"];
                     aux.Precio = Decimal.Parse(conexion.Lector["Precio"].ToString());
-                    aux.Estado = (bool)conexion.Lector["Estado"];
+                    aux.Activo = (bool)conexion.Lector["Activo"];
 
                     //int idCategoria = (int)conexion.Lector["IdCategoria"];
                     int idCategoria = (byte)conexion.Lector["IdCategoria"];
@@ -91,7 +91,7 @@ namespace Negocio
 
             try
             {
-                string query = "Select IdProducto, Nombre, Precio, Estado, IdCategoria, IdMarca from Productos Where IdProducto = @id";
+                string query = "Select IdProducto, Nombre, Precio, Activo, IdCategoria, IdMarca from Productos Where IdProducto = @id";
                 conexion.setearConsulta(query);
                 conexion.agregarParametros("@id", id);
                 conexion.ejecutarQuery();
@@ -102,7 +102,7 @@ namespace Negocio
                     producto.Id = (int)conexion.Lector["IdProducto"];
                     producto.Nombre = conexion.Lector["Nombre"].ToString();
                     producto.Precio = Decimal.Parse(conexion.Lector["Precio"].ToString());
-                    producto.Estado = (bool)conexion.Lector["Estado"];
+                    producto.Activo = (bool)conexion.Lector["Activo"];
 
                     int idCategoria = (byte)conexion.Lector["IdCategoria"];
                     producto.Categoria.Id = idCategoria;

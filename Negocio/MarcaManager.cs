@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Negocio;
-using Dominio; 
+using Dominio;
 
 namespace Negocio
 {
@@ -46,5 +46,103 @@ namespace Negocio
 
             return listaMarcas;
         }
+
+        public Marca obtenerMarcaPorId(int idMarca)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = "Select IdMarca, Descripcion, Activo From Marcas Where IdMarca = @Id";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Id", idMarca);
+
+                conexion.ejecutarQuery();
+
+                if (conexion.Lector.Read())
+                {
+                    Marca marca = new Marca();
+                    marca.Id = (byte)conexion.Lector["IdMarca"];
+                    marca.Descripcion = conexion.Lector["Descripcion"].ToString();
+                    marca.Activo = (bool)conexion.Lector["Activo"];
+                    return marca;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+
+        public void eliminar(int idMarca)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = "Update Marcas Set Activo = 0 Where IdMarca = @Id";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Id", idMarca);
+                conexion.ejecutarNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+
+        public void agregar(Marca marcaNueva)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = "Insert Into Marcas (Descripcion, Activo) Values (@Descripcion, @Activo)";
+                conexion.setearConsulta(query);
+                conexion.limpiarParametros();
+                conexion.agregarParametros("@Descripcion", marcaNueva.Descripcion);
+                conexion.agregarParametros("@Activo", marcaNueva.Activo);
+                conexion.ejecutarNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+
+        }
+
+        public void modificar(Marca marcaModificada)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = "Update Marcas Set Descripcion = @Descripcion, Activo = @Activo where IdMarca = @Id";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Id", marcaModificada.Id);
+                conexion.agregarParametros("@Activo", marcaModificada.Activo);
+                conexion.agregarParametros("@Descripcion", marcaModificada.Descripcion);
+                conexion.ejecutarNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
     }
 }
+

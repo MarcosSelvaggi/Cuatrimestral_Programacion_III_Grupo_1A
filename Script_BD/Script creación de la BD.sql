@@ -10,19 +10,21 @@ go
 
 create table Categorias(
 	IdCategoria tinyint primary key identity(1,1),
-	Descripcion varchar(100) not null 
+	Descripcion varchar(100) not null,
+	Activo bit not null default 1
 )
 
 create table Marcas(
 	IdMarca tinyint primary key identity(1,1),
-	Descripcion varchar(100) not null 
+	Descripcion varchar(100) not null,
+	Activo bit not null default 1
 )
 
 create table Productos(
 	IdProducto int primary key identity(1,1), 
 	Nombre nvarchar(100) not null,
 	Precio money not null, 
-	Estado bit not null default 1, 
+	Activo bit not null default 1, 
 	IdCategoria tinyint foreign key references Categorias(IdCategoria), 
 	IdMarca tinyint foreign key references Marcas(IdMarca)
 )

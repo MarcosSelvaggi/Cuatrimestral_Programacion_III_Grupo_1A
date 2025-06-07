@@ -11,6 +11,7 @@ namespace Dominio
         public MetodoPago MetodoPago { get; set; }
         public DateTime FechaPedido { get; set; }
         public List<Detalle> ListaDetalles { get; set; }
+        public bool Activo { get; set; }
         public Decimal Total 
         {
             get

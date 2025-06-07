@@ -30,7 +30,7 @@ namespace UI
                     Apellido = "Selvaggi",
                     Email = Mail,
                     Constraseña = Pass,
-                    Estado = true,
+                    Activo = true,
                     Documento = 12112312,
                     Provincia = "Buenos Aires",
                     Localidad = "Virreyes",
