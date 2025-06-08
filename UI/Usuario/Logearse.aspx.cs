@@ -5,47 +5,34 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
+using Negocio;
 
 namespace UI
 {
     public partial class Logearse : System.Web.UI.Page
     {
-        public string Mail { get; set; } = "mail@mail.com";
-        public string Pass { get; set; } = "pass";
-        private Usuarios usuarioLogeado; 
+        private Usuarios usuarioLogeado;
+        private UsuarioManager usuarioManager;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            usuarioManager = new UsuarioManager();
         }
 
         protected void BtnEnviar_Click(object sender, EventArgs e)
         {
-            if (Mail == txtMail.Text && Pass == txtPass.Text)
-            {
-                //Usuario hardcodeado para ser usado luego 
-                usuarioLogeado = new Usuarios
-                {
-                    Id = 1,
-                    Nombre = "Marcos",
-                    Apellido = "Selvaggi",
-                    Email = Mail,
-                    Constraseña = Pass,
-                    Activo = true,
-                    Documento = 12112312,
-                    Provincia = "Buenos Aires",
-                    Localidad = "Virreyes",
-                    CodigoPostal = "1633",
-                    Direccion = "Calle falsa 123",
-                    Telefono = "11111111"
-                };
-                usuarioLogeado.Rol.Id = 1;
+            usuarioLogeado = usuarioManager.logearse(txtMail.Text, txtPass.Text);
 
+            if (usuarioLogeado.Id != -1)
+            {   
                 Session.Add("Usuario", usuarioLogeado); 
                 
                 Response.Redirect("/Perfil.aspx", false);
             }
             else
             {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "contraseñaIncorrectaModal",
+                "var modal = new bootstrap.Modal(document.getElementById('contraseñaIncorrectaModal')); modal.show();", true);
+                return;
             }
         }
     }

@@ -31,16 +31,16 @@
                         <input type="text" class="form-control" name="telefono" value="<%=UsuarioLogeado.Telefono %>" disabled />
                     </div>
                     <div class="col-md-6">
-                        <label for="inputAddress" class="form-label">Dirección</label>
-                        <input type="text" class="form-control" name="direccion" value="<%=UsuarioLogeado.Direccion %>" disabled>
-                    </div>
-                    <div class="col-md-6">
                         <label for="inputCity" class="form-label">Provincia</label>
                         <input type="text" class="form-control" name="provincia" value="<%=UsuarioLogeado.Provincia%>" disabled>
                     </div>
                     <div class="col-md-6">
                         <label for="inputCity" class="form-label">Localidad</label>
                         <input type="text" class="form-control" name="localidad" value="<%=UsuarioLogeado.Localidad %>" disabled>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputAddress" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" name="direccion" value="<%=UsuarioLogeado.Direccion %>" disabled>
                     </div>
                     <div class="col-md-6">
                         <label for="inputZip" class="form-label">Código postal</label>
@@ -56,7 +56,7 @@
                     <li class="list-group-item list-group-item-action"><a href="/Usuario/Favoritos.aspx">Favoritos</a>
                         <i class="em em-star" aria-role="presentation" aria-label="WHITE MEDIUM STAR"></i>
                     </li>
-                    <li class="list-group-item list-group-item-action"><a href="/Usuario/Cambiascontrasena.apx">Cambiar contraseña</a> 
+                    <li class="list-group-item list-group-item-action"><a href="/Usuario/Cambiarcontrasena.apx">Cambiar contraseña</a>
                         <i class="em em-unlock" aria-role="presentation" aria-label="OPEN LOCK"></i>
                     </li>
                     <li class="list-group-item list-group-item-action"><a href="/Productos.aspx">Revisar productos</a>

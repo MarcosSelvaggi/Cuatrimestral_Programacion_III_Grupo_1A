@@ -7,7 +7,7 @@
         public string Constraseña { get; set; }
         public Rol Rol { get; set; }
         public bool Activo { get; set; }
-        public int Documento { get; set; }
+        public string Documento { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Provincia { get; set; }

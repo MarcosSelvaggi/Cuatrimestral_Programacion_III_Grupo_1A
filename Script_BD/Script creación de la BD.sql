@@ -34,3 +34,26 @@ create table ImagenesDeProductos(
 	IdProducto int foreign key references Productos(IdProducto),
 	UrlImagen nvarchar(1000) not null
 )
+
+create table Rol(
+	IdRol tinyint primary key identity(1,1),
+	Descripcion VARCHAR(50) not null unique
+	)
+
+create table Usuarios(
+	IdUsuario int primary key identity(1,1), 
+	Email VARCHAR(100) not null unique, 
+	Contraseña VARCHAR(100) not null,
+	IdRol tinyint foreign key references Rol(IdRol),
+	Activo bit not null default 1, 
+	Documento VARCHAR(20) not null unique, 
+	Nombre VARCHAR(50) not null, 
+	Apellido VARCHAR(50) not null, 
+	Provincia VARCHAR(50) not null, 
+	Localidad VARCHAR(50) not null, 
+	CodigoPostal VARCHAR(10) not null, 
+	Direccion VARCHAR(100) not null, 
+	Telefono VARCHAR(20) not null
+) 
+
+
