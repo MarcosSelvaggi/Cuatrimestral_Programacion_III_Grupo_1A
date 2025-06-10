@@ -80,9 +80,10 @@
     <Content Include="Contacto\Contacto.aspx" />
     <Content Include="Contacto\Styles\StyleContacto.css" />
     <Content Include="Perfil.aspx" />
-    <Content Include="Usuario\Contrasena.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Inicio.aspx" />
+    <Content Include="Usuario\Contrasena.aspx" />
+    <Content Include="Usuario\Js\JsContraseña.js" />
     <Content Include="Usuario\Js\JsLogearse.js" />
     <Content Include="Usuario\Logearse.aspx" />
     <Content Include="ProductoDetalle.aspx" />
@@ -160,19 +161,19 @@
     <Compile Include="Perfil.aspx.designer.cs">
       <DependentUpon>Perfil.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Usuario\Contrasena.aspx.cs">
-      <DependentUpon>Contrasena.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Usuario\Contrasena.aspx.designer.cs">
-      <DependentUpon>Contrasena.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario\Contrasena.aspx.cs">
+      <DependentUpon>Contrasena.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuario\Contrasena.aspx.designer.cs">
+      <DependentUpon>Contrasena.aspx</DependentUpon>
     </Compile>
     <Compile Include="Usuario\Logearse.aspx.cs">
       <DependentUpon>Logearse.aspx</DependentUpon>
@@ -266,6 +267,10 @@
     <ProjectReference Include="..\Negocio\Negocio.csproj">
       <Project>{eb2f35c7-6f52-4852-a2b9-7d3891836d66}</Project>
       <Name>Negocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{fe074734-6cc0-460b-bc83-994cf9620096}</Project>
+      <Name>Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

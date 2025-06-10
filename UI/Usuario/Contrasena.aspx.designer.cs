@@ -15,6 +15,15 @@ namespace UI
     {
 
         /// <summary>
+        /// divIngresarMail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divIngresarMail;
+
+        /// <summary>
         /// txtMail control.
         /// </summary>
         /// <remarks>
@@ -24,6 +33,15 @@ namespace UI
         protected global::System.Web.UI.WebControls.TextBox txtMail;
 
         /// <summary>
+        /// mailNoEncontrado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl mailNoEncontrado;
+
+        /// <summary>
         /// btnRecuperar control.
         /// </summary>
         /// <remarks>
@@ -31,5 +49,95 @@ namespace UI
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnRecuperar;
+
+        /// <summary>
+        /// btnVolver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnVolver;
+
+        /// <summary>
+        /// divIngresarCodigo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divIngresarCodigo;
+
+        /// <summary>
+        /// txtCodigoMail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtCodigoMail;
+
+        /// <summary>
+        /// smallCodigoIncorrecto control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl smallCodigoIncorrecto;
+
+        /// <summary>
+        /// btnCodigoMail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCodigoMail;
+
+        /// <summary>
+        /// divIngresarContraseña control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divIngresarContraseña;
+
+        /// <summary>
+        /// txtContraseñaNueva control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtContraseñaNueva;
+
+        /// <summary>
+        /// SmallCotraseñaNueva control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl SmallCotraseñaNueva;
+
+        /// <summary>
+        /// btnCambiarContraseña control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCambiarContraseña;
+
+        /// <summary>
+        /// btnCancelarCambioContrasena control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancelarCambioContrasena;
     }
 }

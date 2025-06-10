@@ -59,6 +59,64 @@ namespace Negocio
             return usuarioLogeado;
         }
 
+        public Usuarios buscarMail(string mail)
+        {
+            Usuarios usuarioEncontrado = new Usuarios();
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = "select IdUsuario from Usuarios where Email = @Email";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Email", mail);
+                conexion.ejecutarQuery();
 
+                if (conexion.Lector.HasRows)
+                {
+                    conexion.Lector.Read();
+                    usuarioEncontrado.Id = (int)conexion.Lector["IdUsuario"];
+                    usuarioEncontrado.Email = mail;
+                }
+                else
+                {
+                    usuarioEncontrado.Id = -1;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+            return usuarioEncontrado;
+        }
+
+        public Usuarios modificarContraseña(Usuarios usuario, string contraseñaNueva)
+        {
+            Usuarios usuarioModificado = new Usuarios();
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = "Update Usuarios set Contraseña = @Contraseña WHERE IdUsuario = @IdUsuario";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Contraseña", contraseñaNueva);
+                conexion.agregarParametros("@IdUsuario", usuario.Id);
+                conexion.ejecutarNonQuery();
+
+                usuarioModificado = logearse(usuario.Email, contraseñaNueva);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+
+            return usuarioModificado;
+        }
     }
 }
