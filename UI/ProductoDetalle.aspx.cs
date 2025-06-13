@@ -9,28 +9,51 @@ using System.Web.UI.WebControls;
 
 namespace UI
 {
-	public partial class ProductoDetalle : System.Web.UI.Page
-	{
+	public partial class ProductoDetalle : UI.ClaseMaster.BasePage
+    {
         public List<ImagenesProducto> listaImagenes;
         public Producto producto = new Producto();
+        public bool favoritoRepetido = false;
 
         protected void Page_Load(object sender, EventArgs e)
-		{
+        {
             ImagenManager imagenManager = new ImagenManager();
             listaImagenes = imagenManager.listarImagenes();
 
-            if (!IsPostBack)
+            if (Request.QueryString["id"] != null)
             {
-                if (Request.QueryString["id"] != null)
+                int idProducto;
+                if (int.TryParse(Request.QueryString["id"], out idProducto))
                 {
-                    int idProducto;
-                    if (int.TryParse(Request.QueryString["id"], out idProducto))
+                    CargarProducto(idProducto);
+
+                    if (Session["Usuario"] != null)
                     {
-                        CargarProducto(idProducto);
-                    }
-                    else
-                    {
-                        Response.Redirect("Inicio.aspx");
+                        int idUsuario = ((Usuarios)Session["Usuario"]).Id;
+                        FavoritoManager favoritoManager = new FavoritoManager();
+
+                        favoritoRepetido = favoritoManager.favoritoRepetido(idProducto, idUsuario);
+
+                        if (Request.QueryString["fav"] != null)
+                        {
+                            string accion = Request.QueryString["fav"];
+                            int idFavorito;
+
+                            if (int.TryParse(Request.QueryString["id"], out idFavorito))
+                            {
+                                if (accion == "agregar" && !favoritoRepetido)
+                                {
+                                    favoritoManager.agregarFavorito(idFavorito, idUsuario);
+                                }
+                                else if (accion == "quitar" && favoritoRepetido)
+                                {
+                                    favoritoManager.eliminarFavorito(idFavorito, idUsuario);
+                                }
+
+                                Response.Redirect($"ProductoDetalle.aspx?id={idProducto}");
+                                return;
+                            }
+                        }
                     }
                 }
                 else
@@ -38,7 +61,12 @@ namespace UI
                     Response.Redirect("Inicio.aspx");
                 }
             }
+            else
+            {
+                Response.Redirect("Inicio.aspx");
+            }
         }
+
         private void CargarProducto(int idProducto)
         {
             ProductoManager productoManager = new ProductoManager();
@@ -57,6 +85,5 @@ namespace UI
                 Response.Redirect("Inicio.aspx");
             }
         }
-
     }
 }

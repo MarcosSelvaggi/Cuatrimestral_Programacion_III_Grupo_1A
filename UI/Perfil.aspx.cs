@@ -8,7 +8,7 @@ using Dominio;
 
 namespace UI
 {
-    public partial class Perfil : System.Web.UI.Page
+    public partial class Perfil : UI.ClaseMaster.BasePage
     {
         public Usuarios UsuarioLogeado { get; set; }
         protected void Page_Load(object sender, EventArgs e)

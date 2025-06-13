@@ -9,7 +9,7 @@ using Negocio;
 
 namespace UI
 {
-    public partial class Inicio : System.Web.UI.Page
+    public partial class Inicio : UI.ClaseMaster.BasePage
     {
         public List<Categoria> listaCategorias; 
         public List<Producto> listaProductos;

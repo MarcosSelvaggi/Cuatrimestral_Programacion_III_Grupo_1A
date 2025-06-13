@@ -1,124 +1,84 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Usuario/UsuarioMaster.Master" AutoEventWireup="true" CodeBehind="Favoritos.aspx.cs" Inherits="UI.Usuario.Favoritos" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container mt-4">
-        <h2><i class="bi bi-star-fill"></i> Mis Favoritos</h2>
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 mt-3">
-
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://th.bing.com/th/id/OIP._9ta0rIKKauTZq2ks43zXQHaEK?rs=1&pid=ImgDetMain" class="card-img-top" alt="Producto">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Mando T-Dagger</h5>
-                        <p class="card-text">$40.000</p>
-                    </div>
-                    <div class="card-footer text-center">
-                        <button class="btn btn-danger btn-sm">Quitar</button>
-                        <button class="btn btn-dark btn-sm">Agregar al carrito</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://th.bing.com/th/id/OIP.BYZ52GfnyoyU3sS0WZiT0QHaHP?rs=1&pid=ImgDetMain" class="card-img-top" alt="Producto">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Auris de V1r-Go </h5>
-                        <p class="card-text">$50.000</p>
-                    </div>
-                    <div class="card-footer text-center">
-                        <button class="btn btn-danger btn-sm">Quitar</button>
-                        <button class="btn btn-dark btn-sm">Agregar al carrito</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://th.bing.com/th/id/OIP.Ne2cdbsYHSrbxjiYGRjBPwHaHa?rs=1&pid=ImgDetMain" class="card-img-top" alt="Producto">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Mouse con lucecitas</h5>
-                        <p class="card-text">$60.000</p>
-                    </div>
-                    <div class="card-footer text-center">
-                        <button class="btn btn-danger btn-sm">Quitar</button>
-                        <button class="btn btn-dark btn-sm">Agregar al carrito</button>
+    <div>
+        <h1><i class="bi bi-star"></i> Favoritos</h1>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3 mt-3">
+        <% foreach (Dominio.Favorito favorito in listaFavoritos)
+            {
+                Dominio.Producto producto = favorito.Producto;
+                List<Dominio.ImagenesProducto> imagenesDelProducto = listaImagenes.Where(img => img.IdProducto == producto.Id).ToList();
+                string carouselId = "carousel" + producto.Id;
+        %>
+        <div class="col">
+            <div class="card h-100">
+                <div id="<%= carouselId %>" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <% if (imagenesDelProducto.Count == 0)
+                            { %>
+                        <div class="carousel-item active">
+                            <img src="https://th.bing.com/th/id/OIP.mSzrXbopNaal5jPsMxNHHwHaHa?cb=iwc1&rs=1&pid=ImgDetMain"
+                                class="d-block w-100" style="height: 300px; object-fit: contain;" alt="Producto sin imagen" />
+                        </div>
+                        <% }
+                            else
+                            {
+                                for (int i = 0; i < imagenesDelProducto.Count; i++)
+                                { %>
+                        <div class="carousel-item <%= i == 0 ? "active" : "" %>">
+                            <img src="<%= imagenesDelProducto[i].UrlProducto %>"
+                                class="d-block w-100" style="height: 300px; object-fit: contain;" alt="Imagen del producto" />
+                        </div>
+                        <% }
+                            } %>
                     </div>
                 </div>
-            </div>
 
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://resources.claroshop.com/medios-plazavip/mkt/5d3896a04198b_c5jpg.jpg" class="card-img-top" alt="Producto">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Gabinete flipante</h5>
-                        <p class="card-text">$70.000</p>
-                    </div>
-                    <div class="card-footer text-center">
-                        <button class="btn btn-danger btn-sm">Quitar</button>
-                        <button class="btn btn-dark btn-sm">Agregar al carrito</button>
-                    </div>
+                <div class="card-body text-center">
+                    <h5 class="card-title"><%= producto.Nombre %></h5>
+                    <p class="card-text"> <%= producto.Precio.ToString("C", System.Globalization.CultureInfo.GetCultureInfo("es-ar")) %></p>
                 </div>
-            </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-danger btn-sm"
+                        onclick="abrirModalQuitarFavorito(<%= producto.Id %>, '<%= producto.Nombre.Replace("'", "\\'") %>'); return false;">Quitar
+                    </a>
 
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://cdn.milenio.com/uploads/media/2024/01/08/asus-gamer-especial.jpg" class="card-img-top" alt="Producto">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Pack compus rotas</h5>
-                        <p class="card-text">$80.000</p>
-                    </div>
-                    <div class="card-footer text-center">
-                        <button class="btn btn-danger btn-sm">Quitar</button>
-                        <button class="btn btn-dark btn-sm">Agregar al carrito</button>
-                    </div>
+                    <a href="AgregarAlCarrito.aspx?id=<%= producto.Id %>" class="btn btn-dark btn-sm">Agregar al carrito</a>
                 </div>
-            </div>
 
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://www.hd-tecnologia.com/imagenes/articulos/2022/09/Celebra-el-Dia-del-Gamer-con-los-nuevos-productos-para-gaming-de-Trust-3.jpg" class="card-img-top" alt="Producto">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Teclado quaker</h5>
-                        <p class="card-text">$90.000</p>
-                    </div>
-                    <div class="card-footer text-center">
-                        <button class="btn btn-danger btn-sm">Quitar</button>
-                        <button class="btn btn-dark btn-sm">Agregar al carrito</button>
-                    </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+
+    <div class="modal fade" id="quitarFavoritoModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Quitar de Favoritos</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
-            </div>
-
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://m.media-amazon.com/images/I/71QAyDr+GvL._AC_SL1500_.jpg" class="card-img-top" alt="Producto">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Vida Feliz 3999</h5>
-                        <p class="card-text">$1.000.000</p>
-                    </div>
-                    <div class="card-footer text-center">
-                        <button class="btn btn-danger btn-sm">Quitar</button>
-                        <button class="btn btn-dark btn-sm">Agregar al carrito</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="card h-100">
-                    <img src="https://th.bing.com/th/id/OIP.nkfsR7b82vGd6O08iMBEKwHaHa?rs=1&pid=ImgDetMain" class="card-img-top" alt="Producto">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">Mesa</h5>
-                        <p class="card-text">$110.00</p>
-                    </div>
-                    <div class="card-footer text-center">
-                        <button class="btn btn-danger btn-sm">Quitar</button>
-                        <button class="btn btn-dark btn-sm">Agregar al carrito</button>
-                    </div>
+                <div class="modal-body" id="quitarFavoritoModalBody"></div>
+                <div class="modal-footer">
+                    <a href="#" id="confirmarQuitarFavoritoBtn" class="btn btn-light">Quitar</a>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function abrirModalQuitarFavorito(idProducto, nombreProducto) {
+            document.getElementById('quitarFavoritoModalBody').textContent = "¿Estás seguro que querés quitar '" + nombreProducto + "' de tus favoritos?";
+            document.getElementById('confirmarQuitarFavoritoBtn').href = "Favoritos.aspx?quitar=" + idProducto;
+
+            var modal = new bootstrap.Modal(document.getElementById('quitarFavoritoModal'));
+            modal.show();
+        }
+    </script>
 
 </asp:Content>

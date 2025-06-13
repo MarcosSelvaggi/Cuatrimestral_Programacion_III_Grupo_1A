@@ -7,9 +7,9 @@ using System.Web.UI.WebControls;
 
 namespace UI.Usuario
 {
-	public partial class Checkout : System.Web.UI.Page
-	{
-		protected void Page_Load(object sender, EventArgs e)
+	public partial class Checkout : UI.ClaseMaster.BasePage
+    {
+        protected void Page_Load(object sender, EventArgs e)
 		{
 
 		}

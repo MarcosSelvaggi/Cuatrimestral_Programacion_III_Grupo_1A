@@ -54,6 +54,10 @@ create table Usuarios(
 	CodigoPostal VARCHAR(10) not null, 
 	Direccion VARCHAR(100) not null, 
 	Telefono VARCHAR(20) not null
-) 
+)
 
-
+create table Favoritos(
+	IdFavorito int primary key identity(1,1),
+	IdProducto int foreign key references Productos(IdProducto),
+	IdUsuario int foreign key references Usuarios(IdUsuario)
+)

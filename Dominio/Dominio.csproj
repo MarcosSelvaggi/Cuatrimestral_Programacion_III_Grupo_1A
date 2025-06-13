@@ -45,7 +45,7 @@
     <Compile Include="Categoria.cs" />
     <Compile Include="Detalle.cs" />
     <Compile Include="EstadoPedido.cs" />
-    <Compile Include="Favoritos.cs" />
+    <Compile Include="Favorito.cs" />
     <Compile Include="ImagenesProducto.cs" />
     <Compile Include="Marca.cs" />
     <Compile Include="MetodoPago.cs" />

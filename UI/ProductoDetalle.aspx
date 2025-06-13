@@ -54,16 +54,53 @@
                         <span>
                             <asp:Label ID="lblPrecio" runat="server"/></span>
                     </div>
-                    <div class="d-flex">
+                    <div class="d-flex gap-2">
+                        <% if (Session["usuario"] != null)
+                            { %>
+                                <button type="button" class="btn btn-outline-dark flex-shrink-0" data-bs-toggle="modal" data-bs-target="#favoritoModal">
+                                    <i class="bi bi-bookmark-heart"></i>
+                                    <%= favoritoRepetido ? " Quitar de Favoritos" : " Añadir a Favoritos" %>
+                                </button>
+                        <% } %>
+
                         <asp:TextBox ID="txtCantidad" runat="server" Text="1" CssClass="form-control text-center me-3"
                             MaxLength="3" Style="max-width: 3rem" />
                         <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                            <i class="bi bi-cart-plus"></i>Agregar al carrito
+                            <i class="bi bi-cart-plus"></i>Agregar al Carrito
                         </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <div class="modal fade" id="favoritoModal" tabindex="-1" aria-labelledby="favoritoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="favoritoModalLabel">
+                        <%= favoritoRepetido ? "Quitar de Favoritos" : "Agregar a Favoritos" %>
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <%= favoritoRepetido ? "Producto ya existente en tu lista de favoritos ¿Estás seguro que querés quitar este producto de tus favoritos?" : "¿Querés agregar este producto a tus favoritos?" %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+                    <% if (favoritoRepetido)
+                        { %>
+                    <a href="ProductoDetalle.aspx?id=<%= producto.Id %>&fav=quitar" class="btn btn-danger">Quitar</a>
+                    <% }
+                    else
+                    { %>
+                    <a href="ProductoDetalle.aspx?id=<%= producto.Id %>&fav=agregar" class="btn btn-success">Agregar</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </asp:Content>

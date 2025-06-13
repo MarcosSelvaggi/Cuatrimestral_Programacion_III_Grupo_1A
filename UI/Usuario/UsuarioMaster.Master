@@ -39,7 +39,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" href="/Usuario/Perfil.aspx">
+                                    <a class="dropdown-item" href="/Perfil.aspx">
                                         <i class="bi bi-person-fill-gear"></i> Perfil
                                     </a>
                                 </li>
