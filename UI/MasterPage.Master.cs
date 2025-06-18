@@ -13,5 +13,19 @@ namespace UI
         {
 
         }
+
+        protected void RealizarBusquedaProducto_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtBusqueda.Text))
+            {
+                Response.Redirect("/Productos.aspx", false);
+                return; 
+            }
+            else
+            {
+                Response.Redirect("/Productos.aspx?busqueda=" + txtBusqueda.Text, false);
+                return;
+            }
+        }
     }
 }

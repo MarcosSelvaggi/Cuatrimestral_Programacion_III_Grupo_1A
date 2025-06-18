@@ -9,14 +9,18 @@ namespace Negocio
         private List<Categoria> listaCategorias;
         private List<Marca> listaMarcas;
 
-        public List<Producto> ListarProductos()
+        public ProductoManager()
         {
             CategoriaManager categoriaManager = new CategoriaManager();
             MarcaManager marcaManager = new MarcaManager();
 
             listaCategorias = categoriaManager.listar();
             listaMarcas = marcaManager.listar();
+        }
 
+
+        public List<Producto> ListarProductos()
+        {
             List<Producto> listaProductos = new List<Producto>();
             AccesoADatos conexion = new AccesoADatos();
 
@@ -26,10 +30,9 @@ namespace Negocio
                 conexion.setearConsulta(query);
                 conexion.ejecutarQuery();
 
-                while (conexion.Lector.Read())
+                /*while (conexion.Lector.Read())
                 {
                     Producto aux = new Producto();
-
                     aux.Id = (int)conexion.Lector["IdProducto"];
                     aux.Nombre = (string)conexion.Lector["Nombre"];
                     aux.Precio = Decimal.Parse(conexion.Lector["Precio"].ToString());
@@ -61,7 +64,10 @@ namespace Negocio
                     }
 
                     listaProductos.Add(aux);
-                }
+                */
+
+                //Simplificado lo de arriba creando un método reutilizable que hace lo mismo
+                listaProductos = leerDatosDesdeBD(conexion);
             }
             catch (Exception ex)
             {
@@ -136,6 +142,73 @@ namespace Negocio
             }
 
             return producto;
+        }
+
+        public List<Producto> buscarProductoPorNombre(string busqueda)
+        {
+            List<Producto> ListaProducto = new List<Producto>();
+            AccesoADatos conexion = new AccesoADatos();
+
+            try
+            {
+                String Query = "Select IdProducto, Nombre, Precio, Activo, IdCategoria, IdMarca from Productos Where Nombre LIKE @Nombre";
+                conexion.setearConsulta(Query);
+                conexion.agregarParametros("@Nombre", "%" + busqueda + "%");
+                conexion.ejecutarQuery();
+
+                ListaProducto = leerDatosDesdeBD(conexion);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+
+            return ListaProducto;
+        }
+
+        private List<Producto> leerDatosDesdeBD(AccesoADatos conexion)
+        {
+            List<Producto> listaProductos = new List<Producto>();
+            while (conexion.Lector.Read())
+            {
+                Producto aux = new Producto();
+                aux.Id = (int)conexion.Lector["IdProducto"];
+                aux.Nombre = (string)conexion.Lector["Nombre"];
+                aux.Precio = Decimal.Parse(conexion.Lector["Precio"].ToString());
+                aux.Activo = (bool)conexion.Lector["Activo"];
+
+                //int idCategoria = (int)conexion.Lector["IdCategoria"];
+                int idCategoria = (byte)conexion.Lector["IdCategoria"];
+                aux.Categoria.Id = idCategoria;
+
+                foreach (Categoria cat in listaCategorias)
+                {
+                    if (cat.Id == idCategoria)
+                    {
+                        aux.Categoria.Descripcion = cat.Descripcion;
+                        break;
+                    }
+                }
+                //int idMarca = (int)conexion.Lector["IdMarca"];
+                int idMarca = (byte)conexion.Lector["IdMarca"];
+                aux.Marca.Id = idMarca;
+
+                foreach (Marca m in listaMarcas)
+                {
+                    if (m.Id == idMarca)
+                    {
+                        aux.Marca.Descripcion = m.Descripcion;
+                        break;
+                    }
+                }
+
+                listaProductos.Add(aux);
+            }
+            return listaProductos;
         }
     }
 }
