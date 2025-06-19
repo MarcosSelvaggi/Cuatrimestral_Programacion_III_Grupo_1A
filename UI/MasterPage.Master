@@ -21,7 +21,7 @@
                         <img src="<%= ResolveUrl("~/Admin/Content/Imágenes/logo.svg") %>" alt="Logo" style="height: 45px; width: auto;" />
                     </a>
                     <div class="d-flex ms-auto" role="search" style="padding-right: 25px">
-                        <asp:TextBox CssClass="form-control me-2" ID="txtBusqueda" runat="server" />
+                        <asp:TextBox CssClass="form-control me-2" ID="txtBusqueda" placeholder="RTX-8090" runat="server" />
                         <asp:Button ID="RealizarBusquedaProducto" OnClick="RealizarBusquedaProducto_Click" Text="Buscar productos" CssClass="btn btn-outline-success" runat="server" />
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">

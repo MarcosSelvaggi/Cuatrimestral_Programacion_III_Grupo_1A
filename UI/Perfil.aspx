@@ -48,7 +48,13 @@
                         <asp:TextBox ID="txtCodigoPostal" CssClass="form-control" runat="server" Enabled="false" />
                     </div>
                 </div>
-                <asp:Button ID="BtnModificarDatos" OnClick="BtnModificarDatos_Click" Text="Modificar datos" CssClass="btn btn-outline-dark " runat="server" Visible="false" />
+                <br />
+                <div id="CambiarDatos" runat="server" visible="false">
+                    <asp:Button ID="BtnModificarDatos" OnClick="BtnModificarDatos_Click" Text="Modificar datos" CssClass="btn btn-outline-dark " runat="server" />
+                    <a href="/Perfil.aspx" class="btn btn-outline-secondary">Cancelar</a>
+                </div>
+
+
             </div>
             <div class="col-3" id="menuOpciones">
                 <ul class="list-group list-group-flush">

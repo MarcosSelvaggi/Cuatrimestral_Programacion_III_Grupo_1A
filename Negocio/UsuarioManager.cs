@@ -7,43 +7,59 @@ namespace Negocio
 {
     public class UsuarioManager
     {
+        //Para el hash de contraseñas mirar este tutorial que explica rápido como funciona BCrypt 
+        //https://www.youtube.com/watch?v=UNLl4kCpwGo
 
         public Usuarios logearse(string mail, string contraseña)
         {
-            Usuarios usuarioLogeado = new Usuarios();
+            //Método para hashear las contraseñas en la BD, descomentar para usarlo 1 sola vez
+            //HashearContraseñas();
+
+            Usuarios usuarioLogeado = new Usuarios()
+            {
+                Id = -1
+            };
             AccesoADatos conexion = new AccesoADatos();
+            AccesoADatos verificarContraseña = new AccesoADatos();
 
             try
             {
-                string query = "select IdUsuario,Email, Contraseña, IdRol, Activo," +
-                               "Documento, Nombre, Apellido, Provincia, Localidad," +
-                               "CodigoPostal, Direccion, Telefono from Usuarios " +
-                               "where email = @email AND contraseña = @pass";
+                //Nos traemos la contraseña hasheada para comprarla 
+                verificarContraseña.setearConsulta("Select Contraseña from Usuarios where Email = @Email");
+                verificarContraseña.agregarParametros("@Email", mail);
+                verificarContraseña.ejecutarQuery();
 
-                conexion.setearConsulta(query);
-                conexion.agregarParametros("@email", mail);
-                conexion.agregarParametros("@pass", contraseña);
-                conexion.ejecutarQuery();
+                if (verificarContraseña.Lector.Read())
+                {
+                    //Hasheamos la contraseña que nos pasó el usuario y verificamos que esté correcta 
+                    if (BCrypt.Net.BCrypt.EnhancedVerify(contraseña, (string)verificarContraseña.Lector["Contraseña"]))
+                    {
+                        string query = "select IdUsuario,Email, Contraseña, IdRol, Activo," +
+                                       "Documento, Nombre, Apellido, Provincia, Localidad," +
+                                       "CodigoPostal, Direccion, Telefono from Usuarios " +
+                                       "where email = @email";
 
-                if (conexion.Lector.Read())
-                {
-                    usuarioLogeado.Id = (int)conexion.Lector["IdUsuario"];
-                    usuarioLogeado.Email = (string)conexion.Lector["email"];
-                    usuarioLogeado.Constraseña = (string)conexion.Lector["contraseña"];
-                    usuarioLogeado.Rol.Id = (byte)conexion.Lector["IdRol"];
-                    usuarioLogeado.Activo = (bool)conexion.Lector["Activo"];
-                    usuarioLogeado.Documento = (string)conexion.Lector["Documento"];
-                    usuarioLogeado.Nombre = (string)conexion.Lector["Nombre"];
-                    usuarioLogeado.Apellido = (string)conexion.Lector["Apellido"];
-                    usuarioLogeado.Provincia = (string)conexion.Lector["Provincia"];
-                    usuarioLogeado.Localidad = (string)conexion.Lector["Localidad"];
-                    usuarioLogeado.CodigoPostal = (string)conexion.Lector["CodigoPostal"];
-                    usuarioLogeado.Direccion = (string)conexion.Lector["Direccion"];
-                    usuarioLogeado.Telefono = (string)conexion.Lector["Telefono"];
-                }
-                else
-                {
-                    usuarioLogeado.Id = -1;
+                        conexion.setearConsulta(query);
+                        conexion.agregarParametros("@email", mail);
+                        conexion.ejecutarQuery();
+
+                        if (conexion.Lector.Read())
+                        {
+                            usuarioLogeado.Id = (int)conexion.Lector["IdUsuario"];
+                            usuarioLogeado.Email = (string)conexion.Lector["email"];
+                            usuarioLogeado.Constraseña = (string)conexion.Lector["contraseña"];
+                            usuarioLogeado.Rol.Id = (byte)conexion.Lector["IdRol"];
+                            usuarioLogeado.Activo = (bool)conexion.Lector["Activo"];
+                            usuarioLogeado.Documento = (string)conexion.Lector["Documento"];
+                            usuarioLogeado.Nombre = (string)conexion.Lector["Nombre"];
+                            usuarioLogeado.Apellido = (string)conexion.Lector["Apellido"];
+                            usuarioLogeado.Provincia = (string)conexion.Lector["Provincia"];
+                            usuarioLogeado.Localidad = (string)conexion.Lector["Localidad"];
+                            usuarioLogeado.CodigoPostal = (string)conexion.Lector["CodigoPostal"];
+                            usuarioLogeado.Direccion = (string)conexion.Lector["Direccion"];
+                            usuarioLogeado.Telefono = (string)conexion.Lector["Telefono"];
+                        }
+                    }
                 }
             }
             catch (Exception)
@@ -53,6 +69,7 @@ namespace Negocio
             finally
             {
                 conexion.cerrarConexion();
+                verificarContraseña.cerrarConexion();
             }
             return usuarioLogeado;
         }
@@ -278,6 +295,36 @@ namespace Negocio
             finally
             {
                 conexion.cerrarConexion();
+            }
+        }
+
+        //Método para hashear las contraseñas, es necesario ejecutarlo 1 sola vez 
+        private void HashearContraseñas()
+        {
+            UsuarioManager usuarioManager = new UsuarioManager();
+
+            //Cuidado que el listar SÓLO trae los usuarios que no sean administradores
+            //Para hashear los usuarios admin se necesita modificar el IdRol a 2 de los admin, hashear y volver a cambiar el idRol
+            List<Usuarios> ListaUsuarios = usuarioManager.listar();
+
+            try
+            {
+                foreach (var Usuario in ListaUsuarios)
+                {
+
+                    Usuario.Constraseña = BCrypt.Net.BCrypt.EnhancedHashPassword(Usuario.Constraseña, 14);
+                    AccesoADatos conexion = new AccesoADatos();
+                    conexion.setearConsulta("Update Usuarios set Contraseña = @Contraseña where Email = @Email");
+                    conexion.agregarParametros("@Email", Usuario.Email);
+                    conexion.agregarParametros("@Contraseña", Usuario.Constraseña);
+                    conexion.ejecutarNonQuery();
+                    conexion.cerrarConexion();
+
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

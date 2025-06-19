@@ -67,7 +67,7 @@
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="/CerrarSesion.aspx">
+                                    <a class="dropdown-item" href="/Usuario/CerrarSesion.aspx">
                                         <i class="bi bi-escape"></i>Cerrar Sesión
                                     </a>
                                 </li>

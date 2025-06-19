@@ -92,7 +92,7 @@ namespace UI
 
         private void HabilitarModificacionDatos()
         {
-            BtnModificarDatos.Visible = true;
+            CambiarDatos.Visible = true;
             txtNombre.Enabled = true;
             txtApellido.Enabled = true;
             txtDocumento.Enabled = true;
