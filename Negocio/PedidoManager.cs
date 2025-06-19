@@ -250,5 +250,52 @@ namespace Negocio
             }
         }
 
+        public List<Pedido> listarVentasEntregadas()
+        {
+            List<Pedido> listaPedidos = new List<Pedido>();
+
+            try
+            {
+                string query = @"Select P.IDPedido, 
+                                U.Nombre + ' ' + U.Apellido AS Cliente, 
+                                P.FechaDePedido, 
+                                EP.Descripcion AS Estado,
+                                EE.Descripcion AS EstadoEnvio,
+                                P.PrecioTotal 
+                         From Pedidos P
+                         Inner Join Usuarios U ON P.IDCliente = U.IdUsuario
+                         Inner Join EstadoDePedidos EP ON P.IDEstadoPedido = EP.IDEstadoPedido
+                         Inner Join EstadoDeEnvios EE ON P.IDEnvio = EE.IDEnvio
+                         Where EP.Descripcion = 'Entregado' And EE.Descripcion = 'Entregado'";
+
+                conexion.setearConsulta(query);
+                conexion.ejecutarQuery();
+
+                while (conexion.Lector.Read())
+                {
+                    Pedido aux = new Pedido();
+                    aux.IdPedido = (int)conexion.Lector["IDPedido"];
+                    aux.Cliente = conexion.Lector["Cliente"].ToString();
+                    aux.FechaPedido = (DateTime)conexion.Lector["FechaDePedido"];
+                    aux.EstadoPedido.Descripcion = conexion.Lector["Estado"].ToString();
+                    aux.EstadoEnvio = new EstadoEnvio();
+                    aux.EstadoEnvio.Descripcion = conexion.Lector["EstadoEnvio"].ToString();
+                    aux.PrecioTotal = conexion.Lector["PrecioTotal"] != DBNull.Value ? (decimal)conexion.Lector["PrecioTotal"] : 0;
+
+                    listaPedidos.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+
+            return listaPedidos;
+        }
+
     }
 }
