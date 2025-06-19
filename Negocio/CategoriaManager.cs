@@ -14,7 +14,7 @@ namespace Negocio
 
             try
             {
-                conexion.setearConsulta("Select IdCategoria, Descripcion from Categorias");
+                conexion.setearConsulta("Select IdCategoria, Descripcion, Activo from Categorias");
                 conexion.ejecutarQuery();
                 while (conexion.Lector.Read())
                 {
@@ -24,6 +24,7 @@ namespace Negocio
                     try
                     {
                         aux.Descripcion = (string)conexion.Lector["Descripcion"];
+                        aux.Activo = (bool)conexion.Lector["Activo"];
                     }
                     catch (Exception)
                     {

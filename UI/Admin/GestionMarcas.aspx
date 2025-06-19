@@ -16,6 +16,7 @@
                 <tr>
                     <th class="d-none">ID</th>
                     <th>Descripción</th>
+                    <th>Activo</th>
                     <th style="width: 220px; text-align: right;">Acciones</th>
                 </tr>
             </thead>
@@ -25,6 +26,7 @@
                         <tr>
                             <td class="d-none"><%# Eval("Id") %></td>
                             <td><%# Eval("Descripcion") %></td>
+                            <td><%# Convert.ToBoolean(Eval("Activo")) ? "Sí" : "No" %></td>
                             <td style="text-align: right;">
                                 <asp:LinkButton runat="server" CssClass="btn btn-outline-primary me-1" CommandName="Ver" CommandArgument='<%# Eval("Id") %>' UseSubmitBehavior="false">
                                     <i class="fas fa-eye"></i>

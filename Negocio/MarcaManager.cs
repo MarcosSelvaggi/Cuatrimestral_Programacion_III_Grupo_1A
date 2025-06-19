@@ -13,7 +13,7 @@ namespace Negocio
             List<Marca> listaMarcas = new List<Marca>();
             try
             {
-                conexion.setearConsulta("Select IdMarca, Descripcion from Marcas");
+                conexion.setearConsulta("Select IdMarca, Descripcion, Activo from Marcas");
                 conexion.ejecutarQuery();
                 while (conexion.Lector.Read())
                 {
@@ -23,6 +23,7 @@ namespace Negocio
                     try
                     {
                         aux.Descripcion = (string)conexion.Lector["Descripcion"];
+                        aux.Activo = (bool)conexion.Lector["Activo"];
                     }
                     catch (Exception)
                     {

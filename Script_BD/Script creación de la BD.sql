@@ -63,6 +63,7 @@ create table Favoritos(
 	IdUsuario int foreign key references Usuarios(IdUsuario)
 )
 
+<<<<<<< Updated upstream
 create table Carrito(
 	IdCarrito int primary key identity(1,1),
 	IdUsuario int foreign key references Usuarios(IdUsuario)
@@ -74,4 +75,48 @@ create table Detalles(
 	IdProducto int foreign key references Productos(IdProducto),
 	Cantidad int not null check (Cantidad >= 1),
 	PrecioUnitario money not null 
+=======
+create table EstadoDePedidos (
+    IDEstadoPedido tinyint primary key identity(1,1),
+    Descripcion varchar(100) not null unique
+)
+
+create table MetodosDePago (
+    IDMetodoPago tinyint primary key identity(1,1),
+    Descripcion varchar(100) not null unique
+)
+
+create table EstadoDeEnvios (
+    IDEnvio int primary key identity(1,1),
+    FechaDeEnvio datetime not null,
+    Descripcion varchar(255) not null
+)
+
+create table DetalleDePagos (
+    IDPago int primary key identity(1,1),
+    IDMetodoPago tinyint not null foreign key references MetodosDePago(IDMetodoPago),
+    FechaDePago datetime not null,
+    EstadoPago varchar(50) not null,
+    Detalles varchar(255) not null
+)
+
+create table Pedidos (
+    IDPedido int primary key identity(1,1),
+    IDCliente int not null foreign key references Usuarios(IdUsuario),
+    IDEnvio int not null foreign key references EstadoDeEnvios(IDEnvio),
+    IDEstadoPedido tinyint not null foreign key references EstadoDePedidos(IDEstadoPedido),
+    FechaDePedido datetime not null default getdate(),
+    PrecioTotal money null,
+    IDPago int not null foreign key references DetalleDePagos(IDPago)
+)
+
+create table DetalleDePedidos (
+    IDPedido int not null foreign key references Pedidos(IDPedido),
+    IDProducto int not null foreign key references Productos(IDProducto),
+    Cantidad int not null check (Cantidad >= 1),
+    PrecioUnitario money not null,
+    Subtotal money null,
+    Impuestos tinyint not null default 21 check (Impuestos between 0 and 100),
+    primary key (IDPedido, IDProducto)
+>>>>>>> Stashed changes
 )

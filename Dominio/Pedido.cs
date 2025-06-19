@@ -5,13 +5,18 @@ namespace Dominio
 {
     public class Pedido
     {
-        public int Id { get; set; }
+        public string Cliente { get; set; }
+        public int IdPedido { get; set; }
         public int IdUsuario { get; set; }
         public EstadoPedido EstadoPedido { get; set; }
         public MetodoPago MetodoPago { get; set; }
+        public EstadoEnvio EstadoEnvio{ get; set; }
+        public DetallePago DetallePago { get; set; }
         public DateTime FechaPedido { get; set; }
         public List<Detalle> ListaDetalles { get; set; }
         public bool Activo { get; set; }
+        public decimal PrecioTotal { get; set; }
+
         public Decimal Total 
         {
             get

@@ -46,10 +46,48 @@ VALUES
 ('sofia.martinez@mail.com', '123Sofi!', 2, 1, '30456789', 'Sofia', 'Martinez', 'Mendoza', 'Mendoza', '5500', 'San Martín 789', '2616549870'),
 ('facundo.lopez@mail.com', 'Facu321$', 2, 1, '30567890', 'Facundo', 'Lopez', 'Tucumán', 'San Miguel', '4000', 'Av. Roca 567', '3812345678'),
 ('camila.fernandez@mail.com', 'Cami456@', 2, 1, '30678901', 'Camila', 'Fernandez', 'Salta', 'Salta', '4400', 'Mitre 321', '3871234567'),
-('nicolas.sanchez@mail.com', 'Nico789!', 2, 1, '30789012', 'Nicolas', 'Sanchez', 'Neuquén', 'Neuquén', '8300', 'Belgrano 654', '2996543210'),
-('valentina.ramirez@mail.com', 'Vale123$', 2, 1, '30890123', 'Valentina', 'Ramirez', 'Chubut', 'Comodoro', '9000', 'Alsina 1010', '2977654321'),
-('agustin.torres@mail.com', 'Agus456#', 2, 1, '30901234', 'Agustin', 'Torres', 'Entre Ríos', 'Paraná', '3100', '25 de Mayo 123', '3431234567'),
-('jazmin.moreno@mail.com', 'Jaz123$', 2, 1, '31012345', 'Jazmin', 'Moreno', 'San Juan', 'San Juan', '5400', 'Sarmiento 789', '2649876543');
+('admin@mail.com', 'AdminPass123!', 1, 1, '30000000', 'Admin', 'Principal', 'Buenos Aires', 'Capital Federal', '1000', 'Av. Admin 1', '1112345678');
+
+insert into EstadoDePedidos values 
+('En Preparación'), 
+('Preparado'), 
+('Entregado'),
+('Anulado');
+
+insert into MetodosDePago values 
+('Tarjeta'), 
+('Mercado Pago'),
+('Efectivo'),
+('Transferencia'); 
+
+insert into EstadoDeEnvios (FechaDeEnvio, Descripcion) values 
+(getdate(), 'En preparación'),
+(getdate(), 'En camino'), 
+(getdate(), 'Entregado'),
+(getdate(), 'Listo para retirar'),
+(getdate(), 'Con demora');
+
+insert into DetalleDePagos (IDMetodoPago, FechaDePago, EstadoPago, Detalles) values 
+(1, '2025-05-01', 'Aprobado', 'Pago con tarjeta - Pedido 1'),
+(3, '2025-05-03', 'Pendiente', 'Pago en efectivo - Pedido 2'),
+(2, '2025-04-28', 'Aprobado', 'Pago con Mercado Pago - Pedido 3'),
+(4, '2025-04-30', 'Fallido', 'Transferencia bancaria - Pedido 4'),
+(2, '2025-05-05', 'Pendiente', 'Mercado Pago - Pedido 5');
+
+insert into Pedidos (IDCliente, IDEnvio, IDEstadoPedido, FechaDePedido, PrecioTotal, IDPago) values
+(1, 4, 2, '2025-05-01', 28000 + 2*33000, 1),
+(2, 2, 2, '2025-05-03', 72000, 2),
+(3, 3, 3, '2025-04-28', 180000, 3),
+(4, 1, 1, '2025-04-30', 42000, 4),
+(5, 3, 3, '2025-05-05', 190000, 3); 
+
+insert into DetalleDePedidos (IDPedido, IDProducto, Cantidad, PrecioUnitario) values 
+(1, 1, 1, 28000),
+(1, 3, 2, 33000),
+(2, 5, 1, 72000),
+(3, 4, 1, 180000),
+(4, 2, 1, 42000),
+(5, 7, 1, 190000);
 
 
 --select IdUsuario,Email, Contraseña, IdRol, Activo, Documento, Nombre, Apellido, Provincia, Localidad, CodigoPostal, Direccion, Telefono from Usuarios where email = @email AND contraseña = @pass

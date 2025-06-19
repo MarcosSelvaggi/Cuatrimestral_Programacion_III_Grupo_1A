@@ -123,7 +123,7 @@ namespace Negocio
             List<Usuarios> listaUsuarios = new List<Usuarios>();
             try
             {
-                string query = "Select IdUsuario, Email, Contraseña, IdRol, Activo, Documento, Nombre, Apellido, Provincia, Localidad, CodigoPostal, Direccion, Telefono from Usuarios";
+                string query = "Select IdUsuario, Email, Contraseña, IdRol, Activo, Documento, Nombre, Apellido, Provincia, Localidad, CodigoPostal, Direccion, Telefono from Usuarios Where IdRol = 2";
                 conexion.setearConsulta(query);
 
                 conexion.ejecutarQuery();
