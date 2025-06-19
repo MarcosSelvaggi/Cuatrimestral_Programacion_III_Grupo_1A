@@ -42,12 +42,14 @@ namespace Negocio
 
             try
             {
-                string query = "Insert Into Carritos (IdUsuario) Values (@IdUsuario)";
+                string query = "Insert Into Carrito (IdUsuario) Values (@IdUsuario); Select Scope_Identity() as 'UltimoIngresado'";
                 conexion.setearConsulta(query);
                 conexion.agregarParametros("@IdUsuario", idUsuario);
-                conexion.ejecutarNonQuery();
+                conexion.ejecutarQuery();
 
-                int carritoId = conexion.ObtenerUltimoIdInsertado();
+                conexion.Lector.Read(); 
+
+                int carritoId = Int32.Parse(conexion.Lector["UltimoIngresado"].ToString());
                 return carritoId;
             }
             catch (Exception ex)
@@ -67,7 +69,8 @@ namespace Negocio
 
             carrito = buscarCarritoUsuario(idUsuario);
 
-            if (carrito != null)
+            //if (carrito != null)
+            if (carrito.Id != 0)
             {
                 return carrito.Id;
             }
