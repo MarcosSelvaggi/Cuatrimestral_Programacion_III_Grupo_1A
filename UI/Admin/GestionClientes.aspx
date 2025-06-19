@@ -1,11 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMaster.Master" AutoEventWireup="true" CodeBehind="GestionClientes.aspx.cs" Inherits="UI.Admin.GestionClientes" %>
+﻿<%@ Page Title="Admin - Clientes" Language="C#" MasterPageFile="~/Admin/AdminMaster.Master" AutoEventWireup="true" CodeBehind="GestionClientes.aspx.cs" Inherits="UI.Admin.GestionClientes" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="container mt-4">
-        <h2>Gestión de Clientes</h2>
+        <h2><i class="bi bi-people-fill"></i>Gestión de Clientes</h2>
 
         <div class="mb-3">
             <asp:Button ID="btnAbrirAgregar" runat="server" Text="Agregar Cliente" CssClass="btn btn-outline-primary" OnClick="btnAbrirAgregar_Click" />

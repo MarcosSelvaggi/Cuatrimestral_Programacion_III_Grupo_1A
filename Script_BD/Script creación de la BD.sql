@@ -24,7 +24,8 @@ create table Productos(
 	IdProducto int primary key identity(1,1), 
 	Nombre nvarchar(100) not null,
 	Precio money not null, 
-	Activo bit not null default 1, 
+	Activo bit not null default 1,
+	Stock int not null check (Stock >= 0),
 	IdCategoria tinyint foreign key references Categorias(IdCategoria), 
 	IdMarca tinyint foreign key references Marcas(IdMarca)
 )

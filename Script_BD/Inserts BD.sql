@@ -20,14 +20,14 @@ INSERT INTO Marcas (Descripcion) VALUES
 ('MSI'),
 ('SteelSeries');
 
-INSERT INTO Productos (Nombre, Precio, Activo, IdCategoria, IdMarca) VALUES
-('Mouse Gamer Logitech G502 Hero', 28000, 1, 1, 1),
-('Teclado Mecánico Corsair K95 RGB', 42000, 1, 1, 2),
-('Auriculares HyperX Cloud II', 33000, 1, 4, 4),
-('Silla Gamer Razer Iskur', 180000, 1, 3, 3),
-('Disco SSD M.2 NVMe 1TB Samsung 980 PRO', 72000, 1, 5, 5),
-('Placa de Video ASUS RTX 4070 Ti', 850000, 1, 2, 5),
-('Monitor MSI Optix 27” 165Hz', 190000, 1, 2, 6);
+INSERT INTO Productos (Nombre, Precio, Activo, IdCategoria, IdMarca, Stock) VALUES
+('Mouse Gamer Logitech G502 Hero', 28000, 1, 1, 1, 10),
+('Teclado Mecánico Corsair K95 RGB', 42000, 1, 1, 2, 12),
+('Auriculares HyperX Cloud II', 33000, 1, 4, 4, 13),
+('Silla Gamer Razer Iskur', 180000, 1, 3, 3, 14),
+('Disco SSD M.2 NVMe 1TB Samsung 980 PRO', 72000, 1, 5, 5, 5),
+('Placa de Video ASUS RTX 4070 Ti', 850000, 1, 2, 5, 6),
+('Monitor MSI Optix 27” 165Hz', 190000, 1, 2, 6, 9);
 
 INSERT INTO ImagenesDeProductos (IdProducto, UrlImagen) VALUES
 (1, 'https://www.malditohard.com.ar/wp-content/uploads/product/8/MOU094.webp'),

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/AdminMaster.Master" AutoEventWireup="true" CodeBehind="GestionCategorias.aspx.cs" Inherits="UI.Admin.GestionCategorias" %>
+﻿<%@ Page Title="Admin - Categorias" Language="C#" MasterPageFile="~/Admin/AdminMaster.Master" AutoEventWireup="true" CodeBehind="GestionCategorias.aspx.cs" Inherits="UI.Admin.GestionCategorias" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>

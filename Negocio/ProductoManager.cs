@@ -81,6 +81,58 @@ namespace Negocio
             return listaProductos;
         }
 
+        public List<Producto> listar()
+        {
+            List<Producto> listaProductos = new List<Producto>();
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = @"SELECT p.IdProducto, p.Nombre, p.Precio, p.Stock, p.Activo, 
+                                        c.IdCategoria, c.Descripcion as CategoriaDescripcion,
+                                        m.IdMarca, m.Descripcion as MarcaDescripcion
+                                 FROM Productos p
+                                 INNER JOIN Categorias c ON p.IdCategoria = c.IdCategoria
+                                 INNER JOIN Marcas m ON p.IdMarca = m.IdMarca";
+
+                conexion.setearConsulta(query);
+                conexion.ejecutarQuery();
+
+                while (conexion.Lector.Read())
+                {
+                    Producto aux = new Producto();
+
+                    aux.Id = Convert.ToInt32(conexion.Lector["IdProducto"]);
+                    aux.Nombre = conexion.Lector["Nombre"].ToString();
+                    aux.Precio = Convert.ToDecimal(conexion.Lector["Precio"]);
+                    aux.Stock = Convert.ToInt32(conexion.Lector["Stock"]);
+                    aux.Activo = Convert.ToBoolean(conexion.Lector["Activo"]);
+
+                    aux.Categoria = new Categoria
+                    {
+                        Id = Convert.ToInt32(conexion.Lector["IdCategoria"]),
+                        Descripcion = conexion.Lector["CategoriaDescripcion"].ToString()
+                    };
+
+                    aux.Marca = new Marca
+                    {
+                        Id = Convert.ToInt32(conexion.Lector["IdMarca"]),
+                        Descripcion = conexion.Lector["MarcaDescripcion"].ToString()
+                    };
+
+                    listaProductos.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+
+            return listaProductos;
+        }
         public Producto BuscarProductoPorId(int id)
         {
             CategoriaManager categoriaManager = new CategoriaManager();
@@ -209,6 +261,175 @@ namespace Negocio
                 listaProductos.Add(aux);
             }
             return listaProductos;
+        }
+
+        public void agregar(Producto nuevoProducto)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = @"INSERT INTO Productos (Nombre,  Precio, Stock, IdCategoria, IdMarca, Activo)
+                                 VALUES (@Nombre, @Precio, @Stock, @IdCategoria, @IdMarca, @Activo)";
+
+                conexion.setearConsulta(query);
+                conexion.limpiarParametros();
+
+                conexion.agregarParametros("@Nombre", nuevoProducto.Nombre);
+                conexion.agregarParametros("@Precio", nuevoProducto.Precio);
+                conexion.agregarParametros("@Stock", nuevoProducto.Stock);
+                conexion.agregarParametros("@IdCategoria", nuevoProducto.Categoria.Id);
+                conexion.agregarParametros("@IdMarca", nuevoProducto.Marca.Id);
+                conexion.agregarParametros("@Activo", nuevoProducto.Activo);
+
+                conexion.ejecutarNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+        public int agregarYDevolverId(Producto producto)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                conexion.setearConsulta("Insert Into Productos (Nombre, Precio, Stock, IdCategoria, IdMarca, Activo) " +
+                                        "Values (@Nombre, @Precio, @Stock, @IdCategoria, @IdMarca, @Activo); " +
+                                        "SELECT Scope_Identity();");
+                conexion.agregarParametros("@Nombre", producto.Nombre);
+                conexion.agregarParametros("@Precio", producto.Precio);
+                conexion.agregarParametros("@Stock", producto.Stock);
+                conexion.agregarParametros("@IdCategoria", producto.Categoria.Id);
+                conexion.agregarParametros("@IdMarca", producto.Marca.Id);
+                conexion.agregarParametros("@Activo", producto.Activo);
+
+                object result = conexion.EjecutarScalar();
+                return Convert.ToInt32(result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+        public void modificar(Producto productoModificado)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = @"Update Productos 
+                                 Set Nombre = @Nombre,  
+                                     Precio = @Precio, 
+                                     Stock = @Stock, 
+                                     IdCategoria = @IdCategoria, 
+                                     IdMarca = @IdMarca, 
+                                     Activo = @Activo
+                                 Where IdProducto = @Id";
+
+                conexion.setearConsulta(query);
+                conexion.limpiarParametros();
+
+                conexion.agregarParametros("@Id", productoModificado.Id);
+                conexion.agregarParametros("@Nombre", productoModificado.Nombre);
+                conexion.agregarParametros("@Precio", productoModificado.Precio);
+                conexion.agregarParametros("@Stock", productoModificado.Stock);
+                conexion.agregarParametros("@IdCategoria", productoModificado.Categoria.Id);
+                conexion.agregarParametros("@IdMarca", productoModificado.Marca.Id);
+                conexion.agregarParametros("@Activo", productoModificado.Activo);
+
+                conexion.ejecutarNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+
+        public void eliminar(int idProducto)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = "UPDATE Productos SET Activo = 0 WHERE IdProducto = @Id";
+
+                conexion.setearConsulta(query);
+                conexion.limpiarParametros();
+                conexion.agregarParametros("@Id", idProducto);
+
+                conexion.ejecutarNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+        public Producto obtenerProductoPorId(int idProducto)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = @"SELECT p.IdProducto, p.Nombre, p.Precio, p.Stock, p.Activo, 
+                                        c.IdCategoria, c.Descripcion as CategoriaDescripcion,
+                                        m.IdMarca, m.Descripcion as MarcaDescripcion
+                                 FROM Productos p
+                                 INNER JOIN Categorias c ON p.IdCategoria = c.IdCategoria
+                                 INNER JOIN Marcas m ON p.IdMarca = m.IdMarca
+                                 WHERE p.IdProducto = @Id";
+
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Id", idProducto);
+                conexion.ejecutarQuery();
+
+                if (conexion.Lector.Read())
+                {
+                    Producto producto = new Producto();
+
+                    producto.Id = Convert.ToInt32(conexion.Lector["IdProducto"]);
+                    producto.Nombre = conexion.Lector["Nombre"].ToString();
+                    producto.Precio = Convert.ToDecimal(conexion.Lector["Precio"]);
+                    producto.Stock = Convert.ToInt32(conexion.Lector["Stock"]);
+                    producto.Activo = Convert.ToBoolean(conexion.Lector["Activo"]);
+
+                    producto.Categoria = new Categoria
+                    {
+                        Id = Convert.ToInt32(conexion.Lector["IdCategoria"]),
+                        Descripcion = conexion.Lector["CategoriaDescripcion"].ToString()
+                    };
+
+                    producto.Marca = new Marca
+                    {
+                        Id = Convert.ToInt32(conexion.Lector["IdMarca"]),
+                        Descripcion = conexion.Lector["MarcaDescripcion"].ToString()
+                    };
+
+                    return producto;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
         }
     }
 }
