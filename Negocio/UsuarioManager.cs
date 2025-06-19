@@ -116,7 +116,7 @@ namespace Negocio
             {
                 string query = "Update Usuarios set Contraseña = @Contraseña WHERE IdUsuario = @IdUsuario";
                 conexion.setearConsulta(query);
-                conexion.agregarParametros("@Contraseña", contraseñaNueva);
+                conexion.agregarParametros("@Contraseña", BCrypt.Net.BCrypt.EnhancedHashPassword(contraseñaNueva, 14));
                 conexion.agregarParametros("@IdUsuario", usuario.Id);
                 conexion.ejecutarNonQuery();
 
@@ -225,7 +225,7 @@ namespace Negocio
                 conexion.limpiarParametros();
                 conexion.agregarParametros("@Email", usuarioNuevo.Email);
                 conexion.agregarParametros("@Activo", usuarioNuevo.Activo);
-                conexion.agregarParametros("@Contraseña", "asd123456");
+                conexion.agregarParametros("@Contraseña", BCrypt.Net.BCrypt.EnhancedHashPassword(usuarioNuevo.Constraseña, 14));
                 conexion.agregarParametros("@Documento", usuarioNuevo.Documento);
                 conexion.agregarParametros("@Nombre", usuarioNuevo.Nombre);
                 conexion.agregarParametros("@Apellido", usuarioNuevo.Apellido);
