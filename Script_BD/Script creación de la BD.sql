@@ -63,7 +63,6 @@ create table Favoritos(
 	IdUsuario int foreign key references Usuarios(IdUsuario)
 )
 
-<<<<<<< Updated upstream
 create table Carrito(
 	IdCarrito int primary key identity(1,1),
 	IdUsuario int foreign key references Usuarios(IdUsuario)
@@ -74,8 +73,9 @@ create table Detalles(
 	IdCarrito int foreign key references Carrito(IdCarrito),
 	IdProducto int foreign key references Productos(IdProducto),
 	Cantidad int not null check (Cantidad >= 1),
-	PrecioUnitario money not null 
-=======
+	PrecioUnitario money not null
+)
+
 create table EstadoDePedidos (
     IDEstadoPedido tinyint primary key identity(1,1),
     Descripcion varchar(100) not null unique
@@ -118,5 +118,4 @@ create table DetalleDePedidos (
     Subtotal money null,
     Impuestos tinyint not null default 21 check (Impuestos between 0 and 100),
     primary key (IDPedido, IDProducto)
->>>>>>> Stashed changes
 )
