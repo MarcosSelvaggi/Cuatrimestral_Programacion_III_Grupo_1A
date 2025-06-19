@@ -13,7 +13,7 @@ namespace Negocio
         public Usuarios logearse(string mail, string contraseña)
         {
             //Método para hashear las contraseñas en la BD, descomentar para usarlo 1 sola vez
-            //HashearContraseñas();
+            HashearContraseñas();
 
             Usuarios usuarioLogeado = new Usuarios()
             {

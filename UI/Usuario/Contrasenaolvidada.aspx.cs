@@ -62,7 +62,7 @@ namespace UI
 
                 Session.Add("UsuarioAModificar", usuarioModificado);
 
-                Response.Redirect("/Usuario/Contrasena.aspx", false);
+                Response.Redirect("/Usuario/Contrasenaolvidada.aspx", false);
                 return;
             }
             else
@@ -90,7 +90,7 @@ namespace UI
                 Session.Remove("codigoRecuperacion");
                 Session.Remove("UsuarioAModificar");
 
-                Response.Redirect("Contrasena.aspx", false);
+                Response.Redirect("Contrasenaolvidada.aspx", false);
                 return;
             }
         }

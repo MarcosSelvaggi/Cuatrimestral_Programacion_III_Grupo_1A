@@ -20,7 +20,7 @@
 
             <div>
                 <span>Si olvidó su contraseña </span>
-                <a href="/Usuario/Contrasena.aspx">Haga click aquí</a>
+                <a href="/Usuario/Contrasenaolvidada.aspx">Haga click aquí</a>
                 <p></p>
             </div>
             <div>

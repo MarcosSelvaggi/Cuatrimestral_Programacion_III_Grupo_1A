@@ -28,7 +28,7 @@ namespace Services
             email.To.Add(emailDestino);
             email.Subject = "Código de recuperación";
             email.IsBodyHtml = true;
-            email.Body = "<img src='https://i.ibb.co/F4xqv50Q/logo.png' alt='Logo' style='width:150px;' /><br/>" +
+            email.Body = "<img src='https://i.ibb.co/7qTWCSz/logo.png' alt='Logo' style='width:150px;' /><br/>" +
                 "<h2>Código para recuperar la contraseña</h2>" +
                 "<p>Tu código para cambiar la contraseña es el siguiente " + codigoParaIngresar + "</p>" +
                 "<p>Si tu no has sido quien solicito el código recomendamos cambiar la contraseña</p>";
@@ -42,7 +42,7 @@ namespace Services
             email.To.Add(emailDestino);
             email.Subject = "Código de recuperación";
             email.IsBodyHtml = true;
-            email.Body = "<img src='https://i.ibb.co/F4xqv50Q/logo.png' alt='Logo' style='width:150px;' /><br/>" +
+            email.Body = "<img src='https://i.ibb.co/7qTWCSz/logo.png' alt='Logo' style='width:150px;' /><br/>" +
                 "<h2>Código para cambiar la contraseña</h2>" +
                 "<p>Tu código para cambiar la contraseña es el siguiente " + codigoCambioContrasena + "</p>";
         }
