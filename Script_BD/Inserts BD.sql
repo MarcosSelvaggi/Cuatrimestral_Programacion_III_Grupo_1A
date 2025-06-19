@@ -49,10 +49,12 @@ VALUES
 ('admin@mail.com', 'AdminPass123!', 1, 1, '30000000', 'Admin', 'Principal', 'Buenos Aires', 'Capital Federal', '1000', 'Av. Admin 1', '1112345678');
 
 insert into EstadoDePedidos values 
-('En Preparación'), 
-('Preparado'), 
-('Entregado'),
-('Anulado');
+('Creado'), 
+('Confirmado'), 
+('Procesando'),
+('Completado'),
+('Cancelado'),
+('Devuelto');
 
 insert into MetodosDePago values 
 ('Tarjeta'), 
@@ -61,25 +63,27 @@ insert into MetodosDePago values
 ('Transferencia'); 
 
 insert into EstadoDeEnvios (FechaDeEnvio, Descripcion) values 
-(getdate(), 'En preparación'),
-(getdate(), 'En camino'), 
+(getdate(), 'No enviado'),
+(getdate(), 'En preparación'), 
+(getdate(), 'Enviado'),
+(getdate(), 'En tránsito'),
 (getdate(), 'Entregado'),
-(getdate(), 'Listo para retirar'),
-(getdate(), 'Con demora');
+(getdate(), 'Fallido'),
+(getdate(), 'Devuelto');
 
 insert into DetalleDePagos (IDMetodoPago, FechaDePago, EstadoPago, Detalles) values 
-(1, '2025-05-01', 'Aprobado', 'Pago con tarjeta - Pedido 1'),
-(3, '2025-05-03', 'Pendiente', 'Pago en efectivo - Pedido 2'),
-(2, '2025-04-28', 'Aprobado', 'Pago con Mercado Pago - Pedido 3'),
-(4, '2025-04-30', 'Fallido', 'Transferencia bancaria - Pedido 4'),
-(2, '2025-05-05', 'Pendiente', 'Mercado Pago - Pedido 5');
+(1, '2025-05-01', 'Aprobado', 'Pagado'),
+(3, '2025-05-03', 'Pendiente', 'En proceso'),
+(2, '2025-04-28', 'Aprobado', 'Pagado'),
+(4, '2025-04-30', 'Fallido', 'Error de transacción'),
+(2, '2025-05-05', 'Pendiente', 'Reembolsado');
 
 insert into Pedidos (IDCliente, IDEnvio, IDEstadoPedido, FechaDePedido, PrecioTotal, IDPago) values
 (1, 4, 2, '2025-05-01', 28000 + 2*33000, 1),
 (2, 2, 2, '2025-05-03', 72000, 2),
 (3, 3, 3, '2025-04-28', 180000, 3),
 (4, 1, 1, '2025-04-30', 42000, 4),
-(5, 3, 3, '2025-05-05', 190000, 3); 
+(5, 3, 3, '2025-05-05', 190000, 5);  
 
 insert into DetalleDePedidos (IDPedido, IDProducto, Cantidad, PrecioUnitario) values 
 (1, 1, 1, 28000),
