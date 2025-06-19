@@ -2,10 +2,6 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace UI
 {
@@ -14,6 +10,8 @@ namespace UI
         public List<ImagenesProducto> listaImagenes;
         public Producto producto = new Producto();
         public bool favoritoRepetido = false;
+        public bool modalCarrito = false;
+        public int cantidadAgregada = 0;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -83,6 +81,35 @@ namespace UI
             else
             {
                 Response.Redirect("Inicio.aspx");
+            }
+        }
+
+        protected void btnAgregarCarrito_Click(object sender, EventArgs e)
+        {
+            if (Session["Usuario"] != null)
+            {
+                int idUsuario = ((Usuarios)Session["Usuario"]).Id;
+                int idProducto = producto.Id;
+                int cantidad = 1;
+
+                if (!int.TryParse(txtCantidad.Text, out cantidad) || cantidad < 1)
+                {
+                    cantidad = 1;
+                }
+
+                CarritoManager carritoManager = new CarritoManager();
+                DetalleManager detalleManager = new DetalleManager();
+
+                int idCarrito = carritoManager.carritoDisponible(idUsuario);
+
+                detalleManager.agregarProductoAlCarrito(idCarrito, idProducto, cantidad);
+
+                modalCarrito = true;
+                cantidadAgregada = cantidad;
+            }
+            else
+            {
+                Response.Redirect("Login.aspx");
             }
         }
     }

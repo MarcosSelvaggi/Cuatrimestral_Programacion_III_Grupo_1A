@@ -78,7 +78,7 @@ namespace Negocio
             conexion.Close();
         }
 
-        /*public int ObtenerUltimoIdInsertado()
+        public int ObtenerUltimoIdInsertado()
         {
 
             try
@@ -100,7 +100,7 @@ namespace Negocio
             {
                 throw ex;
             }
-        }*/
+        }
 
         public object EjecutarScalar()
         {

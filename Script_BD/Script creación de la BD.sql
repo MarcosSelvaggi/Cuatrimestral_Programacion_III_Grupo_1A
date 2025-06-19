@@ -62,3 +62,16 @@ create table Favoritos(
 	IdProducto int foreign key references Productos(IdProducto),
 	IdUsuario int foreign key references Usuarios(IdUsuario)
 )
+
+create table Carrito(
+	IdCarrito int primary key identity(1,1),
+	IdUsuario int foreign key references Usuarios(IdUsuario)
+)
+
+create table Detalles(
+	IdDetalle int primary key identity(1,1),
+	IdCarrito int foreign key references Carrito(IdCarrito),
+	IdProducto int foreign key references Productos(IdProducto),
+	Cantidad int not null check (Cantidad >= 1),
+	PrecioUnitario money not null 
+)

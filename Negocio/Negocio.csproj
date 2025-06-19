@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccesoADatos.cs" />
+    <Compile Include="CarritoManager.cs" />
     <Compile Include="CategoriaManager.cs" />
+    <Compile Include="DetalleManager.cs" />
     <Compile Include="FavoritoManager.cs" />
     <Compile Include="ImagenManager.cs" />
     <Compile Include="MarcaManager.cs" />

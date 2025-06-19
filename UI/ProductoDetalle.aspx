@@ -61,13 +61,20 @@
                                     <i class="bi bi-bookmark-heart"></i>
                                     <%= favoritoRepetido ? " Quitar de Favoritos" : " Añadir a Favoritos" %>
                                 </button>
-                        <% } %>
 
-                        <asp:TextBox ID="txtCantidad" runat="server" Text="1" CssClass="form-control text-center me-3"
-                            MaxLength="3" Style="max-width: 3rem" />
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                            <i class="bi bi-cart-plus"></i>Agregar al Carrito
-                        </button>
+                                <asp:TextBox ID="txtCantidad" runat="server" Text="1" CssClass="form-control text-center me-3"
+                                    MaxLength="3" Style="max-width: 3rem" />
+
+                                <asp:LinkButton ID="btnAgregarCarrito" runat="server" CssClass="btn btn-outline-dark flex-shrink-0" OnClick="btnAgregarCarrito_Click">
+                                    <i class="bi bi-cart-check-fill"></i> Agregar al Carrito
+                                </asp:LinkButton>
+                        <% }
+                            else
+                            { %>
+                                <a href="/Usuario/Logearse.aspx" class="btn btn-dark flex-grow-1">
+                                    <h5><i class="bi bi-box-arrow-in-right"></i> Comprar</h5>
+                                </a>
+                        <% } %>
                     </div>
                 </div>
             </div>
@@ -102,5 +109,31 @@
         </div>
     </div>
 
+    <div class="modal fade" id="carritoModal" tabindex="-1" aria-labelledby="carritoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="carritoModalLabel">Producto agregado al carrito</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    Agregaste <strong><%= cantidadAgregada %></strong> unidades del producto <strong><%= producto.Nombre %></strong> al carrito.
+                </div>
+                <div class="modal-footer">
+                    <a href="/Usuario/Carrito.aspx" class="btn btn-success">Ver carrito</a>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Seguir comprando</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+        <% if (modalCarrito) { %>
+            var carritoModal = new bootstrap.Modal(document.getElementById('carritoModal'));
+            carritoModal.show();
+        <% } %>
+        };
+    </script>
 
 </asp:Content>

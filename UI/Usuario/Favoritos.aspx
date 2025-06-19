@@ -47,7 +47,7 @@
                         onclick="abrirModalQuitarFavorito(<%= producto.Id %>, '<%= producto.Nombre.Replace("'", "\\'") %>'); return false;">Quitar
                     </a>
 
-                    <a href="AgregarAlCarrito.aspx?id=<%= producto.Id %>" class="btn btn-dark btn-sm">Agregar al carrito</a>
+                    <a href="/ProductoDetalle.aspx?id=<%= producto.Id %>" class="btn btn-dark btn-sm">Más Detalles</a>
                 </div>
 
             </div>

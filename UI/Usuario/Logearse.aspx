@@ -8,7 +8,7 @@
     <main>
         <div class="container2 needs-validation" novalidate="false">
             <h1>Inicie sesión</h1>
-            <div>
+            <asp:Panel ID="Panel" DefaultButton="BtnEnviar" runat="server">
                 <asp:TextBox ID="txtMail" class="input" TextMode="Email" ClientIDMode="Static" placeholder="Mail" runat="server" />
                 <small id="mailErrorMsj" class="text-danger"></small>
                 <small id="mailCorrectoMsj" class="valid-feedback"></small>
@@ -16,7 +16,7 @@
                 <small id="contrasenaCorrectaMsj" class="valid-feedback"></small>
                 <small id="contrasenaErrorMsj" class="text-danger"></small>
                 <asp:Button ID="BtnEnviar" OnClientClick="return validarCampos()" class="BtnEnviar" Text="Iniciar sesión" OnClick="BtnEnviar_Click" runat="server" />
-            </div>
+            </asp:Panel>
 
             <div>
                 <span>Si olvidó su contraseña </span>
