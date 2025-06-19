@@ -1,17 +1,29 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace UI.Usuario
 {
-	public partial class Checkout : UI.ClaseMaster.BasePage
+    public partial class Checkout : UI.ClaseMaster.BasePage
     {
-        protected void Page_Load(object sender, EventArgs e)
-		{
+        public Usuarios UsuarioLogeado { get; set; }
+        public List<Detalle> listaDetalles;
 
-		}
-	}
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("Login.aspx");
+            }
+
+            UsuarioLogeado = (Usuarios)Session["Usuario"];
+
+            CarritoManager carritoManager = new CarritoManager();
+            DetalleManager detalleManager = new DetalleManager();
+
+            int idCarrito = carritoManager.carritoDisponible(UsuarioLogeado.Id);
+            listaDetalles = detalleManager.listarDetallesCarrito(idCarrito);
+        }
+    }
 }

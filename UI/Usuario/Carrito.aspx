@@ -66,7 +66,7 @@
         </h4>
     </div>
     <div class="d-flex justify-content-end">
-        <button class="btn btn-dark btn-lg">Continuar con el Pago</button>
+        <a href="/Usuario/Checkout.aspx" class="btn btn-dark btn-lg">Continuar con el Pago</a>
     </div>
     <% } %>
 

@@ -3,64 +3,84 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-4">
-        <h1><i class="bi bi-bag-check-fill"></i> Checkout</h1>
+        <h1><i class="bi bi-bag-check-fill"></i>Checkout</h1>
 
         <div class="row">
             <div class="col-md-6">
-                <h4><i class="bi bi-rocket-takeoff-fill"></i> Datos de Envío</h4>
-                <div id="formShipping">
+                <h4><i class="bi bi-rocket-takeoff-fill"></i>Datos de Envío</h4>
+                <div id="fs">
                     <div class="mb-3">
-                        <label for="inputName" class="form-label">Nombre Completo</label>
-                        <input type="text" class="form-control" id="inputNombre" placeholder="Leonel Messi" required />
+                        <label class="form-label">Documento</label>
+                        <input type="text" class="form-control" id="iptDocu" value="<%=UsuarioLogeado.Documento%>" disabled />
                     </div>
                     <div class="mb-3">
-                        <label for="inputAddress" class="form-label">Dirección</label>
-                        <input type="text" class="form-control" id="inputDirección" placeholder="Los palmares 256" required />
+                        <label class="form-label">Nombre Completo</label>
+                        <input type="text" class="form-control" id="iptNombre" value="<%=UsuarioLogeado.Nombre + " " + UsuarioLogeado.Apellido%>" disabled />
                     </div>
                     <div class="mb-3">
-                        <label for="inputCity" class="form-label">Localidad</label>
-                        <input type="text" class="form-control" id="inputLocalidad" placeholder="Chacabuco" required />
+                        <label class="form-label">Direccion</label>
+                        <input type="text" class="form-control" id="iptDireccion" value="<%= UsuarioLogeado.Direccion + ", " + UsuarioLogeado.Localidad + ", " + UsuarioLogeado.Provincia%>" disabled />
                     </div>
                     <div class="mb-3">
-                        <label for="inputCity" class="form-label">Ciudad</label>
-                        <input type="text" class="form-control" id="inputCiudad" placeholder="Lima" required />
+                        <label class="form-label">Codigo Postal</label>
+                        <input type="text" class="form-control" id="iptCodigoPostal" value="<%=UsuarioLogeado.CodigoPostal%>" disabled />
                     </div>
                     <div class="mb-3">
-                        <label for="inputPostalCode" class="form-label">Código Postal</label>
-                        <input type="text" class="form-control" id="inputCodigoPostal" placeholder="102910" required />
-                    </div>
-                    <div class="mb-3">
-                        <label for="inputPhone" class="form-label">Teléfono</label>
-                        <input type="tel" class="form-control" id="inputTelefono" placeholder="(+52) 145 39-2312" required />
+                        <label class="form-label">Teléfono</label>
+                        <input type="tel" class="form-control" id="iptTelefono" value="<%=UsuarioLogeado.Telefono%>" disabled />
                     </div>
                 </div>
             </div>
 
             <div class="col-md-6">
-                <h4><i class="bi bi-check-circle-fill"></i> Resumen del Pedido</h4>
+                <h4><i class="bi bi-check-circle-fill"></i>Resumen del Pedido</h4>
                 <ul class="list-group mb-3">
+                    <% 
+                    decimal total = 0;
+                    foreach (var detalle in listaDetalles)
+                    {
+                        total += detalle.Subtotal;
+                    %>
                     <li class="list-group-item d-flex justify-content-between">
                         <div>
-                            <h6 class="my-0">PC Gamer</h6>
-                            <small class="text-muted">Cantidad: 2</small>
+                            <h6 class="my-0"><%= detalle.Producto.Nombre %></h6>
+                            <small class="text-muted">Cantidad: <%= detalle.Cantidad %></small>
                         </div>
-                        <span class="text-muted">$40.000</span>
+                        <span class="text-muted">$<%= detalle.Subtotal.ToString("N2") %></span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div>
-                            <h6 class="my-0">AMD Radeon RX 570 RS Black Edition</h6>
-                            <small class="text-muted">Cantidad: 1</small>
-                        </div>
-                        <span class="text-muted">$50.000</span>
-                    </li>
+                    <% } %>
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Total (ARS)</span>
-                        <strong>$130.000</strong>
+                        <strong>$<%= total.ToString("N2") %></strong>
                     </li>
                 </ul>
 
-                <button type="submit" class="btn btn-dark w-100">Confirmar Compra</button>
+                <button type="button" class="btn btn-dark w-100" onclick="confirmarCompra()">Confirmar Compra</button>
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="compraExitosa" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Compra realizada</h5>
+                </div>
+                <div class="modal-body">
+                    ¡Compra realizada con total éxito!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function confirmarCompra() {
+            var modal = new bootstrap.Modal(document.getElementById('compraExitosa'));
+            modal.show();
+
+            setTimeout(function () {
+                window.location.href = "/Inicio.aspx";
+            }, 2000);
+        }
+    </script>
 </asp:Content>
