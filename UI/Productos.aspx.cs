@@ -11,7 +11,8 @@ namespace UI
 {
     public partial class Productos : UI.ClaseMaster.BasePage
     {
-
+        //Este objeto está declarado para evitar que el IntelliSense arroje errores porque no está declarado este objeto 
+        //Solución sacada de https://stackoverflow.com/questions/31886413/the-name-o-does-not-exist-in-the-current-context  
         public object __o;
         public List<Categoria> listaCategorias;
         public List<Marca> listaMarcas;

@@ -9,27 +9,29 @@
     <br />
     <div class="container text-center" id="DivSeparador">
         <div class="row align-items-start">
-            <div class="col-3 gap-0 column-gap-3" id="MarcasCategorias" style="grid-template-columns: 1fr 1fr;" >
-                <div class="d-flex p-2" role="search">
-                    <asp:TextBox Cssclass="form-control me-2" ID="txtBusqueda" placeholder="RTX-8090" runat="server" /> 
-                    <asp:Button ID="RealizarBusquedaProducto" OnClick="RealizarBusquedaProducto_Click" Text="Buscar" CssClass="btn btn-outline-success" runat="server" />
-                </div>
+            <div class="col-3 gap-0 column-gap-3" id="MarcasCategorias" style="grid-template-columns: 1fr 1fr;">
+                <asp:Panel runat="server" DefaultButton="RealizarBusquedaProducto">
+                    <div class="d-flex p-2" role="search">
+                        <asp:TextBox CssClass="form-control me-2" ID="txtBusqueda" placeholder="RTX-8090" runat="server" />
+                        <asp:Button ID="RealizarBusquedaProducto" OnClick="RealizarBusquedaProducto_Click" Text="Buscar" CssClass="btn btn-outline-success" runat="server" />
+                    </div>
+                </asp:Panel>
                 <div class="btn-group p-2 col-12">
                     <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         Categorias
                     </button>
-                    <ul class="dropdown-menu" >
+                    <ul class="dropdown-menu">
                         <% foreach (Dominio.Categoria categoria in listaCategorias)
                             { %>
                         <li><a class="dropdown-item" href="/Productos.aspx?categoria=<%:categoria.Id %>"><%: categoria.Descripcion %></a></li>
                         <%  } %>
                     </ul>
                 </div>
-                <div class="btn-group p-2 col-12" >
+                <div class="btn-group p-2 col-12">
                     <button type="button" class="btn btn-dark dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
                         Marcas
                     </button>
-                    <ul class="dropdown-menu" >
+                    <ul class="dropdown-menu">
                         <% foreach (Dominio.Marca marca in listaMarcas)
                             { %>
                         <li><a class="dropdown-item" href="/Productos.aspx?marca=<%:marca.Id %>"><%: marca.Descripcion %></a></li>

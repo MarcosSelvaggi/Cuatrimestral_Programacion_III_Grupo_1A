@@ -82,7 +82,8 @@
     <Content Include="Perfil.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Inicio.aspx" />
-    <Content Include="Usuario\Contrasena.aspx" />
+    <Content Include="Usuario\Cambiarcontrasena.aspx" />
+    <Content Include="Usuario\Contrasenaolvidada.aspx" />
     <Content Include="Usuario\Js\JsContraseña.js" />
     <Content Include="Usuario\Js\JsLogearse.js" />
     <Content Include="Usuario\Logearse.aspx" />
@@ -171,12 +172,19 @@
     <Compile Include="Inicio.aspx.designer.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Usuario\Contrasena.aspx.cs">
-      <DependentUpon>Contrasena.aspx</DependentUpon>
+    <Compile Include="Usuario\Cambiarcontrasena.aspx.cs">
+      <DependentUpon>Cambiarcontrasena.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Usuario\Contrasena.aspx.designer.cs">
-      <DependentUpon>Contrasena.aspx</DependentUpon>
+    <Compile Include="Usuario\Cambiarcontrasena.aspx.designer.cs">
+      <DependentUpon>Cambiarcontrasena.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario\Contrasenaolvidada.aspx.cs">
+      <DependentUpon>Contrasenaolvidada.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Usuario\Contrasenaolvidada.aspx.designer.cs">
+      <DependentUpon>Contrasenaolvidada.aspx</DependentUpon>
     </Compile>
     <Compile Include="Usuario\Logearse.aspx.cs">
       <DependentUpon>Logearse.aspx</DependentUpon>

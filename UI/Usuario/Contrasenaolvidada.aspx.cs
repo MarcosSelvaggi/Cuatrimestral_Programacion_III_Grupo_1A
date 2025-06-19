@@ -63,6 +63,7 @@ namespace UI
                 Session.Add("UsuarioAModificar", usuarioModificado);
 
                 Response.Redirect("/Usuario/Contrasena.aspx", false);
+                return;
             }
             else
             {
@@ -90,6 +91,7 @@ namespace UI
                 Session.Remove("UsuarioAModificar");
 
                 Response.Redirect("Contrasena.aspx", false);
+                return;
             }
         }
 
@@ -117,6 +119,7 @@ namespace UI
             Session.Remove("UsuarioAModificar");
             Session.Remove("ModificarContraseña");
             Response.Redirect("/Usuario/Logearse.aspx", false);
+            return; 
         }
     }
 }

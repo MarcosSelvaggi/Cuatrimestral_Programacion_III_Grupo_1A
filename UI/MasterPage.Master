@@ -20,7 +20,7 @@
                     <a href="Inicio.aspx" style="margin-left: 15px;">
                         <img src="<%= ResolveUrl("~/Admin/Content/Imágenes/logo.svg") %>" alt="Logo" style="height: 45px; width: auto;" />
                     </a>
-                    <div class="d-flex ms-auto" role="search" style="padding-right:25px">
+                    <div class="d-flex ms-auto" role="search" style="padding-right: 25px">
                         <asp:TextBox CssClass="form-control me-2" ID="txtBusqueda" runat="server" />
                         <asp:Button ID="RealizarBusquedaProducto" OnClick="RealizarBusquedaProducto_Click" Text="Buscar productos" CssClass="btn btn-outline-success" runat="server" />
                     </div>
@@ -41,6 +41,9 @@
                                     { %>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/Usuario/Logearse.aspx">Iniciar sesión</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Registro.aspx">Registrarse</a>
                                 </li>
                                 <%}
                                     else

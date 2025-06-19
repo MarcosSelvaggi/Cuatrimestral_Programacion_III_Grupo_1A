@@ -1,21 +1,23 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Contrasena.aspx.cs" Inherits="UI.Contrasena" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Usuario/UsuarioMaster.Master" AutoEventWireup="true" CodeBehind="Cambiarcontrasena.aspx.cs" Inherits="UI.Usuario.Cambiarcontrasena" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/Contacto/Styles/StyleContacto.css" rel="stylesheet" />
     <script src="/Usuario/Js/JsContraseña.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <div class="container2" id="divIngresarMail" runat="server">
-        <h1>Ingrese su mail</h1>
+
+    <div class="container2" id="divIngresarContraseña" runat="server">
+        <h1>La nueva contraseña</h1>
         <div>
-            <asp:TextBox ID="txtMail" class="input" TextMode="Email" placeholder="Ingrese su mail" runat="server" />
-            <small id="mailNoEncontrado" class="text-danger" runat="server"></small>
-            <asp:Button ID="btnRecuperar" class="btnEnviar" Text="Recuperar contraseña" OnClick="btnRecuperar_Click" runat="server" />
+            <asp:TextBox ID="txtContraseñaNueva" TextMode="Password" class="input" runat="server" />
+            <small id="SmallCotraseñaNueva" class="text-danger" runat="server"></small>
+            <asp:Button ID="btnEnviarCodigoMail" class="btnEnviar" Text="Cambiar contraseña" OnClick="btnEnviarCodigoMail_Click" runat="server" />
         </div>
         <div>
             <br />
-            <asp:Button ID="btnVolver" Text="Volver" CssClass="btn btn-outline-dark" OnClick="btnVolver_Click" runat="server" />
-            <p></p>
+            <asp:Button ID="btnCancelarCambioContrasena" Text="Volver" CssClass="btn btn-outline-dark" OnClick="btnVolver_Click" runat="server" />
+        </div>
+        <div>
         </div>
     </div>
 
@@ -29,21 +31,6 @@
         <div>
             <br />
             <asp:Button Text="Volver" CssClass="btn btn-outline-dark" OnClick="btnVolver_Click" runat="server" />
-        </div>
-        <div>
-        </div>
-    </div>
-
-    <div class="container2" id="divIngresarContraseña" runat="server">
-        <h1>La nueva contraseña</h1>
-        <div>
-            <asp:TextBox ID="txtContraseñaNueva" TextMode="Password" class="input" runat="server" />
-            <small id="SmallCotraseñaNueva" class="text-danger" runat="server"></small>
-            <asp:Button ID="btnCambiarContraseña" class="btnEnviar" Text="Confirmar" OnClick="btnCambiarContraseña_Click" runat="server" />
-        </div>
-        <div>
-            <br />
-            <asp:Button ID="btnCancelarCambioContrasena" Text="Volver" CssClass="btn btn-outline-dark" OnClick="btnVolver_Click" runat="server" />
         </div>
         <div>
         </div>
@@ -68,5 +55,4 @@
             </div>
         </div>
     </div>
-
 </asp:Content>

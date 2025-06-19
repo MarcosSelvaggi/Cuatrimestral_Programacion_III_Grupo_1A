@@ -34,6 +34,19 @@ namespace Services
                 "<p>Si tu no has sido quien solicito el código recomendamos cambiar la contraseña</p>";
         }
 
+        //Es lo mismo que el de arriba, cambia ligeramente el mensaje
+        public void correoCambioContrasena(string emailDestino, string codigoCambioContrasena)
+        {
+            email = new MailMessage();
+            email.From = new MailAddress("correoprogramaciontp@gmail.com", "Tienda Electronics Store");
+            email.To.Add(emailDestino);
+            email.Subject = "Código de recuperación";
+            email.IsBodyHtml = true;
+            email.Body = "<img src='https://i.ibb.co/F4xqv50Q/logo.png' alt='Logo' style='width:150px;' /><br/>" +
+                "<h2>Código para cambiar la contraseña</h2>" +
+                "<p>Tu código para cambiar la contraseña es el siguiente " + codigoCambioContrasena + "</p>";
+        }
+
         public void enviarEmail()
         {
             try

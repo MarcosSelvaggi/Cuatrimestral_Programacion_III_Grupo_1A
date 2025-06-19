@@ -23,10 +23,18 @@ namespace UI
             usuarioLogeado = usuarioManager.logearse(txtMail.Text, txtPass.Text);
 
             if (usuarioLogeado.Id != -1)
-            {   
-                Session.Add("Usuario", usuarioLogeado); 
-                
-                Response.Redirect("/Perfil.aspx", false);
+            {
+                Session.Add("Usuario", usuarioLogeado);
+
+                if (usuarioLogeado.Rol.Id == 1)
+                {
+                    Response.Redirect("/Admin/Inicio.aspx", false);
+                }
+                else
+                {
+                    Response.Redirect("/Perfil.aspx", false);
+                }
+                return;
             }
             else
             {
