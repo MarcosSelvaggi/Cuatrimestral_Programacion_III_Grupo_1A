@@ -10,10 +10,12 @@ namespace Negocio
         //Para el hash de contraseñas mirar este tutorial que explica rápido como funciona BCrypt 
         //https://www.youtube.com/watch?v=UNLl4kCpwGo
 
+        //Método para hashear las contraseñas en la BD, descomentar para usarlo 1 sola vez
+        //HashearContraseñas();
+
         public Usuarios logearse(string mail, string contraseña)
         {
-            //Método para hashear las contraseñas en la BD, descomentar para usarlo 1 sola vez
-            HashearContraseñas();
+
 
             Usuarios usuarioLogeado = new Usuarios()
             {
@@ -215,8 +217,9 @@ namespace Negocio
             }
         }
 
-        public void agregar(Usuarios usuarioNuevo)
+        public bool agregar(Usuarios usuarioNuevo)
         {
+        
             AccesoADatos conexion = new AccesoADatos();
             try
             {
@@ -236,15 +239,15 @@ namespace Negocio
                 conexion.agregarParametros("@Telefono", usuarioNuevo.Telefono);
                 conexion.ejecutarNonQuery();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                return false;
             }
             finally
             {
                 conexion.cerrarConexion();
             }
-
+            return true;
         }
 
         public void modificar(Usuarios usuarioModificado)
@@ -327,5 +330,65 @@ namespace Negocio
                 throw;
             }
         }
+        public bool DocumentoYaRegistrado(string documentoParaRegistrar)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+            int Registrado = 1;
+            try
+            {
+                string query = "Select count(*) as 'Registrado' from Usuarios where Documento = @Documento";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Documento", documentoParaRegistrar);
+                conexion.ejecutarQuery();
+
+                if (conexion.Lector.Read())
+                    Registrado = (int)conexion.Lector["Registrado"];
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+            if (Registrado == 1)
+                return true;
+            return false;
+
+        }
+
+        public bool MailYaRegistrado(string mailParaRegistrar)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+
+            int Registrado = 1;
+            try
+            {
+                string query = "Select count(*) as 'Registrado' from Usuarios where Email = @Email";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Email", mailParaRegistrar);
+                conexion.ejecutarQuery();
+
+
+                if (conexion.Lector.Read())
+                {
+                    Registrado = (int)conexion.Lector["Registrado"];
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+            if (Registrado == 1)
+                return true;
+            return false;
+
+        }
+
     }
 }

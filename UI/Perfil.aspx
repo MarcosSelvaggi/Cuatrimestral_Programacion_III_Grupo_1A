@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Perfil.aspx.cs" Inherits="UI.Perfil" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Perfil.aspx.cs" Inherits="UI.Perfil" Async="true" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
@@ -31,13 +31,24 @@
                         <label for="inputEmail4" class="form-label">Teléfono</label>
                         <asp:TextBox ID="txtTelefono" CssClass="form-control" runat="server" Enabled="false" />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" id="divTxtProvincia" runat="server">
                         <label for="inputCity" class="form-label">Provincia</label>
                         <asp:TextBox ID="txtProvincia" CssClass="form-control" runat="server" Enabled="false" />
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" id="divTxtLocalidad" runat="server">
                         <label for="inputCity" class="form-label">Localidad</label>
                         <asp:TextBox ID="txtLocalidad" CssClass="form-control" runat="server" Enabled="false" />
+                    </div>
+                    <div class="col-md-6" id="divDdlProvincia" visible="false" runat="server">
+                        <label class="form-label">Provincia</label>
+                        <asp:DropDownList ID="ddlProvincia" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlProvincia_SelectedIndexChanged" runat="server">
+                        </asp:DropDownList>
+                    </div>
+
+                    <div class="col-md-6" id="divDdlLocalidad" visible="false" runat="server">
+                        <label class="form-label">Localidad</label>
+                        <asp:DropDownList ID="ddlLocalidad" CssClass="form-select" runat="server">
+                        </asp:DropDownList>
                     </div>
                     <div class="col-md-6">
                         <label for="inputAddress" class="form-label">Dirección</label>
@@ -53,7 +64,6 @@
                     <asp:Button ID="BtnModificarDatos" OnClick="BtnModificarDatos_Click" Text="Modificar datos" CssClass="btn btn-outline-dark " runat="server" />
                     <a href="/Perfil.aspx" class="btn btn-outline-secondary">Cancelar</a>
                 </div>
-
 
             </div>
             <div class="col-3" id="menuOpciones">
