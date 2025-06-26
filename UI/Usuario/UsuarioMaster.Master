@@ -83,9 +83,7 @@
             </div>
         </nav>
 
-        <div class="container mt-4">
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
-        </div>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
 
     </form>
 </body>

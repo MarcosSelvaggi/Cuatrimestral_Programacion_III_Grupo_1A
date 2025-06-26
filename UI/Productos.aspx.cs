@@ -18,12 +18,9 @@ namespace UI
         public List<Marca> listaMarcas;
 
         public List<Producto> listaProductos;
-        //Lista auxiliar que sirve para la búsqueda de productos
-        public List<Producto> listaProductosBuscados; 
 
         public List<ImagenesProducto> listaImagenes;
-        public int CategoriaSeleccionada { get; set; } = -1;
-        public int MarcaSeleccionada { get; set; } = -1;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             CategoriaManager categoriaManager = new CategoriaManager();
@@ -33,39 +30,72 @@ namespace UI
             listaMarcas = marcaManager.listar();
 
             ProductoManager productoManager = new ProductoManager();
-            listaProductos = productoManager.ListarProductos();
 
             ImagenManager imagenManager = new ImagenManager();
             listaImagenes = imagenManager.listarImagenes();
 
+            //Se fija si el request es categoria y si no está vacío o con espacios
             if (!String.IsNullOrEmpty(Request.QueryString["categoria"]))
             {
-                if (Int32.TryParse(Request.QueryString["categoria"].ToString(), out int auxNumCategoria))
+                /*Deprecado 
+                Por si el usuario pasa una Id de categoria que no hay en la bd 
+                if (!listaCategorias.Exists(X => X.Id == auxNumCategoria))
                 {
-                    CategoriaSeleccionada = auxNumCategoria;
-                    //Por si el usuario pasa una Id de categoria mayor al que hay en la bd 
-                    if (CategoriaSeleccionada > listaCategorias.Count)
-                        CategoriaSeleccionada = 1;
+                    auxNumCategoria = listaCategorias[0].Id;
                 }
+                Deprecado */
+
+                listaProductos = productoManager.ListarProductosSegunCategoria(Request.QueryString["categoria"]);
+                Session.Remove("ListaProductos");
             }
+
+            //Se fija si el request es marca y si no está vacío o con espacios
             else if (!String.IsNullOrEmpty(Request.QueryString["marca"]))
             {
+                /* Deprecado
                 if (Int32.TryParse(Request.QueryString["marca"].ToString(), out int auxNumMarca))
                 {
-                    MarcaSeleccionada = auxNumMarca;
-                    if (MarcaSeleccionada > listaMarcas.Count)
-                        MarcaSeleccionada = 1;
+                    //Por si el usuario pasa una Id de marca que no hay en la bd
+                    if (!listaMarcas.Exists(X => X.Id == auxNumMarca))
+                    {
+                        auxNumMarca = listaMarcas[0].Id;
+                    }
+
+                    
                 }
+                Deprecado */
+                Session.Remove("ListaProductos");
+                listaProductos = productoManager.ListarProductosSegunMarca(Request.QueryString["marca"]);
             }
+            //Se fija si el request es una búsqueda y si no está vacia o con espacios
             else if (!String.IsNullOrEmpty(Request.QueryString["busqueda"]))
             {
-                MarcaSeleccionada = -1;
-                CategoriaSeleccionada = -1;
-                listaProductosBuscados = productoManager.buscarProductoPorNombre(Request.QueryString["busqueda"]);
+                listaProductos = productoManager.busquedaProductosActivosPorNombre(Request.QueryString["busqueda"]);
+                Session.Remove("ListaProductos");
+            }
+            //Se fija si el request es un filtro de precios y si no está vacío o con espacios
+            else if (!String.IsNullOrEmpty(Request.QueryString["precio"]))
+            {
+                List<Producto> listaProductosAux = new List<Producto>();
+                listaProductosAux = (List<Producto>)Session["ListaProductos"];
+
+                listaProductos = new List<Producto>();
+
+                decimal valorMinimo = Decimal.Parse(Session["valorMínimo"].ToString());
+                decimal valorMaximo = Decimal.Parse(Session["valorMáximo"].ToString());
+
+                foreach (var producto in listaProductosAux)
+                {
+                    if (producto.Precio > valorMinimo && producto.Precio < valorMaximo)
+                    {
+                        listaProductos.Add(producto);
+                    }
+                }
             }
             else
             {
-                CategoriaSeleccionada = 1;
+                listaProductos = productoManager.listar();
+                Session.Remove("ListaProductos");
             }
 
         }
@@ -81,6 +111,22 @@ namespace UI
             {
                 Response.Redirect("/Productos.aspx?busqueda=" + txtBusqueda.Text, false);
                 return;
+            }
+        }
+
+        protected void btnRangoPrecios_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtPrecioMinimo.Text) && !string.IsNullOrWhiteSpace(txtPrecioMaximo.Text))
+            {
+                Session.Add("valorMínimo", txtPrecioMinimo.Text);
+                Session.Add("valorMáximo", txtPrecioMaximo.Text);
+
+                //Si es la primera vez buscando precios, agrega la lista a session
+                if (Session["ListaProductos"] == null)
+                {
+                    Session.Add("ListaProductos", listaProductos);
+                }
+                Response.Redirect("/Productos.aspx?precio=1");
             }
         }
     }

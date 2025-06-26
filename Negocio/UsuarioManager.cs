@@ -15,8 +15,6 @@ namespace Negocio
 
         public Usuarios logearse(string mail, string contraseña)
         {
-
-
             Usuarios usuarioLogeado = new Usuarios()
             {
                 Id = -1

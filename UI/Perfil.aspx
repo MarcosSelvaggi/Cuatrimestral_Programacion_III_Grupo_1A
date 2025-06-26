@@ -2,6 +2,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
+    <style>
+        .linkPerfil{
+            text-decoration:none;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <br />
@@ -66,22 +71,25 @@
                 </div>
 
             </div>
-            <div class="col-3" id="menuOpciones">
+            <div class="col-3" id="menuOpciones" >
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item list-group-item-action"><a href="/Usuario/Carrito.aspx">Carrito</a>
+                    <li class="list-group-item list-group-item-action"><a href="/Usuario/Carrito.aspx" class="linkPerfil">Carrito</a>
                         <i class="em em-shopping_trolley" aria-role="presentation" aria-label="SHOPPING TROLLEY"></i>
                     </li>
-                    <li class="list-group-item list-group-item-action"><a href="/Usuario/Favoritos.aspx">Favoritos</a>
+                    <li class="list-group-item list-group-item-action"><a href="/Usuario/Favoritos.aspx" class="linkPerfil">Favoritos</a>
                         <i class="em em-star" aria-role="presentation" aria-label="WHITE MEDIUM STAR"></i>
                     </li>
-                    <li class="list-group-item list-group-item-action"><a href="/Productos.aspx">Revisar productos</a>
+                    <li class="list-group-item list-group-item-action"><a href="/Productos.aspx" class="linkPerfil">Revisar productos</a>
                         <i class="em em-video_game" aria-role="presentation" aria-label="VIDEO GAME"></i>
                     </li>
-                    <li class="list-group-item list-group-item-action"><a href="/Perfil.aspx?datos=1">Modificar datos</a>
+                    <li class="list-group-item list-group-item-action"><a href="/Perfil.aspx?datos=1" class="linkPerfil">Modificar datos</a>
                         <i class="em em-page_with_curl" aria-role="presentation" aria-label="PAGE WITH CURL"></i>
                     </li>
-                    <li class="list-group-item list-group-item-action"><a href="/Usuario/cambiarcontrasena.aspx">Cambiar contraseña</a>
+                    <li class="list-group-item list-group-item-action"><a href="/Usuario/cambiarcontrasena.aspx" class="linkPerfil">Cambiar contraseña</a>
                         <i class="em em-unlock" aria-role="presentation" aria-label="OPEN LOCK"></i>
+                    </li>
+                    <li class="list-group-item list-group-item-action"><a href="/Contacto/Contacto.aspx" class="linkPerfil">Ponerse en contacto</a>
+                        <i class="em em-email" aria-role="presentation" aria-label="ENVELOPE"></i>
                     </li>
                 </ul>
             </div>

@@ -18,7 +18,6 @@ namespace Negocio
             listaMarcas = marcaManager.listar();
         }
 
-
         public List<Producto> ListarProductos()
         {
             List<Producto> listaProductos = new List<Producto>();
@@ -80,6 +79,115 @@ namespace Negocio
 
             return listaProductos;
         }
+
+        public List<Producto> ListarProductosActivos()
+        {
+            List<Producto> listaProductos = new List<Producto>();
+            AccesoADatos conexion = new AccesoADatos();
+
+            try
+            {
+                string query = "Select IdProducto, Nombre, Precio, Activo, IdMarca, IdCategoria from Productos where Stock > 0 and Activo = 1";
+                conexion.setearConsulta(query);
+                conexion.ejecutarQuery();
+
+                listaProductos = leerDatosDesdeBD(conexion);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+
+            return listaProductos;
+        }
+
+
+        public List<Producto> ListarProductosSegunCategoria(string NombreCategoria)
+        {
+            List<Producto> listaProductos = new List<Producto>();
+            AccesoADatos conexion = new AccesoADatos();
+
+            try
+            {
+                string query = "Select IdProducto, Nombre, Precio, P.Activo, IdMarca, P.IdCategoria " +
+                               "from Productos P Inner join Categorias CA on P.IdCategoria = CA.IdCategoria " +
+                               "where Ca.Descripcion Like @Descripción and Stock > 0 and P.Activo = 1";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Descripción", "%" + NombreCategoria + "%");
+                conexion.ejecutarQuery();
+
+                listaProductos = leerDatosDesdeBD(conexion);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+
+            return listaProductos;
+        }
+        public List<Producto> ListarProductosSegunMarca(string NombreMarca)
+        {
+            List<Producto> listaProductos = new List<Producto>();
+            AccesoADatos conexion = new AccesoADatos();
+
+            try
+            {
+                string query = "Select IdProducto, Nombre, Precio, P.Activo, P.IdMarca, P.IdCategoria " +
+                               "from Productos P Inner join Marcas MA on P.IdMarca = MA.IdMarca " +
+                               "where MA.Descripcion Like @Descripción and Stock > 0 and P.Activo = 1";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Descripción", NombreMarca);
+                conexion.ejecutarQuery();
+
+                listaProductos = leerDatosDesdeBD(conexion);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+
+            return listaProductos;
+        }
+
+        public List<Producto> ListarProductosPorPrecioBuscado(string precioMinimo, string precioMaximo)
+        {
+            List<Producto> listaProductos = new List<Producto>();
+            AccesoADatos conexion = new AccesoADatos();
+
+            try
+            {
+                string query = "Select IdProducto, Nombre, Precio, Activo, IdMarca, IdCategoria from Productos where precio < @PrecioMinimo and precio > @PrecioMaximo and Stock > 0 and Activo = 1";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@PrecioMinimo", precioMinimo);
+                conexion.agregarParametros("@PrecioMaximo", precioMaximo);
+                conexion.ejecutarQuery();
+
+                listaProductos = leerDatosDesdeBD(conexion);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+
+            return listaProductos;
+        }
+
 
         public List<Producto> listar()
         {
@@ -146,7 +254,7 @@ namespace Negocio
 
             try
             {
-                string query = "Select IdProducto, Nombre, Precio, Activo, IdCategoria, IdMarca from Productos Where IdProducto = @id";
+                string query = "Select IdProducto, Nombre, Precio, Activo, IdCategoria, IdMarca, Stock from Productos Where IdProducto = @id";
                 conexion.setearConsulta(query);
                 conexion.agregarParametros("@id", id);
                 conexion.ejecutarQuery();
@@ -158,6 +266,7 @@ namespace Negocio
                     producto.Nombre = conexion.Lector["Nombre"].ToString();
                     producto.Precio = Decimal.Parse(conexion.Lector["Precio"].ToString());
                     producto.Activo = (bool)conexion.Lector["Activo"];
+                    producto.Stock = (int)conexion.Lector["Stock"];
 
                     int idCategoria = (byte)conexion.Lector["IdCategoria"];
                     producto.Categoria.Id = idCategoria;
@@ -196,14 +305,14 @@ namespace Negocio
             return producto;
         }
 
-        public List<Producto> buscarProductoPorNombre(string busqueda)
+        public List<Producto> busquedaProductosActivosPorNombre(string busqueda)
         {
             List<Producto> ListaProducto = new List<Producto>();
             AccesoADatos conexion = new AccesoADatos();
 
             try
             {
-                String Query = "Select IdProducto, Nombre, Precio, Activo, IdCategoria, IdMarca from Productos Where Nombre LIKE @Nombre";
+                String Query = "Select IdProducto, Nombre, Precio, Activo, IdCategoria, IdMarca from Productos Where Nombre LIKE @Nombre and stock > 0 and Activo = 1";
                 conexion.setearConsulta(Query);
                 conexion.agregarParametros("@Nombre", "%" + busqueda + "%");
                 conexion.ejecutarQuery();
