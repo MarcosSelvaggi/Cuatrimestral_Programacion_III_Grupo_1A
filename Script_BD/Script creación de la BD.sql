@@ -92,19 +92,24 @@ create table EstadoDeEnvios (
     Descripcion varchar(255) not null
 )
 
+create table EstadoDePagos (
+    IdEstadoPago tinyint primary key identity(1,1),
+    Descripcion varchar(50) not null unique
+)
+
 create table DetalleDePagos (
     IDPago int primary key identity(1,1),
     IDMetodoPago tinyint not null foreign key references MetodosDePago(IDMetodoPago),
     FechaDePago datetime not null,
-    EstadoPago varchar(50) not null,
     Detalles varchar(255) not null
-)
+) 
 
 create table Pedidos (
     IDPedido int primary key identity(1,1),
     IDCliente int not null foreign key references Usuarios(IdUsuario),
     IDEnvio int not null foreign key references EstadoDeEnvios(IDEnvio),
     IDEstadoPedido tinyint not null foreign key references EstadoDePedidos(IDEstadoPedido),
+	IdEstadoPago tinyint not null foreign key references EstadoDePagos(IdEstadoPago),
     FechaDePedido datetime not null default getdate(),
     PrecioTotal money null,
     IDPago int not null foreign key references DetalleDePagos(IDPago)

@@ -17,6 +17,7 @@ namespace UI.Admin
                 cargarPedidos();
                 cargarEstadosPedidos();
                 cargarEstadosEnvio();
+                cargarEstadosPago();
             }
         }
 
@@ -24,16 +25,13 @@ namespace UI.Admin
         {
             int idPedido = Convert.ToInt32(e.CommandArgument);
             var pedido = managerPedido.obtenerPedidoPorId(idPedido);
-
             if (pedido != null)
             {
                 if (e.CommandName == "Ver")
                 {
                     lblDetallePedido.Text = $"Pedido N° {pedido.IdPedido}<br/>Cliente: {pedido.Cliente}<br/>Fecha: {pedido.FechaPedido:dd/MM/yyyy}<br/>Estado: {pedido.EstadoPedido.Descripcion}<br/>Total: ${pedido.PrecioTotal:N2}";
                     lblDetallePago.Text = $"Método: {pedido.DetallePago.Metodo}<br/>" +
-                      $"Fecha: {pedido.DetallePago.Fecha:dd/MM/yyyy HH:mm}<br/>" +
-                      $"Estado: {pedido.DetallePago.Estado}<br/>" +
-                      $"Detalles: {pedido.DetallePago.Descripcion}";
+                      $"Fecha: {pedido.DetallePago.Fecha:dd/MM/yyyy HH:mm}<br/>";
 
                     var detalles = managerPedido.obtenerDetallesPorPedido(idPedido);
                     rptDetallePedido.DataSource = detalles;
@@ -47,6 +45,9 @@ namespace UI.Admin
                     lblIdPedidoEditar.Text = pedido.IdPedido.ToString();
                     ddlEstadoEnvio.SelectedValue = pedido.EstadoEnvio.IdEstadoEnvio.ToString();
                     ddlEstadoPedido.SelectedValue = pedido.EstadoPedido.IdEstadoPedido.ToString();
+                    ddlEstadoPago.SelectedValue = pedido.EstadoPago.IdEstadoPago.ToString();
+                    ddlMetodoPago.Items.Clear();
+                    ddlMetodoPago.Items.Add(new ListItem(pedido.DetallePago.Metodo, pedido.DetallePago.Metodo));
                     ScriptManager.RegisterStartupScript(this, GetType(), "abrirEditarModal", "var modal = new bootstrap.Modal(document.getElementById('modalEditarEstado')); modal.show();", true);
                 }
                 else if (e.CommandName == "Eliminar")
@@ -63,7 +64,8 @@ namespace UI.Admin
             int idPedido = Convert.ToInt32(lblIdPedidoEditar.Text);
             int nuevoEstadoPedido = Convert.ToInt32(ddlEstadoPedido.SelectedValue);
             int nuevoEstadoEnvio = Convert.ToInt32(ddlEstadoEnvio.SelectedValue);
-            managerPedido.modificarEstadoPedidoYEnvio(idPedido, nuevoEstadoPedido, nuevoEstadoEnvio);
+            int nuevoEstadoPago = Convert.ToInt32(ddlEstadoPago.SelectedValue);
+            managerPedido.modificarEstadoPedidoYEnvio(idPedido, nuevoEstadoPedido, nuevoEstadoEnvio, nuevoEstadoPago);
             cargarPedidos();
         }
 
@@ -97,6 +99,15 @@ namespace UI.Admin
             ddlEstadoEnvio.DataValueField = "IdEstadoEnvio";
             ddlEstadoEnvio.DataTextField = "Descripcion";
             ddlEstadoEnvio.DataBind();
+        }
+
+        private void cargarEstadosPago()
+        {
+            var estadosPago = managerPedido.listarEstadosPago();
+            ddlEstadoPago.DataSource = estadosPago;
+            ddlEstadoPago.DataValueField = "IdEstadoPago";
+            ddlEstadoPago.DataTextField = "Descripcion";
+            ddlEstadoPago.DataBind();
         }
     }
 }

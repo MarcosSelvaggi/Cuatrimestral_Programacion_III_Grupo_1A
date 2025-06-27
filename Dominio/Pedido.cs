@@ -16,6 +16,7 @@ namespace Dominio
         public List<Detalle> ListaDetalles { get; set; }
         public bool Activo { get; set; }
         public decimal PrecioTotal { get; set; }
+        public EstadoPago EstadoPago { get; set; }
 
         public Decimal Total 
         {

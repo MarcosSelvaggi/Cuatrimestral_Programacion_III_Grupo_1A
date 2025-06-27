@@ -62,6 +62,12 @@ insert into MetodosDePago values
 ('Efectivo'),
 ('Transferencia'); 
 
+insert into EstadoDePagos (Descripcion) values
+('Aprobado'),
+('Pendiente'),
+('Fallido'),
+('Reembolsado');
+
 insert into EstadoDeEnvios (FechaDeEnvio, Descripcion) values 
 (getdate(), 'No enviado'),
 (getdate(), 'En preparación'), 
@@ -71,19 +77,19 @@ insert into EstadoDeEnvios (FechaDeEnvio, Descripcion) values
 (getdate(), 'Fallido'),
 (getdate(), 'Devuelto');
 
-insert into DetalleDePagos (IDMetodoPago, FechaDePago, EstadoPago, Detalles) values 
-(1, '2025-05-01', 'Aprobado', 'Pagado'),
-(3, '2025-05-03', 'Pendiente', 'En proceso'),
-(2, '2025-04-28', 'Aprobado', 'Pagado'),
-(4, '2025-04-30', 'Fallido', 'Error de transacción'),
-(2, '2025-05-05', 'Pendiente', 'Reembolsado');
+insert into DetalleDePagos (IDMetodoPago, FechaDePago, Detalles) values
+(1, '2025-05-01', 'Pagado'),
+(3, '2025-05-03', 'En proceso'),
+(2, '2025-04-28', 'Pagado'),
+(4, '2025-04-30', 'Error de transacción'),
+(2, '2025-05-05', 'Reembolsado');
 
-insert into Pedidos (IDCliente, IDEnvio, IDEstadoPedido, FechaDePedido, PrecioTotal, IDPago) values
-(1, 4, 2, '2025-05-01', 28000 + 2*33000, 1),
-(2, 2, 2, '2025-05-03', 72000, 2),
-(3, 3, 3, '2025-04-28', 180000, 3),
-(4, 1, 1, '2025-04-30', 42000, 4),
-(5, 3, 3, '2025-05-05', 190000, 5);  
+insert into Pedidos (IDCliente, IDEnvio, IDEstadoPedido, IdEstadoPago, FechaDePedido, PrecioTotal, IDPago) values
+(1, 5, 4, 1, '2025-05-01', 28000 + 2*33000, 1),
+(2, 3, 3, 2, '2025-05-03', 72000, 2),
+(3, 5, 4, 1, '2025-04-28', 180000, 3),
+(4, 1, 1, 3, '2025-04-30', 42000, 4),
+(5, 7, 5, 4, '2025-05-05', 190000, 5);
 
 insert into DetalleDePedidos (IDPedido, IDProducto, Cantidad, PrecioUnitario) values 
 (1, 1, 1, 28000),

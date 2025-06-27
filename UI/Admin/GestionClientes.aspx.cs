@@ -80,10 +80,10 @@ namespace UI.Admin
             }
         }
 
-        protected void btnAbrirAgregar_Click(object sender, EventArgs e)
-        {
-            ScriptManager.RegisterStartupScript(this, GetType(), "abrirAgregarModal", "var modal = new bootstrap.Modal(document.getElementById('modalAgregar')); modal.show();", true);
-        }
+        //protected void btnAbrirAgregar_Click(object sender, EventArgs e)
+        //{
+        //    ScriptManager.RegisterStartupScript(this, GetType(), "abrirAgregarModal", "var modal = new bootstrap.Modal(document.getElementById('modalAgregar')); modal.show();", true);
+        //}
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {

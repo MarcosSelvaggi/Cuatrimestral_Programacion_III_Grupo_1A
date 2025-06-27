@@ -83,6 +83,7 @@
     <Compile Include="DetallePago.cs" />
     <Compile Include="DetallePedido.cs" />
     <Compile Include="EstadoEnvio.cs" />
+    <Compile Include="EstadoPago.cs" />
     <Compile Include="EstadoPedido.cs" />
     <Compile Include="Favorito.cs" />
     <Compile Include="ImagenesProducto.cs" />

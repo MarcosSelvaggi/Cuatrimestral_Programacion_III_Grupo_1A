@@ -7,9 +7,9 @@
     <div class="container mt-4">
         <h2><i class="bi bi-people-fill"></i>Gestión de Clientes</h2>
 
-        <div class="mb-3">
+        <%--<div class="mb-3">
             <asp:Button ID="btnAbrirAgregar" runat="server" Text="Agregar Cliente" CssClass="btn btn-outline-primary" OnClick="btnAbrirAgregar_Click" />
-        </div>
+        </div>--%>
 
         <table class="table table-striped">
             <thead>

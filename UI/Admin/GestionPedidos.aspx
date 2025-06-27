@@ -110,6 +110,14 @@
                         <label>Estado de Envío:</label>
                         <asp:DropDownList ID="ddlEstadoEnvio" runat="server" CssClass="form-select"></asp:DropDownList>
                     </div>
+                    <div class="mb-3">
+                        <label>Método de Pago:</label>
+                        <asp:DropDownList ID="ddlMetodoPago" runat="server" CssClass="form-select" Enabled="false"></asp:DropDownList>
+                    </div>
+                    <div class="mb-3">
+                        <label>Estado de Pago:</label>
+                        <asp:DropDownList ID="ddlEstadoPago" runat="server" CssClass="form-select"></asp:DropDownList>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <asp:Button ID="btnGuardarEstado" runat="server" Text="Guardar" CssClass="btn btn-success" OnClick="btnGuardarEstado_Click" />
