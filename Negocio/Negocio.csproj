@@ -84,6 +84,7 @@
     <Compile Include="FavoritoManager.cs" />
     <Compile Include="ImagenManager.cs" />
     <Compile Include="MarcaManager.cs" />
+    <Compile Include="MetodoPagoManager.cs" />
     <Compile Include="PedidoManager.cs" />
     <Compile Include="ProductoManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

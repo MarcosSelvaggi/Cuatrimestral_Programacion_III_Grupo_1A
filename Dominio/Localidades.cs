@@ -17,6 +17,5 @@ namespace Dominio
     {
         public List<Localidades> Localidades { get; set; }
     }
-
 }
 

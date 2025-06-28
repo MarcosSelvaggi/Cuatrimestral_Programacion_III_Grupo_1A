@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Usuario/UsuarioMaster.Master" AutoEventWireup="true" CodeBehind="Checkout.aspx.cs" Inherits="UI.Usuario.Checkout" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -54,8 +55,12 @@
                         <strong>$<%= total.ToString("N2") %></strong>
                     </li>
                 </ul>
+                <div class="mb-3">
+                    <label class="form-label">Método de Pago</label>
+                    <asp:DropDownList ID="ddlMetodoPago" runat="server" CssClass="form-select"></asp:DropDownList>
+                </div>
 
-                <button type="button" class="btn btn-dark w-100" onclick="confirmarCompra()">Confirmar Compra</button>
+                <asp:Button ID="btnConfirmarCompra" runat="server" Text="Confirmar Compra" CssClass="btn btn-dark w-100" OnClick="btnConfirmarCompra_Click" />
             </div>
         </div>
     </div>
@@ -67,7 +72,10 @@
                     <h5 class="modal-title">Compra realizada</h5>
                 </div>
                 <div class="modal-body">
-                    ¡Compra realizada con total éxito!
+                    ¡Compra realizada con total éxito! Recibirás un email con la factura.
+                </div>
+                <div class="modal-footer">
+                    <a href="/Inicio.aspx" class="btn btn-dark">Seguir comprando</a>
                 </div>
             </div>
         </div>
@@ -77,10 +85,6 @@
         function confirmarCompra() {
             var modal = new bootstrap.Modal(document.getElementById('compraExitosa'));
             modal.show();
-
-            setTimeout(function () {
-                window.location.href = "/Inicio.aspx";
-            }, 2000);
         }
     </script>
 </asp:Content>

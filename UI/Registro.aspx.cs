@@ -123,8 +123,10 @@ namespace UI
                     return;
                 }
 
-                if (usuarioManager.agregar(NuevoUsuario))
+                int resultado = usuarioManager.agregar(NuevoUsuario);
+                if (resultado != 0)
                 {
+                    NuevoUsuario.Id = resultado;
                     Session.Add("Usuario", NuevoUsuario);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "usuarioRegistradoModal",
                     "var modal = new bootstrap.Modal(document.getElementById('usuarioRegistradoModal')); modal.show();" +

@@ -8,6 +8,7 @@ namespace Dominio
         public string Cliente { get; set; }
         public int IdPedido { get; set; }
         public int IdUsuario { get; set; }
+        public Usuarios Usuario { get; set; }
         public EstadoPedido EstadoPedido { get; set; }
         public MetodoPago MetodoPago { get; set; }
         public EstadoEnvio EstadoEnvio{ get; set; }
@@ -35,6 +36,8 @@ namespace Dominio
         {
             EstadoPedido = new EstadoPedido();
             MetodoPago = new MetodoPago();
+            DetallePago = new DetallePago();
+            EstadoEnvio = new EstadoEnvio();
             ListaDetalles = new List<Detalle>();
         }
     }

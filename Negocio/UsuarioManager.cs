@@ -215,13 +215,15 @@ namespace Negocio
             }
         }
 
-        public bool agregar(Usuarios usuarioNuevo)
+        public int agregar(Usuarios usuarioNuevo)
         {
-        
+            int ultimoIngresado = 0;
             AccesoADatos conexion = new AccesoADatos();
+
             try
             {
-                string query = "Insert Into Usuarios (Email, Activo, IdRol, Contraseña, Documento, Nombre, Apellido, Provincia, Localidad, CodigoPostal, Direccion, Telefono) Values (@Email, @Activo, 2, @Contraseña, @Documento, @Nombre, @Apellido, @Provincia, @Localidad, @CodigoPostal, @Direccion, @Telefono)";
+                string query = @"Insert Into Usuarios (Email, Activo, IdRol, Contraseña, Documento, Nombre, Apellido, Provincia, Localidad, CodigoPostal, Direccion, Telefono) Values (@Email, @Activo, 2, @Contraseña, @Documento, @Nombre, @Apellido, @Provincia, @Localidad, @CodigoPostal, @Direccion, @Telefono) 
+                               Select Scope_Identity() as 'UltimoInsertado'";
                 conexion.setearConsulta(query);
                 conexion.limpiarParametros();
                 conexion.agregarParametros("@Email", usuarioNuevo.Email);
@@ -235,17 +237,20 @@ namespace Negocio
                 conexion.agregarParametros("@CodigoPostal", usuarioNuevo.CodigoPostal);
                 conexion.agregarParametros("@Direccion", usuarioNuevo.Direccion);
                 conexion.agregarParametros("@Telefono", usuarioNuevo.Telefono);
-                conexion.ejecutarNonQuery();
+                conexion.ejecutarQuery();
+
+                conexion.Lector.Read();
+                ultimoIngresado = Int32.Parse(conexion.Lector["UltimoInsertado"].ToString());
             }
             catch (Exception)
             {
-                return false;
+                return ultimoIngresado;
             }
             finally
             {
                 conexion.cerrarConexion();
             }
-            return true;
+            return ultimoIngresado;
         }
 
         public void modificar(Usuarios usuarioModificado)

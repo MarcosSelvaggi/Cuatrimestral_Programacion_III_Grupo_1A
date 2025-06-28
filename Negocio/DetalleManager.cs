@@ -155,5 +155,68 @@ namespace Negocio
                 return 0;
             }
         }
+
+        public void limpiarCarrito(int idCarrito)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+
+            try
+            {
+                string query = "Delete from Detalles where IdCarrito = @IdCarrito";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@IdCarrito", idCarrito);
+                conexion.ejecutarNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+
+        public List<Detalle> listarDetallesPedido(int idPedido)
+        {
+            List<Detalle> listaDetalles = new List<Detalle>();
+            AccesoADatos conexion = new AccesoADatos();
+
+            try
+            {
+                string query = @"Select DP.IDPedido, DP.IDProducto, DP.Cantidad, DP.PrecioUnitario, P.Nombre from DetalleDePedidos DP
+                            inner join Productos P on DP.IDProducto = P.IDProducto where DP.IDPedido = @IdPedido";
+
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@IdPedido", idPedido);
+                conexion.ejecutarQuery();
+
+                while (conexion.Lector.Read())
+                {
+                    Detalle aux = new Detalle();
+
+                    aux.Id = (int)conexion.Lector["IDPedido"];
+                    aux.IdProducto = (int)conexion.Lector["IDProducto"];
+                    aux.Cantidad = (int)conexion.Lector["Cantidad"];
+                    aux.PrecioUnitario = (decimal)conexion.Lector["PrecioUnitario"];
+
+                    Producto producto = new Producto();
+                    producto.Nombre = conexion.Lector["Nombre"].ToString();
+
+                    aux.Producto = producto;
+
+                    listaDetalles.Add(aux);
+                }
+                return listaDetalles;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
     }
 }

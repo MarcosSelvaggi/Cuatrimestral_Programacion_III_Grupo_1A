@@ -129,7 +129,7 @@ namespace Negocio
         {
             AccesoADatos conexion = new AccesoADatos();
             try
-            { 
+            {
                 string queryPedido = "Update Pedidos Set IDEstadoPedido = 5, IDEnvio = 1, IdEstadoPago = 3 Where IDPedido = @IdPedido";
                 conexion.setearConsulta(queryPedido);
                 conexion.agregarParametros("@IdPedido", idPedido);
@@ -355,5 +355,190 @@ namespace Negocio
             }
         }
 
+        public int crearPedidoCompleto(Pedido pedido)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+
+            try
+            {
+                string query1 = @"Insert into DetalleDePagos (IDMetodoPago, FechaDePago, Detalles)
+                             values (@idMetodoPago, @fechaPago, @detalles);
+                             Select Scope_Identity()";
+
+                conexion.setearConsulta(query1);
+                conexion.agregarParametros("@idMetodoPago", pedido.MetodoPago.Id);
+                conexion.agregarParametros("@fechaPago", pedido.DetallePago.Fecha);
+                conexion.agregarParametros("@detalles", pedido.DetallePago.Descripcion);
+                int idPago = Convert.ToInt32(conexion.EjecutarScalar());
+
+                string query2 = @"Insert into Pedidos (IDCliente, IDEnvio, IDEstadoPedido, IdEstadoPago, FechaDePedido, PrecioTotal, IDPago)
+                             values (@idCliente, @idEnvio, @idEstadoPedido, @idEstadoPago, @fechaPedido, @precioTotal, @idPago);
+                             Select Scope_Identity()";
+
+                conexion.setearConsulta(query2);
+                conexion.limpiarParametros();
+                conexion.agregarParametros("@idCliente", pedido.IdUsuario);
+                conexion.agregarParametros("@idEnvio", pedido.EstadoEnvio.IdEstadoEnvio);
+                conexion.agregarParametros("@idEstadoPedido", pedido.EstadoPedido.IdEstadoPedido);
+                conexion.agregarParametros("@idEstadoPago", pedido.EstadoPago.IdEstadoPago);
+                conexion.agregarParametros("@fechaPedido", pedido.FechaPedido);
+                conexion.agregarParametros("@precioTotal", pedido.Total);
+                conexion.agregarParametros("@idPago", idPago);
+                int idPedido = Convert.ToInt32(conexion.EjecutarScalar());
+
+                foreach (var detalle in pedido.ListaDetalles)
+                {
+                    string query3 = @"Insert into DetalleDePedidos (IDPedido, IDProducto, Cantidad, PrecioUnitario, Subtotal, Impuestos)
+                                    values (@idPedido, @idProducto, @cantidad, @precioUnitario, @subtotal, 21)";
+
+                    conexion.setearConsulta(query3);
+                    conexion.limpiarParametros();
+                    conexion.agregarParametros("@idPedido", idPedido);
+                    conexion.agregarParametros("@idProducto", detalle.Producto.Id);
+                    conexion.agregarParametros("@cantidad", detalle.Cantidad);
+                    conexion.agregarParametros("@precioUnitario", detalle.PrecioUnitario);
+                    conexion.agregarParametros("@subtotal", detalle.Subtotal);
+                    conexion.ejecutarNonQuery();
+                }
+
+                return idPedido;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+
+        public List<Pedido> listarPedidosPorUsuario(int idUsuario)
+        {
+            List<Pedido> listaPedidos = new List<Pedido>();
+            AccesoADatos conexion = new AccesoADatos();
+
+            try
+            {
+                string query = @"Select P.IDPedido, P.FechaDePedido, EP.Descripcion as EstadoPedido, EPA.Descripcion as EstadoPago, P.PrecioTotal from Pedidos P
+                            inner join EstadoDePedidos EP on P.IDEstadoPedido = EP.IDEstadoPedido 
+                            inner join EstadoDePagos EPA on P.IDEstadoPago = EPA.IdEstadoPago
+                            where P.IDCliente = @idUsuario order by P.FechaDePedido DESC";
+
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@idUsuario", idUsuario);
+                conexion.ejecutarQuery();
+
+                while (conexion.Lector.Read())
+                {
+                    Pedido aux = new Pedido();
+                    aux.IdPedido = (int)conexion.Lector["IDPedido"];
+                    aux.FechaPedido = (DateTime)conexion.Lector["FechaDePedido"];
+
+                    aux.EstadoPedido = new EstadoPedido();
+                    aux.EstadoPedido.Descripcion = conexion.Lector["EstadoPedido"].ToString();
+
+                    aux.EstadoPago = new EstadoPago();
+                    aux.EstadoPago.Descripcion = conexion.Lector["EstadoPago"].ToString();
+
+                    aux.PrecioTotal = (decimal)conexion.Lector["PrecioTotal"];
+
+                    listaPedidos.Add(aux);
+                }
+
+                return listaPedidos;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+
+        public Pedido obtenerPedidoFactura(int idPedido)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+
+            try
+            {
+                string query = @"Select P.IDPedido, U.IdUsuario, U.Nombre, U.Apellido, U.Documento, U.Direccion, U.Localidad, U.Provincia, U.CodigoPostal,
+                            U.Telefono, P.FechaDePedido, E.Descripcion as Estado, P.PrecioTotal, P.IDEnvio, EE.Descripcion as EstadoEnvioDescripcion, 
+                            P.IDEstadoPedido, M.Descripcion as MetodoPago, DP.FechaDePago, DP.Detalles, EP.Descripcion as EstadoPagoDescripcion
+                            From Pedidos P
+                            Inner Join Usuarios U on P.IDCliente = U.IdUsuario
+                            Inner Join EstadoDePedidos E on P.IDEstadoPedido = E.IDEstadoPedido
+                            Inner Join EstadoDeEnvios EE on P.IDEnvio = EE.IDEnvio
+                            Inner Join DetalleDePagos DP on P.IDPago = DP.IDPago
+                            Inner Join MetodosDePago M on DP.IDMetodoPago = M.IDMetodoPago
+                            Inner Join EstadoDePagos EP on P.IdEstadoPago = EP.IdEstadoPago
+                            Where P.IDPedido = @Id";
+
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Id", idPedido);
+                conexion.ejecutarQuery();
+
+                if (conexion.Lector.Read())
+                {
+                    Pedido aux = new Pedido();
+
+                    aux.IdPedido = (int)conexion.Lector["IDPedido"];
+                    aux.Cliente = conexion.Lector["Nombre"].ToString() + " " + conexion.Lector["Apellido"].ToString();
+                    aux.FechaPedido = (DateTime)conexion.Lector["FechaDePedido"];
+
+                    aux.EstadoPedido = new EstadoPedido()
+                    {
+                        IdEstadoPedido = (byte)conexion.Lector["IDEstadoPedido"],
+                        Descripcion = conexion.Lector["Estado"].ToString()
+                    };
+
+                    aux.EstadoEnvio = new EstadoEnvio()
+                    {
+                        IdEstadoEnvio = (int)conexion.Lector["IDEnvio"],
+                        Descripcion = conexion.Lector["EstadoEnvioDescripcion"].ToString()
+                    };
+
+                    aux.PrecioTotal = (decimal)conexion.Lector["PrecioTotal"];
+
+                    aux.DetallePago = new DetallePago()
+                    {
+                        Metodo = conexion.Lector["MetodoPago"].ToString(),
+                        Fecha = (DateTime)conexion.Lector["FechaDePago"],
+                        Estado = conexion.Lector["EstadoPagoDescripcion"].ToString(),
+                        Descripcion = conexion.Lector["Detalles"].ToString()
+                    };
+
+                    aux.Usuario = new Usuarios()
+                    {
+                        Id = (int)conexion.Lector["IdUsuario"],
+                        Nombre = conexion.Lector["Nombre"].ToString(),
+                        Apellido = conexion.Lector["Apellido"].ToString(),
+                        Documento = conexion.Lector["Documento"].ToString(),
+                        Direccion = conexion.Lector["Direccion"].ToString(),
+                        Localidad = conexion.Lector["Localidad"].ToString(),
+                        Provincia = conexion.Lector["Provincia"].ToString(),
+                        CodigoPostal = conexion.Lector["CodigoPostal"].ToString(),
+                        Telefono = conexion.Lector["Telefono"].ToString()
+                    };
+
+                    DetalleManager detalleManager = new DetalleManager();
+                    aux.ListaDetalles = detalleManager.listarDetallesPedido(idPedido);
+
+                    return aux;
+                }
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
     }
 }

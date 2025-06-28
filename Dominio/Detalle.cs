@@ -3,9 +3,6 @@
     public class Detalle
     {
         public int Id { get; set; }
-        /// <summary>
-        /// Eliminar, revisar que no pinche
-        /// </summary>
         public int IdProducto { get; set; }
         public int Cantidad { get; set; }
         public decimal PrecioUnitario { get; set; }
