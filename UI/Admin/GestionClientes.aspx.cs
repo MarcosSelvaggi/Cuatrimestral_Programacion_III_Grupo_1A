@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -98,6 +99,7 @@ namespace UI.Admin
             string telefono = txtNuevoTelefono.Text.Trim();
             bool activo = Convert.ToBoolean(ddlNuevoActivo.SelectedValue);
 
+
             if (!string.IsNullOrEmpty(nombre) && !string.IsNullOrEmpty(apellido) && !string.IsNullOrEmpty(email))
             {
                 Usuarios nuevo = new Usuarios
@@ -113,6 +115,13 @@ namespace UI.Admin
                     Telefono = telefono,
                     Activo = activo
                 };
+
+                bool valido = validarCliente(nuevo);
+                if (!valido)
+                {
+                    ScriptManager.RegisterStartupScript(this, GetType(), "abrirAgregarModal", $"var modal = new bootstrap.Modal(document.getElementById('modalAgregar')); modal.show();", true);
+                    return;
+                }
 
                 managerCliente.agregar(nuevo);
                 limpiarCamposAgregar();
@@ -142,6 +151,13 @@ namespace UI.Admin
                 Telefono = txtTelefono.Text.Trim(),
                 Activo = Convert.ToBoolean(ddlActivo.SelectedValue)
             };
+
+            bool valido = validarCliente(clienteEditado);
+            if (!valido)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "abrirModal", $"var modal = new bootstrap.Modal(document.getElementById('modalCliente')); modal.show();", true);
+                return;
+            }
 
             managerCliente.modificar(clienteEditado);
             cargarClientes();
@@ -209,5 +225,44 @@ namespace UI.Admin
 
             btnGuardar.Visible = editar;
         }
+
+        private bool validarCliente(Usuarios cliente)
+        {
+            if (!Regex.IsMatch(cliente.Nombre, @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]+$") || !Regex.IsMatch(cliente.Apellido, @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]+$") || !Regex.IsMatch(cliente.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                return false;
+
+            if (string.IsNullOrWhiteSpace(cliente.Nombre) || cliente.Nombre.Length > 30)
+                return false;
+
+            if (string.IsNullOrWhiteSpace(cliente.Apellido) || cliente.Apellido.Length > 20)
+                return false;
+
+            if (string.IsNullOrWhiteSpace(cliente.Email) || cliente.Email.Length > 100)
+                return false;
+
+            if (!cliente.Email.Contains("@"))
+                return false;
+
+            if (!string.IsNullOrWhiteSpace(cliente.Documento) && cliente.Documento.Length > 20 || !Regex.IsMatch(cliente.Documento, @"^\d+$"))
+                return false;
+
+            if (!string.IsNullOrWhiteSpace(cliente.Provincia) && cliente.Provincia.Length > 50 || !Regex.IsMatch(cliente.Provincia, @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]+$"))
+                return false;
+
+            if (!string.IsNullOrWhiteSpace(cliente.Localidad) && cliente.Localidad.Length > 50 || !Regex.IsMatch(cliente.Localidad, @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]+$"))
+                return false;
+
+            if (!string.IsNullOrWhiteSpace(cliente.CodigoPostal) && cliente.CodigoPostal.Length > 10 || !Regex.IsMatch(cliente.CodigoPostal, @"^\d+$"))
+                return false;
+
+            if (!string.IsNullOrWhiteSpace(cliente.Direccion) && cliente.Direccion.Length > 100)
+                return false;
+
+            if (!string.IsNullOrWhiteSpace(cliente.Telefono) && cliente.Telefono.Length > 20 || !Regex.IsMatch(cliente.Telefono, @"^\d+$"))
+                return false;
+
+            return true;
+        }
+
     }
 }

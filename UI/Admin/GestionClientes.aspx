@@ -60,31 +60,37 @@
                         <div class="col">
                             <label>Nombre:</label>
                             <asp:Label ID="lblNombre" runat="server" CssClass="form-control"></asp:Label>
-                            <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                            <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" Visible="false" MaxLength="30" onkeyup="validarLongitudYCaracteresEspeciales(this, 30, 'nombreEditarMsj')"></asp:TextBox>
+                            <span id="nombreEditarMsj" class="form-text text-muted"></span>
                         </div>
                         <div class="col">
                             <label>Apellido:</label>
                             <asp:Label ID="lblApellido" runat="server" CssClass="form-control"></asp:Label>
-                            <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                            <asp:TextBox ID="txtApellido" runat="server" CssClass="form-control" Visible="false" MaxLength="20" onkeyup="validarLongitudYCaracteresEspeciales(this, 20, 'apellidoEditarMsj')"></asp:TextBox>
+                            <span id="apellidoEditarMsj" class="form-text text-muted"></span>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label>Email:</label>
                         <asp:Label ID="lblEmail" runat="server" CssClass="form-control"></asp:Label>
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Visible="false" MaxLength="40" onkeyup="validarLongitud(this, 40, 'emailEditarMsj')"></asp:TextBox>
+                        <span id="emailEditarMsj" class="form-text text-muted"></span>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col">
                             <label>Provincia:</label>
                             <asp:Label ID="lblProvincia" runat="server" CssClass="form-control"></asp:Label>
-                            <asp:TextBox ID="txtProvincia" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                            <asp:TextBox ID="txtProvincia" runat="server" CssClass="form-control" Visible="false" MaxLength="30"
+                                onkeyup="validarLongitudYCaracteresEspeciales(this, 30,'provinciaEditarMsj')"></asp:TextBox>
+                            <span id="provinciaEditarMsj" class="form-text text-muted"></span>
                         </div>
                         <div class="col">
                             <label>Localidad:</label>
                             <asp:Label ID="lblLocalidad" runat="server" CssClass="form-control"></asp:Label>
-                            <asp:TextBox ID="txtLocalidad" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                            <asp:TextBox ID="txtLocalidad" runat="server" CssClass="form-control" Visible="false" MaxLength="30" onkeyup="validarLongitudYCaracteresEspeciales(this, 30, 'localidadEditarMsj')"></asp:TextBox>
+                            <span id="localidadEditarMsj" class="form-text text-muted"></span>
                         </div>
                     </div>
 
@@ -92,12 +98,17 @@
                         <div class="col">
                             <label>Código Postal:</label>
                             <asp:Label ID="lblCodigoPostal" runat="server" CssClass="form-control"></asp:Label>
-                            <asp:TextBox ID="txtCodigoPostal" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                            <asp:TextBox ID="txtCodigoPostal" runat="server" CssClass="form-control" Visible="false" MaxLength="10"
+                                onkeypress="return soloNumeros(event)"
+                                onkeyup="validarLongitud(this, 10, 'cpEditarMsj')"></asp:TextBox>
+                            <span id="cpEditarMsj" class="form-text text-muted"></span>
                         </div>
                         <div class="col">
                             <label>Dirección:</label>
                             <asp:Label ID="lblDireccion" runat="server" CssClass="form-control"></asp:Label>
-                            <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                            <asp:TextBox ID="txtDireccion" runat="server" CssClass="form-control" Visible="false" MaxLength="50"
+                                onkeyup="validarLongitud(this, 50, 'direccionEditarMsj')"></asp:TextBox>
+                            <span id="direccionEditarMsj" class="form-text text-muted"></span>
                         </div>
                     </div>
 
@@ -105,12 +116,18 @@
                         <div class="col">
                             <label>Teléfono:</label>
                             <asp:Label ID="lblTelefono" runat="server" CssClass="form-control"></asp:Label>
-                            <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                            <asp:TextBox ID="txtTelefono" runat="server" CssClass="form-control" Visible="false" MaxLength="20"
+                                onkeypress="return soloNumeros(event)"
+                                onkeyup="validarLongitud(this, 20, 'telefonoEditarMsj')"></asp:TextBox>
+                            <span id="telefonoEditarMsj" class="form-text text-muted"></span>
                         </div>
                         <div class="col">
                             <label>Documento:</label>
                             <asp:Label ID="lblDocumento" runat="server" CssClass="form-control"></asp:Label>
-                            <asp:TextBox ID="txtDocumento" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                            <asp:TextBox ID="txtDocumento" runat="server" CssClass="form-control" Visible="false" MaxLength="20"
+                                onkeypress="return soloNumeros(event)"
+                                onkeyup="validarLongitud(this, 20, 'documentoEditarMsj')"></asp:TextBox>
+                            <span id="documentoEditarMsj" class="form-text text-muted"></span>
                         </div>
                     </div>
 
@@ -159,45 +176,62 @@
                     <div class="row mb-3">
                         <div class="col">
                             <label>Nombre:</label>
-                            <asp:TextBox ID="txtNuevoNombre" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevoNombre" runat="server" CssClass="form-control" MaxLength="30" onkeyup="validarLongitud(this, 50, 'nombreAgregarMsj')"></asp:TextBox>
+                            <span id="nombreAgregarMsj" class="form-text text-muted"></span>
                         </div>
                         <div class="col">
                             <label>Apellido:</label>
-                            <asp:TextBox ID="txtNuevoApellido" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevoApellido" runat="server" CssClass="form-control" MaxLength="50" onkeyup="validarLongitud(this, 30, 'apellidoAgregarMsj')"></asp:TextBox>
+                            <span id="apellidoAgregarMsj" class="form-text text-muted"></span>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label>Email:</label>
-                        <asp:TextBox ID="txtNuevoEmail" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtNuevoEmail" runat="server" CssClass="form-control" MaxLength="100" onkeyup="validarLongitud(this, 100, 'emailAgregarMsj')"></asp:TextBox>
+                        <span id="emailAgregarMsj" class="form-text text-muted"></span>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label>Provincia:</label>
-                            <asp:TextBox ID="txtNuevaProvincia" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevaProvincia" runat="server" CssClass="form-control" MaxLength="50"
+                                onkeyup="validarLongitud(this, 50, 'provinciaAgregarMsj')"></asp:TextBox>
+                            <span id="provinciaAgregarMsj" class="form-text text-muted"></span>
                         </div>
                         <div class="col">
                             <label>Localidad:</label>
-                            <asp:TextBox ID="txtNuevaLocalidad" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevaLocalidad" runat="server" CssClass="form-control" MaxLength="50" onkeyup="validarLongitud(this, 50, 'localidadAgregarMsj')"></asp:TextBox>
+                            <span id="localidadAgregarMsj" class="form-text text-muted"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label>Código Postal:</label>
-                            <asp:TextBox ID="txtNuevoCodigoPostal" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevoCodigoPostal" runat="server" CssClass="form-control" MaxLength="10"
+                                onkeypress="return soloNumeros(event)"
+                                onkeyup="validarLongitud(this, 10, 'cpAgregarMsj')"></asp:TextBox>
+                            <span id="cpAgregarMsj" class="form-text text-muted"></span>
                         </div>
                         <div class="col">
                             <label>Dirección:</label>
-                            <asp:TextBox ID="txtNuevaDireccion" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevaDireccion" runat="server" CssClass="form-control" MaxLength="100"
+                                onkeyup="validarLongitud(this, 100, 'direccionAgregarMsj')"></asp:TextBox>
+                            <span id="direccionAgregarMsj" class="form-text text-muted"></span>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col">
                             <label>Teléfono:</label>
-                            <asp:TextBox ID="txtNuevoTelefono" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevoTelefono" runat="server" CssClass="form-control" MaxLength="20"
+                                onkeypress="return soloNumeros(event)"
+                                onkeyup="validarLongitud(this, 20, 'telefonoAgregarMsj')"></asp:TextBox>
+                            <span id="telefonoAgregarMsj" class="form-text text-muted"></span>
                         </div>
                         <div class="col">
                             <label>Documento:</label>
-                            <asp:TextBox ID="txtNuevoDocumento" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevoDocumento" runat="server" CssClass="form-control" MaxLength="20"
+                                onkeypress="return soloNumeros(event)"
+                                onkeyup="validarLongitud(this, 20, 'documentoAgregarMsj')"></asp:TextBox>
+                            <span id="documentoAgregarMsj" class="form-text text-muted"></span>
                         </div>
                     </div>
                     <div class="mb-3">

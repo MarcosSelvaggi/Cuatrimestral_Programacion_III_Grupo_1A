@@ -4,7 +4,7 @@ using Dominio;
 
 namespace Negocio
 {
-    public  class CategoriaManager
+    public class CategoriaManager
     {
         public List<Categoria> listar()
         {
@@ -89,7 +89,7 @@ namespace Negocio
             }
         }
 
-        
+
         public Categoria obtenerCategoriaPorId(int idCategoria)
         {
             AccesoADatos conexion = new AccesoADatos();
@@ -131,6 +131,34 @@ namespace Negocio
                 conexion.setearConsulta(query);
                 conexion.agregarParametros("@Id", idCategoria);
                 conexion.ejecutarNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
+
+        public bool existeDescripcion(string descripcion)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = "Select Count(*) FROM Categorias Where Descripcion = @Descripcion";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Descripcion", descripcion);
+                conexion.ejecutarQuery();
+
+                if (conexion.Lector.Read())
+                {
+                    int cantidad = (int)conexion.Lector[0];
+                    return cantidad > 0;
+                }
+
+                return false;
             }
             catch (Exception ex)
             {

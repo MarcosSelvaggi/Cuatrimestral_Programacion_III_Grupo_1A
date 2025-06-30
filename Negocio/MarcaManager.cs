@@ -140,6 +140,34 @@ namespace Negocio
                 conexion.cerrarConexion();
             }
         }
+
+        public bool existeDescripcion(string descripcion)
+        {
+            AccesoADatos conexion = new AccesoADatos();
+            try
+            {
+                string query = "Select Count(*) FROM Marcas Where Descripcion = @Descripcion";
+                conexion.setearConsulta(query);
+                conexion.agregarParametros("@Descripcion", descripcion);
+                conexion.ejecutarQuery();
+
+                if (conexion.Lector.Read())
+                {
+                    int cantidad = (int)conexion.Lector[0];
+                    return cantidad > 0;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conexion.cerrarConexion();
+            }
+        }
     }
 }
 

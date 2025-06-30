@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -72,7 +71,7 @@ namespace UI.Admin
             string nuevaDescripcion = txtDescripcion.Text;
             bool activo = Convert.ToBoolean(ddlActivo.SelectedValue);
 
-            if (string.IsNullOrWhiteSpace(nuevaDescripcion) || nuevaDescripcion.Length > 20 || (!Regex.IsMatch(nuevaDescripcion, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$")) || (managerCategoria.existeDescripcion(nuevaDescripcion)))
+            if (string.IsNullOrWhiteSpace(nuevaDescripcion) || nuevaDescripcion.Length > 20 || (managerCategoria.existeDescripcion(nuevaDescripcion)))
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "abrirModal", "var modal = new bootstrap.Modal(document.getElementById('modalCategoria')); modal.show();", true);
                 return;
@@ -93,7 +92,7 @@ namespace UI.Admin
             string descripcion = txtNuevaDescripcion.Text.Trim();
             bool activo = Convert.ToBoolean(ddlNuevoActivo.SelectedValue);
 
-            if (string.IsNullOrWhiteSpace(descripcion) || descripcion.Length > 20 || (!Regex.IsMatch(descripcion, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$")) || (managerCategoria.existeDescripcion(descripcion)))
+            if (string.IsNullOrWhiteSpace(descripcion) || descripcion.Length > 20 || (managerCategoria.existeDescripcion(descripcion)))
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "abrirAgregarModal", "var modal = new bootstrap.Modal(document.getElementById('modalAgregar')); modal.show();", true);
                 return;
