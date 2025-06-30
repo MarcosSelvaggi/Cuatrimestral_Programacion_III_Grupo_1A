@@ -69,6 +69,9 @@ namespace UI.Admin
                     // Muestro los campos de edición
                     alternarCamposEdicion(true);
 
+                    lblMensajeError.Text = "";
+                    lblMensajeError.CssClass = "alert alert-danger d-none";
+
                     ScriptManager.RegisterStartupScript(this, GetType(), "abrirModal", "var modal = new bootstrap.Modal(document.getElementById('modalCliente')); modal.show();", true);
                 }
                 else if (e.CommandName == "Eliminar")
@@ -155,6 +158,8 @@ namespace UI.Admin
             bool valido = validarCliente(clienteEditado);
             if (!valido)
             {
+                lblMensajeError.Text = "Por favor, verifique los campos ingresados.";
+                lblMensajeError.CssClass = "alert alert-danger";
                 ScriptManager.RegisterStartupScript(this, GetType(), "abrirModal", $"var modal = new bootstrap.Modal(document.getElementById('modalCliente')); modal.show();", true);
                 return;
             }
@@ -175,6 +180,8 @@ namespace UI.Admin
             var lista = managerCliente.listar();
             rptClientes.DataSource = lista;
             rptClientes.DataBind();
+            lblMensajeError.Text = "";
+            lblMensajeError.CssClass = "alert alert-danger d-none";
         }
 
         private void limpiarCamposAgregar()
@@ -189,6 +196,8 @@ namespace UI.Admin
             txtNuevaDireccion.Text = "";
             txtNuevoTelefono.Text = "";
             ddlNuevoActivo.SelectedValue = "true";
+            lblMensajeError.Text = "";
+            lblMensajeError.CssClass = "alert alert-danger d-none";
         }
 
         private void alternarCamposEdicion(bool editar)
@@ -203,7 +212,7 @@ namespace UI.Admin
             txtApellido.Visible = editar;
 
             lblEmail.Visible = !editar;
-            txtEmail.Visible = editar;
+            txtEmail.CssClass = editar ? "form-control" : "form-control d-none";
 
             lblProvincia.Visible = !editar;
             txtProvincia.Visible = editar;
@@ -228,37 +237,44 @@ namespace UI.Admin
 
         private bool validarCliente(Usuarios cliente)
         {
-            if (!Regex.IsMatch(cliente.Nombre, @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]+$") || !Regex.IsMatch(cliente.Apellido, @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]+$") || !Regex.IsMatch(cliente.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+            if (string.IsNullOrWhiteSpace(cliente.Nombre) ||
+                cliente.Nombre.Length > 30 ||
+                !Regex.IsMatch(cliente.Nombre, @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]+$"))
                 return false;
 
-            if (string.IsNullOrWhiteSpace(cliente.Nombre) || cliente.Nombre.Length > 30)
+            if (string.IsNullOrWhiteSpace(cliente.Apellido) ||
+                cliente.Apellido.Length > 20 ||
+                !Regex.IsMatch(cliente.Apellido, @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]+$"))
                 return false;
 
-            if (string.IsNullOrWhiteSpace(cliente.Apellido) || cliente.Apellido.Length > 20)
+            if (string.IsNullOrWhiteSpace(cliente.Email) ||
+                cliente.Email.Length > 100 ||
+                !Regex.IsMatch(cliente.Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                 return false;
 
-            if (string.IsNullOrWhiteSpace(cliente.Email) || cliente.Email.Length > 100)
+            if (string.IsNullOrWhiteSpace(cliente.Documento) ||
+                cliente.Documento.Length > 20 ||
+                !Regex.IsMatch(cliente.Documento, @"^\d+$"))
                 return false;
 
-            if (!cliente.Email.Contains("@"))
+            if (string.IsNullOrWhiteSpace(cliente.Provincia) || cliente.Provincia.Length > 50)
                 return false;
 
-            if (!string.IsNullOrWhiteSpace(cliente.Documento) && cliente.Documento.Length > 20 || !Regex.IsMatch(cliente.Documento, @"^\d+$"))
+            if (string.IsNullOrWhiteSpace(cliente.Localidad) || cliente.Localidad.Length > 50)
                 return false;
 
-            if (!string.IsNullOrWhiteSpace(cliente.Provincia) && cliente.Provincia.Length > 50 || !Regex.IsMatch(cliente.Provincia, @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]+$"))
+            if (string.IsNullOrWhiteSpace(cliente.CodigoPostal) ||
+                cliente.CodigoPostal.Length > 10 ||
+                !Regex.IsMatch(cliente.CodigoPostal, @"^\d+$"))
                 return false;
 
-            if (!string.IsNullOrWhiteSpace(cliente.Localidad) && cliente.Localidad.Length > 50 || !Regex.IsMatch(cliente.Localidad, @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]+$"))
+            if (string.IsNullOrWhiteSpace(cliente.Direccion) ||
+                cliente.Direccion.Length > 100)
                 return false;
 
-            if (!string.IsNullOrWhiteSpace(cliente.CodigoPostal) && cliente.CodigoPostal.Length > 10 || !Regex.IsMatch(cliente.CodigoPostal, @"^\d+$"))
-                return false;
-
-            if (!string.IsNullOrWhiteSpace(cliente.Direccion) && cliente.Direccion.Length > 100)
-                return false;
-
-            if (!string.IsNullOrWhiteSpace(cliente.Telefono) && cliente.Telefono.Length > 20 || !Regex.IsMatch(cliente.Telefono, @"^\d+$"))
+            if (string.IsNullOrWhiteSpace(cliente.Telefono) ||
+                cliente.Telefono.Length > 20 ||
+                !Regex.IsMatch(cliente.Telefono, @"^\d+$"))
                 return false;
 
             return true;

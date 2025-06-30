@@ -104,11 +104,11 @@
                     <asp:Label ID="lblIdPedidoEditar" runat="server" CssClass="d-none"></asp:Label>
                     <div class="mb-3">
                         <label>Estado de Pedido:</label>
-                        <asp:DropDownList ID="ddlEstadoPedido" runat="server" CssClass="form-select"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlEstadoPedido" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlEstadoPedido_SelectedIndexChanged"></asp:DropDownList>
                     </div>
                     <div class="mb-3">
                         <label>Estado de Envío:</label>
-                        <asp:DropDownList ID="ddlEstadoEnvio" runat="server" CssClass="form-select"></asp:DropDownList>
+                        <asp:DropDownList ID="ddlEstadoEnvio" runat="server" CssClass="form-control"></asp:DropDownList>
                     </div>
                     <div class="mb-3">
                         <label>Método de Pago:</label>

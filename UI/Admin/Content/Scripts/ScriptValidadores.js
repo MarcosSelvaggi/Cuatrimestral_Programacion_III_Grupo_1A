@@ -114,3 +114,26 @@ function validarPrecio(input, mensajeId) {
         input.classList.add("is-invalid");
     }
 }
+
+function validarEmail(input, mensajeId) {
+    const mensaje = document.getElementById(mensajeId);
+    const valor = input.value.trim();
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (valor === "") {
+        mensaje.textContent = "";
+        input.classList.remove("is-valid", "is-invalid");
+        return;
+    }
+
+    if (regexEmail.test(valor)) {
+        mensaje.textContent = "";
+        input.classList.remove("is-invalid");
+        input.classList.add("is-valid");
+    } else {
+        mensaje.textContent = "Ingrese un email válido.";
+        mensaje.classList.add("text-danger");
+        input.classList.add("is-invalid");
+        input.classList.remove("is-valid");
+    }
+}

@@ -184,10 +184,22 @@ namespace UI.Admin
             int marcaId = 0;
             bool activo = Convert.ToBoolean(ddlActivo.SelectedValue);
 
+
+
+
             decimal.TryParse(txtPrecio.Text.Trim(), out precio);
             int.TryParse(txtStock.Text.Trim(), out stock);
             int.TryParse(ddlCategoria.SelectedValue, out categoriaId);
             int.TryParse(ddlMarca.SelectedValue, out marcaId);
+
+
+            if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtStock.Text) || string.IsNullOrWhiteSpace(txtPrecio.Text)
+                || txtNombre.Text.Length > 50 || Convert.ToDecimal(txtPrecio.Text) <= 0 || Convert.ToDecimal(txtPrecio.Text) > 9999999.99m || Convert.ToInt32(txtStock.Text) < 0 || Convert.ToInt32(txtStock.Text) > 9999)
+            {
+
+                ScriptManager.RegisterStartupScript(this, GetType(), "abrirModalProducto", "var modal = new bootstrap.Modal(document.getElementById('modalProducto')); modal.show();", true);
+                return;
+            }
 
             Producto producto = new Producto
             {
@@ -216,12 +228,18 @@ namespace UI.Admin
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtNuevoNombre.Text) || string.IsNullOrWhiteSpace(txtNuevoStock.Text) || string.IsNullOrWhiteSpace(txtNuevoPrecio.Text) || txtNuevoNombre.Text.Length > 50 || Convert.ToDecimal(txtNuevoPrecio.Text) <= 0 || Convert.ToDecimal(txtNuevoPrecio.Text) > 9999999.99m || Convert.ToInt32(txtNuevoStock.Text) < 0 || Convert.ToInt32(txtNuevoStock.Text) > 9999)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "abrirAgregarModal", "var modal = new bootstrap.Modal(document.getElementById('modalAgregar')); modal.show();", true);
+                return;
+            }
             string nombre = txtNuevoNombre.Text.Trim();
             decimal precio = Convert.ToDecimal(txtNuevoPrecio.Text);
-            int stock = Convert.ToInt32(txtNuevoStock.Text);
             int idCategoria = Convert.ToInt32(ddlNuevaCategoria.SelectedValue);
             int idMarca = Convert.ToInt32(ddlNuevaMarca.SelectedValue);
             bool activo = Convert.ToBoolean(ddlNuevoActivo.SelectedValue);
+            int stock = Convert.ToInt32(txtNuevoStock.Text);
+
 
             if (!string.IsNullOrEmpty(nombre))
             {

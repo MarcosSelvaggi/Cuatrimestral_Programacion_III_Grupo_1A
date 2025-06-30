@@ -54,6 +54,8 @@ namespace UI.Admin
                     txtDescripcion.Visible = true;
                     btnGuardar.Visible = true;
 
+                    lblMensajeError.Text = "";
+                    lblMensajeError.CssClass = "alert alert-danger d-none";
                     ScriptManager.RegisterStartupScript(this, GetType(), "abrirModal", "var modal = new bootstrap.Modal(document.getElementById('modalCategoria')); modal.show();", true);
                 }
                 else if (e.CommandName == "Eliminar")
@@ -73,6 +75,8 @@ namespace UI.Admin
 
             if (string.IsNullOrWhiteSpace(nuevaDescripcion) || nuevaDescripcion.Length > 20 || (managerCategoria.existeDescripcion(nuevaDescripcion)))
             {
+                lblMensajeError.Text = "Por favor, verifique los campos ingresados.";
+                lblMensajeError.CssClass = "alert alert-danger";
                 ScriptManager.RegisterStartupScript(this, GetType(), "abrirModal", "var modal = new bootstrap.Modal(document.getElementById('modalCategoria')); modal.show();", true);
                 return;
             }
@@ -94,6 +98,9 @@ namespace UI.Admin
 
             if (string.IsNullOrWhiteSpace(descripcion) || descripcion.Length > 20 || (managerCategoria.existeDescripcion(descripcion)))
             {
+                limpiarCamposAgregar();
+                lblMensajeErrorAgregar.Text = "Por favor, verifique los campos ingresados.";
+                lblMensajeErrorAgregar.CssClass = "alert alert-danger";
                 ScriptManager.RegisterStartupScript(this, GetType(), "abrirAgregarModal", "var modal = new bootstrap.Modal(document.getElementById('modalAgregar')); modal.show();", true);
                 return;
             }
@@ -116,11 +123,19 @@ namespace UI.Admin
             var lista = new CategoriaManager().listar();
             rptCategorias.DataSource = lista;
             rptCategorias.DataBind();
+            lblMensajeError.Text = "";
+            lblMensajeError.CssClass = "alert alert-danger d-none";
+            lblMensajeErrorAgregar.Text = "";
+            lblMensajeErrorAgregar.CssClass = "alert alert-danger d-none";
         }
         private void limpiarCamposAgregar()
         {
             txtNuevaDescripcion.Text = "";
             ddlNuevoActivo.SelectedValue = "true";
+            lblMensajeError.Text = "";
+            lblMensajeError.CssClass = "alert alert-danger d-none";
+            lblMensajeErrorAgregar.Text = "";
+            lblMensajeErrorAgregar.CssClass = "alert alert-danger d-none";
         }
     }
 }

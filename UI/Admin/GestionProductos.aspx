@@ -64,17 +64,22 @@
                     <div class="mb-3">
                         <label>Nombre:</label>
                         <asp:Label ID="lblNombre" runat="server" CssClass="form-control"></asp:Label>
-                        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                        <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" Visible="false" MaxLength="50" onkeyup="validarLongitud(this, 50, 'nombreEditarMsj')"></asp:TextBox>
+                        <span id="nombreEditarMsj" class="form-text text-muted"></span>
                     </div>
                     <div class="mb-3">
                         <label>Precio:</label>
                         <asp:Label ID="lblPrecio" runat="server" CssClass="form-control"></asp:Label>
-                        <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                        <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" Visible="false" MaxLength="10" onkeyup="validarPrecio(this, 'precioMsj')" onkeypress="return soloNumeros(event)"></asp:TextBox>
+                        <span id="precioMsj" class="form-text text-muted"></span>
                     </div>
                     <div class="mb-3">
                         <label>Stock:</label>
                         <asp:Label ID="lblStock" runat="server" CssClass="form-control"></asp:Label>
-                        <asp:TextBox ID="txtStock" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                        <asp:TextBox ID="txtStock" runat="server" CssClass="form-control" Visible="false" MaxLength="4"
+                            onkeypress="return soloNumeros(event)"
+                            onkeyup="validarLongitud(this, 4, 'cpEditarMsj')"></asp:TextBox>
+                        <span id="cpEditarMsj" class="form-text text-muted"></span>
                     </div>
                     <div class="mb-3">
                         <label>Categoria:</label>
@@ -89,9 +94,10 @@
                     <div class="mb-3" id="divAgregarImagenEdicion" runat="server" visible="false">
                         <label>Agregar URL de Imagen:</label>
                         <div class="input-group">
-                            <asp:TextBox ID="txtNuevaImagenEdicion" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevaImagenEdicion" runat="server" CssClass="form-control" MaxLength="100" onkeyup="validarLongitud(this, 100, 'imagenEditarMsj')"></asp:TextBox>
                             <asp:Button ID="btnAgregarImagenTemporalEdicion" runat="server" Text="Agregar" CssClass="btn btn-primary" OnClick="btnAgregarImagenTemporalEdicion_Click" />
                         </div>
+                        <span id="imagenEditarMsj" class="form-text text-muted"></span>
                     </div>
                     <asp:Repeater ID="rptImagenesTemporalesEdicion" OnItemCommand="rptImagenesTemporalesEdicion_ItemCommand" runat="server">
                         <ItemTemplate>
@@ -156,15 +162,20 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="txtNuevoNombre">Nombre:</label>
-                        <asp:TextBox ID="txtNuevoNombre" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtNuevoNombre" runat="server" CssClass="form-control" MaxLength="50" onkeyup="validarLongitud(this, 50, 'nombreAgregarMsj')"></asp:TextBox>
+                        <span id="nombreAgregarMsj" class="form-text text-muted"></span>
                     </div>
                     <div class="mb-3">
                         <label for="txtNuevoPrecio">Precio:</label>
-                        <asp:TextBox ID="txtNuevoPrecio" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtNuevoPrecio" runat="server" CssClass="form-control" MaxLength="10" onkeyup="validarPrecio(this, 'precioAgregarMsj')" onkeypress="return soloNumeros(event)"></asp:TextBox>
+                        <span id="precioAgregarMsj" class="form-text text-muted"></span>
                     </div>
                     <div class="mb-3">
                         <label for="txtNuevoStock">Stock:</label>
-                        <asp:TextBox ID="txtNuevoStock" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtNuevoStock" runat="server" CssClass="form-control" MaxLength="4"
+                            onkeypress="return soloNumeros(event)"
+                            onkeyup="validarLongitud(this, 4, 'stockAgregarMsj')"></asp:TextBox>
+                        <span id="stockAgregarMsj" class="form-text text-muted"></span>
                     </div>
                     <div class="mb-3">
                         <label>Categoria:</label>
@@ -177,16 +188,17 @@
                     <div class="mb-3">
                         <label>Agregar URL de Imagen:</label>
                         <div class="input-group">
-                            <asp:TextBox ID="txtNuevaImagen" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevaImagen" runat="server" CssClass="form-control" MaxLength="100" onkeyup="validarLongitud(this, 100, 'imagenAgregarMsj')"></asp:TextBox>
                             <asp:Button ID="btnAgregarImagenTemporal" runat="server" Text="Agregar" CssClass="btn btn-primary" Visible='<%# ((UI.Admin.GestionProductos)Page).EsModoEdicion %>' OnClick="btnAgregarImagenTemporal_Click" />
                         </div>
+                        <span id="imagenAgregarMsj" class="form-text text-muted"></span>
                     </div>
 
                     <asp:Repeater ID="rptImagenesTemporales" OnItemCommand="rptImagenesTemporales_ItemCommand" runat="server">
                         <ItemTemplate>
                             <div class="d-flex align-items-center mb-2">
                                 <img src='<%# Container.DataItem %>' class="img-thumbnail me-2" style="width: 100px; height: 100px; object-fit: cover;" />
-                                <asp:LinkButton ID="btnEliminarImagen" runat="server" CommandName="EliminarImagen" CommandArgument='<%# Container.ItemIndex %>' CssClass="btn btn-danger btn-sm">Eliminar
+                                <asp:LinkButton ID="LinkButton1" runat="server" CommandName="EliminarImagen" CommandArgument='<%# Container.ItemIndex %>' CssClass="btn btn-danger btn-sm">Eliminar
                                 <i class="fas fa-trash"></i>
                                 </asp:LinkButton>
                             </div>

@@ -57,6 +57,7 @@
                     <asp:Label ID="lblIdCliente" runat="server" CssClass="d-none"></asp:Label>
 
                     <div class="row mb-3">
+                        <asp:Label ID="lblMensajeError" runat="server" CssClass="alert alert-danger d-none" />
                         <div class="col">
                             <label>Nombre:</label>
                             <asp:Label ID="lblNombre" runat="server" CssClass="form-control"></asp:Label>
@@ -74,7 +75,7 @@
                     <div class="mb-3">
                         <label>Email:</label>
                         <asp:Label ID="lblEmail" runat="server" CssClass="form-control"></asp:Label>
-                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control" Visible="false" MaxLength="40" onkeyup="validarLongitud(this, 40, 'emailEditarMsj')"></asp:TextBox>
+                        <asp:TextBox ID="txtEmail" runat="server" CssClass="form-control d-none" MaxLength="40" onkeyup="validarEmail(this, 'emailEditarMsj')"></asp:TextBox>
                         <span id="emailEditarMsj" class="form-text text-muted"></span>
                     </div>
 
@@ -89,7 +90,7 @@
                         <div class="col">
                             <label>Localidad:</label>
                             <asp:Label ID="lblLocalidad" runat="server" CssClass="form-control"></asp:Label>
-                            <asp:TextBox ID="txtLocalidad" runat="server" CssClass="form-control" Visible="false" MaxLength="30" onkeyup="validarLongitudYCaracteresEspeciales(this, 30, 'localidadEditarMsj')"></asp:TextBox>
+                            <asp:TextBox ID="txtLocalidad" runat="server" CssClass="form-control" Visible="false" MaxLength="30" onkeyup="validarLongitud(this, 30, 'localidadEditarMsj')"></asp:TextBox>
                             <span id="localidadEditarMsj" class="form-text text-muted"></span>
                         </div>
                     </div>
@@ -187,7 +188,7 @@
                     </div>
                     <div class="mb-3">
                         <label>Email:</label>
-                        <asp:TextBox ID="txtNuevoEmail" runat="server" CssClass="form-control" MaxLength="100" onkeyup="validarLongitud(this, 100, 'emailAgregarMsj')"></asp:TextBox>
+                        <asp:TextBox ID="txtNuevoEmail" runat="server" CssClass="form-control" MaxLength="100" onkeyup="validarEmail(this, 'emailAgregarMsj')"></asp:TextBox>
                         <span id="emailAgregarMsj" class="form-text text-muted"></span>
                     </div>
                     <div class="row mb-3">
