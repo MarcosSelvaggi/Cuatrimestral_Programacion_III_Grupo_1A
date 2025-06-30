@@ -109,6 +109,7 @@
     <Content Include="Contacto\Contacto.aspx" />
     <Content Include="Contacto\Styles\StyleContacto.css" />
     <Content Include="Inicio.aspx" />
+    <Content Include="Inicio\Estilos\EstiloImagenes.css" />
     <Content Include="Inicio\imagenes\Banners\168.png" />
     <Content Include="Inicio\imagenes\Banners\203.jpg" />
     <Content Include="Inicio\imagenes\Banners\204.jpg" />
@@ -141,7 +142,6 @@
     <Content Include="Inicio\imagenes\Marcas\Steelseries.jpg" />
     <Content Include="Inicio\js\JsProductos.js" />
     <Content Include="favicon.ico" />
-    <Content Include="Inicio\Estilos\EstiloImagenes.css" />
     <Content Include="Perfil.aspx" />
     <Content Include="Productos.aspx" />
     <Content Include="Usuario\Cambiarcontrasena.aspx" />

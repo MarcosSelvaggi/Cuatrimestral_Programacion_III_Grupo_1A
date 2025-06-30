@@ -82,6 +82,26 @@ namespace UI
                 UsuarioLogeado.CodigoPostal = txtCodigoPostal.Text;
 
                 UsuarioManager usuarioManager = new UsuarioManager();
+
+                if (usuarioManager.MailYaRegistrado(txtEmail.Text))
+                {
+                    //Mail registrado
+                    datosCargadosIncorrectamenteH1.InnerText = "❌ Mail registrado";
+                    pDatosErroneosModal.InnerText = "El mail ya se encuentra registrado.";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "datosCargadosIncorrectamenteModal",
+                   "var modal = new bootstrap.Modal(document.getElementById('datosCargadosIncorrectamenteModal')); modal.show();", true);
+                    return;
+                }
+                else if (usuarioManager.DocumentoYaRegistrado(txtDocumento.Text))
+                {
+                    //Documento registrado
+                    datosCargadosIncorrectamenteH1.InnerText = "❌ Documento registrado";
+                    pDatosErroneosModal.InnerText = "El documento ya se encuentra registrado.";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "datosCargadosIncorrectamenteModal",
+                    "var modal = new bootstrap.Modal(document.getElementById('datosCargadosIncorrectamenteModal')); modal.show();", true);
+                    return;
+                }
+
                 usuarioManager.modificar(UsuarioLogeado);
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "datosCambiadosCorrectamenteModal",
                 "var modal = new bootstrap.Modal(document.getElementById('datosCambiadosCorrectamenteModal')); modal.show();" +
@@ -90,6 +110,8 @@ namespace UI
             }
             else
             {
+                datosCargadosIncorrectamenteH1.InnerHtml = "❌ Ocurrió un error";
+                pDatosErroneosModal.InnerHtml = "No se puede modificar el perfil con datos vacíos"; 
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "datosCargadosIncorrectamenteModal",
                 "var modal = new bootstrap.Modal(document.getElementById('datosCargadosIncorrectamenteModal')); modal.show();", true);
                 return;

@@ -26,21 +26,28 @@ namespace UI
             {
                 Session.Add("Usuario", usuarioLogeado);
 
-                if (usuarioLogeado.Rol.Id == 1)
+                if (!usuarioLogeado.Activo)
+                {
+                    contraseñaIncorrectaModalH1.InnerHtml = "❌ Error al iniciar sesión";
+                    pDatosErroneosModal.InnerHtml = "La cuenta a la que intenta ingresar está desactivada";
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "contraseñaIncorrectaModal",
+                    "var modal = new bootstrap.Modal(document.getElementById('contraseñaIncorrectaModal')); modal.show();", true);
+                }
+                else if (usuarioLogeado.Rol.Id == 1)
                 {
                     Response.Redirect("/Admin/Inicio.aspx", false);
+                    return;
                 }
                 else
                 {
                     Response.Redirect("/Perfil.aspx", false);
+                    return;
                 }
-                return;
             }
             else
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "contraseñaIncorrectaModal",
                 "var modal = new bootstrap.Modal(document.getElementById('contraseñaIncorrectaModal')); modal.show();", true);
-                return;
             }
         }
     }

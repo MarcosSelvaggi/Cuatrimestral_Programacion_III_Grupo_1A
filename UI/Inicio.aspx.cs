@@ -11,6 +11,7 @@ namespace UI
 {
     public partial class Inicio : UI.ClaseMaster.BasePage
     {
+        public object __o; 
         public List<Categoria> listaCategorias; 
 
         public List<Producto> listaProductos;
@@ -33,6 +34,11 @@ namespace UI
             //Usando random para agregar de forma aleatoria productos a la lista que se va a usar para mostrar los productos destacados
             for (int i = 0; i < 3; i++)
             {
+                //Si no hay productos disponibles para listar, sale 
+                if (listaProductos.Count == 0)
+                {
+                    return;
+                }
                 Random random = new Random();
                 int aux = random.Next(0, listaProductos.Count);
 
@@ -43,12 +49,6 @@ namespace UI
                 //Elimina el producto de la lista así baja la cantidad de productos y evita que pueda salir repetido
                 listaProductos.RemoveAt(aux);
             }
-            
-            
-
-
-
-
         }
     }
 }
