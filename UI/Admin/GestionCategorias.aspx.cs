@@ -71,7 +71,14 @@ namespace UI.Admin
             int idCategoria = Convert.ToInt32(lblIdCategoria.Text);
             string nuevaDescripcion = txtDescripcion.Text;
             bool activo = Convert.ToBoolean(ddlActivo.SelectedValue);
-            Categoria aux = new Categoria{ Descripcion = nuevaDescripcion, Id = idCategoria, Activo = activo };
+
+            if (string.IsNullOrWhiteSpace(nuevaDescripcion) || nuevaDescripcion.Length > 20 || (!Regex.IsMatch(nuevaDescripcion, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$")) || (managerCategoria.existeDescripcion(nuevaDescripcion)))
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "abrirModal", "var modal = new bootstrap.Modal(document.getElementById('modalCategoria')); modal.show();", true);
+                return;
+            }
+
+            Categoria aux = new Categoria { Descripcion = nuevaDescripcion, Id = idCategoria, Activo = activo };
 
             managerCategoria.modificar(aux);
 
@@ -86,18 +93,16 @@ namespace UI.Admin
             string descripcion = txtNuevaDescripcion.Text.Trim();
             bool activo = Convert.ToBoolean(ddlNuevoActivo.SelectedValue);
 
-
-            if (!string.IsNullOrEmpty(descripcion))
-            {
-                Categoria aux = new Categoria { Descripcion = descripcion, Activo = activo };
-                managerCategoria.agregar(aux);
-                limpiarCamposAgregar();
-                cargarCategorias();
-            }
-            else
+            if (string.IsNullOrWhiteSpace(descripcion) || descripcion.Length > 20 || (!Regex.IsMatch(descripcion, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$")) || (managerCategoria.existeDescripcion(descripcion)))
             {
                 ScriptManager.RegisterStartupScript(this, GetType(), "abrirAgregarModal", "var modal = new bootstrap.Modal(document.getElementById('modalAgregar')); modal.show();", true);
+                return;
             }
+
+            Categoria aux = new Categoria { Descripcion = descripcion, Activo = activo };
+            managerCategoria.agregar(aux);
+            limpiarCamposAgregar();
+            cargarCategorias();
         }
 
         protected void btnConfirmarEliminar_Click(object sender, EventArgs e)

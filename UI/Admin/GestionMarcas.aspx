@@ -56,7 +56,9 @@
                     <div class="mb-3">
                         <label>Descripción:</label>
                         <asp:Label ID="lblDescripcion" runat="server" CssClass="form-control"></asp:Label>
-                        <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" Visible="false"></asp:TextBox>
+                        <asp:TextBox ID="txtDescripcion" runat="server" CssClass="form-control" Visible="false" MaxLength="20"
+                            onkeyup="validarLongitud(this, 20, 'marcaEditarDescripcionMsj')"></asp:TextBox>
+                        <span id="marcaEditarDescripcionMsj" class="form-text text-muted"></span>
                     </div>
                     <div class="mb-3">
                         <label>Activo:</label>
@@ -102,7 +104,9 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="txtNuevaDescripcion">Descripción:</label>
-                        <asp:TextBox ID="txtNuevaDescripcion" runat="server" CssClass="form-control"></asp:TextBox>
+                        <asp:TextBox ID="txtNuevaDescripcion" runat="server" CssClass="form-control" MaxLength="20"
+                            onkeyup="validarLongitud(this, 20, 'marcaDescripcionMsj')"></asp:TextBox>
+                        <span id="marcaDescripcionMsj" class="form-text text-muted"></span>
                     </div>
                     <div class="mb-3">
                         <label>Activo:</label>

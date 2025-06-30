@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
@@ -74,6 +75,12 @@ namespace UI.Admin
             string nuevaDescripcion = txtDescripcion.Text;
             bool activo = Convert.ToBoolean(ddlActivo.SelectedValue);
 
+            if (managerMarca.existeDescripcion(nuevaDescripcion) || string.IsNullOrEmpty(nuevaDescripcion) || nuevaDescripcion.Length > 20)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "abrirModal", "var modal = new bootstrap.Modal(document.getElementById('modalMarca')); modal.show();", true);
+                return;
+            }
+
             Marca aux = new Marca { Id = idMarca, Descripcion = nuevaDescripcion, Activo = activo };
 
             managerMarca.modificar(aux);
@@ -83,6 +90,12 @@ namespace UI.Admin
         {
             string descripcion = txtNuevaDescripcion.Text.Trim();
             bool activo = Convert.ToBoolean(ddlNuevoActivo.SelectedValue);
+
+            if (managerMarca.existeDescripcion(descripcion) || string.IsNullOrEmpty(descripcion) || descripcion.Length > 20)
+            {
+                ScriptManager.RegisterStartupScript(this, GetType(), "abrirAgregarModal", "var modal = new bootstrap.Modal(document.getElementById('modalAgregar')); modal.show();", true);
+                return;
+            }
             if (!string.IsNullOrEmpty(descripcion))
             {
                 Marca aux = new Marca { Descripcion = descripcion, Activo = activo };

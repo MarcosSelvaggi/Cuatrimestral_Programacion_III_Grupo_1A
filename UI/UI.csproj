@@ -100,6 +100,7 @@
     <Content Include="Admin\Content\Imágenes\favicon.ico" />
     <Content Include="Admin\Content\Imágenes\logo.svg" />
     <Content Include="Admin\Content\Scripts\ScriptMaster.js" />
+    <Content Include="Admin\Content\Scripts\ScriptValidadores.js" />
     <Content Include="Admin\GestionCategorias.aspx" />
     <Content Include="Admin\GestionClientes.aspx" />
     <Content Include="Admin\GestionMarcas.aspx" />
