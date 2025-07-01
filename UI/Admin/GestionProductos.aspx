@@ -26,7 +26,7 @@
             </thead>
             <tbody>
                 <asp:Repeater ID="rptProductos" runat="server" OnItemCommand="rptProductos_ItemCommand">
-                    <ItemTemplate>
+                    <itemtemplate>
                         <tr>
                             <td class="d-none"><%# Eval("Id") %></td>
                             <td><%# Eval("Nombre") %></td>
@@ -47,7 +47,7 @@
                                 </asp:LinkButton>
                             </td>
                         </tr>
-                    </ItemTemplate>
+                    </itemtemplate>
                 </asp:Repeater>
             </tbody>
         </table>
@@ -60,6 +60,9 @@
                     <h5 class="modal-title" id="lblModalTitulo" runat="server">Detalle Producto</h5>
                 </div>
                 <div class="modal-body">
+                    <div class="row mb-3">
+                        <asp:Label ID="lblMensajeError" runat="server" CssClass="alert alert-danger d-none" />
+                    </div>
                     <asp:Label ID="lblIdProducto" runat="server" CssClass="d-none"></asp:Label>
                     <div class="mb-3">
                         <label>Nombre:</label>
@@ -78,7 +81,8 @@
                         <asp:Label ID="lblStock" runat="server" CssClass="form-control"></asp:Label>
                         <asp:TextBox ID="txtStock" runat="server" CssClass="form-control" Visible="false" MaxLength="4"
                             onkeypress="return soloNumeros(event)"
-                            onkeyup="validarLongitud(this, 4, 'cpEditarMsj')"></asp:TextBox>
+                            onkeyup="validarLongitud(this, 4, 'cpEditarMsj')">
+                        </asp:TextBox>
                         <span id="cpEditarMsj" class="form-text text-muted"></span>
                     </div>
                     <div class="mb-3">
@@ -94,28 +98,28 @@
                     <div class="mb-3" id="divAgregarImagenEdicion" runat="server" visible="false">
                         <label>Agregar URL de Imagen:</label>
                         <div class="input-group">
-                            <asp:TextBox ID="txtNuevaImagenEdicion" runat="server" CssClass="form-control" MaxLength="100" onkeyup="validarLongitud(this, 100, 'imagenEditarMsj')"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevaImagenEdicion" runat="server" CssClass="form-control" MaxLength="150" onkeyup="validarLongitud(this, 150, 'imagenEditarMsj')"></asp:TextBox>
                             <asp:Button ID="btnAgregarImagenTemporalEdicion" runat="server" Text="Agregar" CssClass="btn btn-primary" OnClick="btnAgregarImagenTemporalEdicion_Click" />
                         </div>
                         <span id="imagenEditarMsj" class="form-text text-muted"></span>
                     </div>
                     <asp:Repeater ID="rptImagenesTemporalesEdicion" OnItemCommand="rptImagenesTemporalesEdicion_ItemCommand" runat="server">
-                        <ItemTemplate>
+                        <itemtemplate>
                             <div class="d-flex align-items-center mb-2">
                                 <img src='<%# Container.DataItem %>' class="img-thumbnail me-2" style="width: 100px; height: 100px; object-fit: cover;" />
                                 <asp:LinkButton ID="btnEliminarImagenEdicion" runat="server" CommandName="EliminarTemporalEdicion" CommandArgument='<%# Container.ItemIndex %>' CssClass="btn btn-danger btn-sm">Eliminar</asp:LinkButton>
                             </div>
-                        </ItemTemplate>
+                        </itemtemplate>
                     </asp:Repeater>
                     <div class="mb-3">
                         <label>Imágenes:</label>
                         <asp:Repeater ID="rptImagenes" OnItemCommand="rptImagenes_ItemCommand" runat="server">
-                            <ItemTemplate>
+                            <itemtemplate>
                                 <div class="d-flex align-items-center mb-2">
                                     <img src='<%# Eval("UrlProducto") %>' class="img-thumbnail me-2" style="width: 100px; height: 100px; object-fit: cover;" />
                                     <asp:LinkButton ID="btnEliminarImagen" runat="server" CommandName="EliminarImagen" CommandArgument='<%# Eval("Id") %>' CssClass="btn btn-danger btn-sm" Visible='<%# ((UI.Admin.GestionProductos)Page).EsModoEdicion %>'>Eliminar</asp:LinkButton>
                                 </div>
-                            </ItemTemplate>
+                            </itemtemplate>
                         </asp:Repeater>
                     </div>
                     <div class="mb-3">
@@ -160,6 +164,9 @@
                     <h5 class="modal-title">Agregar Producto</h5>
                 </div>
                 <div class="modal-body">
+                    <div class="row mb-3">
+                        <asp:Label ID="lblMensajeErrorAgregar" runat="server" CssClass="alert alert-danger d-none" />
+                    </div>
                     <div class="mb-3">
                         <label for="txtNuevoNombre">Nombre:</label>
                         <asp:TextBox ID="txtNuevoNombre" runat="server" CssClass="form-control" MaxLength="50" onkeyup="validarLongitud(this, 50, 'nombreAgregarMsj')"></asp:TextBox>
@@ -174,7 +181,8 @@
                         <label for="txtNuevoStock">Stock:</label>
                         <asp:TextBox ID="txtNuevoStock" runat="server" CssClass="form-control" MaxLength="4"
                             onkeypress="return soloNumeros(event)"
-                            onkeyup="validarLongitud(this, 4, 'stockAgregarMsj')"></asp:TextBox>
+                            onkeyup="validarLongitud(this, 4, 'stockAgregarMsj')">
+                        </asp:TextBox>
                         <span id="stockAgregarMsj" class="form-text text-muted"></span>
                     </div>
                     <div class="mb-3">
@@ -188,21 +196,22 @@
                     <div class="mb-3">
                         <label>Agregar URL de Imagen:</label>
                         <div class="input-group">
-                            <asp:TextBox ID="txtNuevaImagen" runat="server" CssClass="form-control" MaxLength="100" onkeyup="validarLongitud(this, 100, 'imagenAgregarMsj')"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevaImagen" runat="server" CssClass="form-control" MaxLength="500" onkeyup="validarLongitud(this, 500, 'imagenAgregarMsj')"></asp:TextBox>
                             <asp:Button ID="btnAgregarImagenTemporal" runat="server" Text="Agregar" CssClass="btn btn-primary" Visible='<%# ((UI.Admin.GestionProductos)Page).EsModoEdicion %>' OnClick="btnAgregarImagenTemporal_Click" />
                         </div>
                         <span id="imagenAgregarMsj" class="form-text text-muted"></span>
                     </div>
 
                     <asp:Repeater ID="rptImagenesTemporales" OnItemCommand="rptImagenesTemporales_ItemCommand" runat="server">
-                        <ItemTemplate>
+                        <itemtemplate>
                             <div class="d-flex align-items-center mb-2">
                                 <img src='<%# Container.DataItem %>' class="img-thumbnail me-2" style="width: 100px; height: 100px; object-fit: cover;" />
-                                <asp:LinkButton ID="LinkButton1" runat="server" CommandName="EliminarImagen" CommandArgument='<%# Container.ItemIndex %>' CssClass="btn btn-danger btn-sm">Eliminar
+                                <asp:LinkButton ID="btnEliminarImagen" runat="server" CommandName="EliminarImagen" CommandArgument='<%# Container.ItemIndex %>' CssClass="btn btn-danger btn-sm">
+                                    Eliminar
                                 <i class="fas fa-trash"></i>
                                 </asp:LinkButton>
                             </div>
-                        </ItemTemplate>
+                        </itemtemplate>
                     </asp:Repeater>
                     <div class="mb-3">
                         <label>Activo:</label>

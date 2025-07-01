@@ -18,7 +18,7 @@
 function validarLongitud(input, maxLength, mensajeId) {
     const mensaje = document.getElementById(mensajeId);
     const caracteresDisponibles = maxLength - input.value.length;
-    const caracteresPorcentaje = (maxLength / 6);
+    const caracteresPorcentaje = (maxLength / 10);
     const valor = input.value;
 
     if (caracteresDisponibles <= 5 && caracteresDisponibles > 0) {
@@ -38,7 +38,7 @@ function validarLongitud(input, maxLength, mensajeId) {
         input.classList.remove("is-valid");
     }
 
-    if (valor.length >= caracteresPorcentaje-1) {
+    if (valor.length >= caracteresPorcentaje) {
         input.classList.remove("is-invalid");
         input.classList.add("is-valid");
     } else {

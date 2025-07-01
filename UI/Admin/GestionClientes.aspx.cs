@@ -257,7 +257,7 @@ namespace UI.Admin
                 !Regex.IsMatch(cliente.Documento, @"^\d+$"))
                 return false;
 
-            if (string.IsNullOrWhiteSpace(cliente.Provincia) || cliente.Provincia.Length > 50)
+            if (string.IsNullOrWhiteSpace(cliente.Provincia) || cliente.Provincia.Length > 50 || !Regex.IsMatch(cliente.Provincia, @"^[A-Za-zÁÉÍÓÚáéíóúÜüÑñ\s]+$"))
                 return false;
 
             if (string.IsNullOrWhiteSpace(cliente.Localidad) || cliente.Localidad.Length > 50)

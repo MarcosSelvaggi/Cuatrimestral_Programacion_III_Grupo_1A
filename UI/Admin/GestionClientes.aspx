@@ -195,7 +195,7 @@
                         <div class="col">
                             <label>Provincia:</label>
                             <asp:TextBox ID="txtNuevaProvincia" runat="server" CssClass="form-control" MaxLength="50"
-                                onkeyup="validarLongitud(this, 50, 'provinciaAgregarMsj')"></asp:TextBox>
+                                onkeyup="validarLongitudYCaracteresEspeciales(this, 50, 'provinciaAgregarMsj')"></asp:TextBox>
                             <span id="provinciaAgregarMsj" class="form-text text-muted"></span>
                         </div>
                         <div class="col">

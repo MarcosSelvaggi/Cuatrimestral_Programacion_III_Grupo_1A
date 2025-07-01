@@ -55,8 +55,8 @@
                 <div class="modal-body">
                     <asp:Label ID="lblIdCategoria" runat="server" CssClass="d-none"></asp:Label>
                     <div class="row mb-3">
-<asp:Label ID="lblMensajeError" runat="server" CssClass="alert alert-danger d-none" />
-</div>
+                        <asp:Label ID="lblMensajeError" runat="server" CssClass="alert alert-danger d-none" />
+                    </div>
                     <div class="mb-3">
                         <label>Descripción:</label>
                         <asp:Label ID="lblDescripcion" runat="server" CssClass="form-control"></asp:Label>
@@ -107,8 +107,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="row mb-3">
-    <asp:Label ID="lblMensajeErrorAgregar" runat="server" CssClass="alert alert-danger d-none" />
-</div>
+                        <asp:Label ID="lblMensajeErrorAgregar" runat="server" CssClass="alert alert-danger d-none" />
+                    </div>
                     <div class="mb-3">
                         <label for="txtNuevaDescripcion">Descripción:</label>
                         <asp:TextBox ID="txtNuevaDescripcion" runat="server" CssClass="form-control" MaxLength="20"

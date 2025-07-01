@@ -14,12 +14,12 @@ namespace UI.Admin
 
         private readonly Dictionary<int, List<int>> estadosPagoPermitidosPorEstadoPedido = new Dictionary<int, List<int>>
         {
-            { 1, new List<int> { 2 } },           // Creado -> Pendiente
-            { 2, new List<int> { 1, 2 } },        // Confirmado -> Aprobado, Pendiente
-            { 3, new List<int> { 1 } },           // Procesando -> Aprobado
-            { 4, new List<int> { 1, 4 } },        // Completado -> Aprobado, Reembolsado
-            { 5, new List<int> { 3, 4 } },        // Cancelado -> Fallido, Reembolsado
-            { 6, new List<int> { 4 } }            // Devuelto -> Reembolsado
+            { 1, new List<int> { 2 } },                  // Creado -> Pendiente
+            { 2, new List<int> { 1, 2 } },               // Confirmado -> Aprobado, Pendiente
+            { 3, new List<int> { 1 } },                  // Procesando -> Aprobado
+            { 4, new List<int> { 1, 4 } },               // Completado -> Aprobado, Reembolsado
+            { 5, new List<int> { 3, 4 } },               // Cancelado -> Fallido, Reembolsado
+            { 6, new List<int> { 4 } }                   // Devuelto -> Reembolsado
         };
         private readonly Dictionary<int, List<int>> estadosEnvioPermitidosPorEstadoPedido = new Dictionary<int, List<int>>
         {
@@ -98,8 +98,17 @@ namespace UI.Admin
                     else
                         ddlEstadoEnvio.SelectedIndex = 0; // Selecciono el primero
 
+                    // Verifico si el valor de EstadoPago existe en el DropDownList
+                    if (ddlEstadoPago.Items.FindByValue(pedido.EstadoPago.IdEstadoPago.ToString()) != null)
+                    {
+                        ddlEstadoPago.SelectedValue = pedido.EstadoPago.IdEstadoPago.ToString();
+                    }
+                    else
+                    {
+                        ddlEstadoPago.SelectedIndex = 0;
+                    }
 
-                    ddlEstadoPago.SelectedValue = pedido.EstadoPago.IdEstadoPago.ToString();
+                    //ddlEstadoPago.SelectedValue = pedido.EstadoPago.IdEstadoPago.ToString();
 
                     ddlMetodoPago.Items.Clear();
                     ddlMetodoPago.Items.Add(new ListItem(pedido.DetallePago.Metodo, pedido.DetallePago.Metodo));

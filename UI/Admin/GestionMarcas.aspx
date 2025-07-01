@@ -54,7 +54,7 @@
                 <div class="modal-body">
                     <asp:Label ID="lblIdMarca" runat="server" CssClass="d-none"></asp:Label>
                     <div class="row mb-3">
-                    <asp:Label ID="lblMensajeError" runat="server" CssClass="alert alert-danger d-none" />
+                        <asp:Label ID="lblMensajeError" runat="server" CssClass="alert alert-danger d-none" />
                     </div>
                     <div class="mb-3">
                         <label>Descripción:</label>

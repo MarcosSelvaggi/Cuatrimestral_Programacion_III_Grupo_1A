@@ -130,7 +130,7 @@ namespace Negocio
             AccesoADatos conexion = new AccesoADatos();
             try
             {
-                string queryPedido = "Update Pedidos Set IDEstadoPedido = 5, IDEnvio = 1, IdEstadoPago = 3 Where IDPedido = @IdPedido";
+                string queryPedido = "Update Pedidos Set IDEstadoPedido = 5, IDEnvio = 6, IdEstadoPago = 3 Where IDPedido = @IdPedido";
                 conexion.setearConsulta(queryPedido);
                 conexion.agregarParametros("@IdPedido", idPedido);
                 conexion.ejecutarNonQuery();

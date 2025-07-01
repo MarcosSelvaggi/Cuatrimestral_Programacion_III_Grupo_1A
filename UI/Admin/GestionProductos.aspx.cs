@@ -27,7 +27,12 @@ namespace UI.Admin
                 Session["ImagenesTemporalesEdicion"] = value;
             }
         }
-        public bool EsModoEdicion { get; set; }
+        //public bool EsModoEdicion { get; set; }
+        public bool EsModoEdicion
+        {
+            get { return Session["EsModoEdicion"] != null && (bool)Session["EsModoEdicion"]; }
+            set { Session["EsModoEdicion"] = value; }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -114,7 +119,8 @@ namespace UI.Admin
                     alternarCamposEdicion(true);
 
                     btnGuardar.Visible = true;
-
+                    lblMensajeError.Text = "";
+                    lblMensajeError.CssClass = "alert alert-danger d-none";
                     ScriptManager.RegisterStartupScript(this, GetType(), "abrirModalProducto", "var modal = new bootstrap.Modal(document.getElementById('modalProducto')); modal.show();", true);
                 }
                 else if (e.CommandName == "Eliminar")
@@ -194,9 +200,10 @@ namespace UI.Admin
 
 
             if (string.IsNullOrWhiteSpace(txtNombre.Text) || string.IsNullOrWhiteSpace(txtStock.Text) || string.IsNullOrWhiteSpace(txtPrecio.Text)
-                || txtNombre.Text.Length > 50 || Convert.ToDecimal(txtPrecio.Text) <= 0 || Convert.ToDecimal(txtPrecio.Text) > 9999999.99m || Convert.ToInt32(txtStock.Text) < 0 || Convert.ToInt32(txtStock.Text) > 9999)
+                || txtNombre.Text.Length > 50 || Convert.ToDecimal(txtPrecio.Text) <= 0 || Convert.ToDecimal(txtPrecio.Text) > 99999999.99m || Convert.ToInt32(txtStock.Text) < 0 || Convert.ToInt32(txtStock.Text) > 9999 || txtNuevaImagenEdicion.Text.Length > 150)
             {
-
+                lblMensajeError.Text = "Por favor, verifique los campos ingresados.";
+                lblMensajeError.CssClass = "alert alert-danger";
                 ScriptManager.RegisterStartupScript(this, GetType(), "abrirModalProducto", "var modal = new bootstrap.Modal(document.getElementById('modalProducto')); modal.show();", true);
                 return;
             }
@@ -228,8 +235,11 @@ namespace UI.Admin
 
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtNuevoNombre.Text) || string.IsNullOrWhiteSpace(txtNuevoStock.Text) || string.IsNullOrWhiteSpace(txtNuevoPrecio.Text) || txtNuevoNombre.Text.Length > 50 || Convert.ToDecimal(txtNuevoPrecio.Text) <= 0 || Convert.ToDecimal(txtNuevoPrecio.Text) > 9999999.99m || Convert.ToInt32(txtNuevoStock.Text) < 0 || Convert.ToInt32(txtNuevoStock.Text) > 9999)
+            if (string.IsNullOrWhiteSpace(txtNuevoNombre.Text) || string.IsNullOrWhiteSpace(txtNuevoStock.Text) || string.IsNullOrWhiteSpace(txtNuevoPrecio.Text) || txtNuevoNombre.Text.Length > 50 || Convert.ToDecimal(txtNuevoPrecio.Text) <= 0 || Convert.ToDecimal(txtNuevoPrecio.Text) > 99999999.99m || Convert.ToInt32(txtNuevoStock.Text) < 0 || Convert.ToInt32(txtNuevoStock.Text) > 9999 || txtNuevaImagen.Text.Length > 150)
             {
+                limpiarCamposAgregar();
+                lblMensajeErrorAgregar.Text = "Por favor, verifique los campos ingresados.";
+                lblMensajeErrorAgregar.CssClass = "alert alert-danger";
                 ScriptManager.RegisterStartupScript(this, GetType(), "abrirAgregarModal", "var modal = new bootstrap.Modal(document.getElementById('modalAgregar')); modal.show();", true);
                 return;
             }
@@ -291,6 +301,10 @@ namespace UI.Admin
             var lista = managerProducto.listar();
             rptProductos.DataSource = lista;
             rptProductos.DataBind();
+            lblMensajeError.Text = "";
+            lblMensajeError.CssClass = "alert alert-danger d-none";
+            lblMensajeErrorAgregar.Text = "";
+            lblMensajeErrorAgregar.CssClass = "alert alert-danger d-none";
         }
 
         private void cargarCategoriasEnDropdown(DropDownList ddl)
@@ -319,6 +333,10 @@ namespace UI.Admin
             ddlNuevaCategoria.SelectedIndex = -1;
             ddlNuevaMarca.SelectedIndex = -1;
             ddlNuevoActivo.SelectedValue = "true";
+            lblMensajeError.Text = "";
+            lblMensajeError.CssClass = "alert alert-danger d-none";
+            lblMensajeErrorAgregar.Text = "";
+            lblMensajeErrorAgregar.CssClass = "alert alert-danger d-none";
         }
         private void alternarCamposEdicion(bool editar)
         {
