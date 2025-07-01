@@ -12,6 +12,20 @@ namespace UI.Admin
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null)
+            {
+                Response.Redirect("/Usuario/Logearse.aspx", false);
+                return;
+            }
+
+            Usuarios usuarioLogeado = (Usuarios)Session["Usuario"];
+
+            if (usuarioLogeado.Rol.Id != 1)
+            {
+                Response.Redirect("/Perfil.aspx", false);
+                return;
+            }
+
             if (!IsPostBack)
             {
                 cargarMarcas();

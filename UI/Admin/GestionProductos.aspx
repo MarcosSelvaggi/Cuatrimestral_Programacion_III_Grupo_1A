@@ -196,7 +196,7 @@
                     <div class="mb-3">
                         <label>Agregar URL de Imagen:</label>
                         <div class="input-group">
-                            <asp:TextBox ID="txtNuevaImagen" runat="server" CssClass="form-control" MaxLength="500" onkeyup="validarLongitud(this, 500, 'imagenAgregarMsj')"></asp:TextBox>
+                            <asp:TextBox ID="txtNuevaImagen" runat="server" CssClass="form-control" MaxLength="150" onkeyup="validarLongitud(this, 150, 'imagenAgregarMsj')"></asp:TextBox>
                             <asp:Button ID="btnAgregarImagenTemporal" runat="server" Text="Agregar" CssClass="btn btn-primary" Visible='<%# ((UI.Admin.GestionProductos)Page).EsModoEdicion %>' OnClick="btnAgregarImagenTemporal_Click" />
                         </div>
                         <span id="imagenAgregarMsj" class="form-text text-muted"></span>
