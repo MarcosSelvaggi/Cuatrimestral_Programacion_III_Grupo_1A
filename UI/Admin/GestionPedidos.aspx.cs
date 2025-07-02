@@ -75,16 +75,6 @@ namespace UI.Admin
 
                     ScriptManager.RegisterStartupScript(this, GetType(), "abrirDetalleModal", "var modal = new bootstrap.Modal(document.getElementById('modalDetallePedido')); modal.show();", true);
                 }
-                /*else if (e.CommandName == "Editar")
-                {
-                    lblIdPedidoEditar.Text = pedido.IdPedido.ToString();
-                    ddlEstadoEnvio.SelectedValue = pedido.EstadoEnvio.IdEstadoEnvio.ToString();
-                    ddlEstadoPedido.SelectedValue = pedido.EstadoPedido.IdEstadoPedido.ToString();
-                    ddlEstadoPago.SelectedValue = pedido.EstadoPago.IdEstadoPago.ToString();
-                    ddlMetodoPago.Items.Clear();
-                    ddlMetodoPago.Items.Add(new ListItem(pedido.DetallePago.Metodo, pedido.DetallePago.Metodo));
-                    ScriptManager.RegisterStartupScript(this, GetType(), "abrirEditarModal", "var modal = new bootstrap.Modal(document.getElementById('modalEditarEstado')); modal.show();", true);
-                }*/
                 else if (e.CommandName == "Editar")
                 {
                     lblIdPedidoEditar.Text = pedido.IdPedido.ToString();
@@ -112,17 +102,29 @@ namespace UI.Admin
                     else
                         ddlEstadoEnvio.SelectedIndex = 0; // Selecciono el primero
 
-                    // Verifico si el valor de EstadoPago existe en el DropDownList
-                    if (ddlEstadoPago.Items.FindByValue(pedido.EstadoPago.IdEstadoPago.ToString()) != null)
+
+                    var todosEstadosPago = managerPedido.listarEstadosPago();
+                    // Filtro estados de pago permitidos según el estado de pedido
+                    List<int> idsPagoPermitidos;
+                    if (!estadosPagoPermitidosPorEstadoPedido.TryGetValue(pedido.EstadoPedido.IdEstadoPedido, out idsPagoPermitidos))
                     {
-                        ddlEstadoPago.SelectedValue = pedido.EstadoPago.IdEstadoPago.ToString();
-                    }
-                    else
-                    {
-                        ddlEstadoPago.SelectedIndex = 0;
+                        idsPagoPermitidos = todosEstadosPago.Select(p => (int)p.IdEstadoPago).ToList();
                     }
 
-                    //ddlEstadoPago.SelectedValue = pedido.EstadoPago.IdEstadoPago.ToString();
+                    var estadosFiltradosPago = todosEstadosPago
+                        .Where(p => idsPagoPermitidos.Contains(p.IdEstadoPago))
+                        .ToList();
+
+                    ddlEstadoPago.DataSource = estadosFiltradosPago;
+                    ddlEstadoPago.DataValueField = "IdEstadoPago";
+                    ddlEstadoPago.DataTextField = "Descripcion";
+                    ddlEstadoPago.DataBind();
+
+                    //Verifico si el estado actual del pago está en la lista filtrada
+                    if (idsPagoPermitidos.Contains(pedido.EstadoPago.IdEstadoPago))
+                        ddlEstadoPago.SelectedValue = pedido.EstadoPago.IdEstadoPago.ToString();
+                    else
+                        ddlEstadoPago.SelectedIndex = 0;
 
                     ddlMetodoPago.Items.Clear();
                     ddlMetodoPago.Items.Add(new ListItem(pedido.DetallePago.Metodo, pedido.DetallePago.Metodo));
