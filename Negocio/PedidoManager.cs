@@ -540,5 +540,92 @@ namespace Negocio
                 conexion.cerrarConexion();
             }
         }
+
+        public EstadoPago obtenerEstadoPagoPorId(int id)
+        {
+            AccesoADatos datos = new AccesoADatos();
+            EstadoPago estadoPago = new EstadoPago();
+
+            try
+            {
+                datos.setearConsulta("Select IdEstadoPago, Descripcion from EstadoDePagos where IdEstadoPago = @id");
+                datos.agregarParametros("@id", id);
+                datos.ejecutarQuery();
+
+                if (datos.Lector.Read())
+                {
+                    estadoPago = new EstadoPago();
+                    estadoPago.IdEstadoPago = (byte)datos.Lector["IdEstadoPago"];
+                    estadoPago.Descripcion = datos.Lector["Descripcion"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return estadoPago;
+        }
+
+        public EstadoPedido obtenerEstadoPedidoPorId(int id)
+        {
+            AccesoADatos datos = new AccesoADatos();
+            EstadoPedido estadoPedido = new EstadoPedido();
+
+            try
+            {
+                datos.setearConsulta("Select IDEstadoPedido, Descripcion from EstadoDePedidos where IDEstadoPedido = @id");
+                datos.agregarParametros("@id", id);
+                datos.ejecutarQuery();
+
+                if (datos.Lector.Read())
+                {
+                    estadoPedido = new EstadoPedido();
+                    estadoPedido.IdEstadoPedido = (byte)datos.Lector["IDEstadoPedido"];
+                    estadoPedido.Descripcion = datos.Lector["Descripcion"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return estadoPedido;
+        }
+
+        public EstadoEnvio obtenerEstadoEnvioPorId(int id)
+        {
+            AccesoADatos datos = new AccesoADatos();
+            EstadoEnvio estadoEnvio = new EstadoEnvio();
+
+            try
+            {
+                datos.setearConsulta("Select IDEnvio, Descripcion from EstadoDeEnvios where IDEnvio = @id");
+                datos.agregarParametros("@id", id);
+                datos.ejecutarQuery();
+
+                if (datos.Lector.Read())
+                {
+                    estadoEnvio = new EstadoEnvio();
+                    estadoEnvio.IdEstadoEnvio = (int)datos.Lector["IDEnvio"];
+                    estadoEnvio.Descripcion = datos.Lector["Descripcion"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return estadoEnvio;
+        }
     }
 }

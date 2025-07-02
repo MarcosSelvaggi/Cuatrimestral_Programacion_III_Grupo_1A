@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace UI
 {
-    public partial class Contacto : System.Web.UI.Page
+    public partial class Contacto : UI.ClaseMaster.BasePage
     {
         protected void Page_Load(object sender, EventArgs e)
         {

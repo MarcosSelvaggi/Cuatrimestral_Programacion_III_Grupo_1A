@@ -18,50 +18,39 @@ namespace UI
             ImagenManager imagenManager = new ImagenManager();
             listaImagenes = imagenManager.listarImagenes();
 
-            if (Request.QueryString["id"] != null)
-            {
-                int idProducto;
-                if (int.TryParse(Request.QueryString["id"], out idProducto))
-                {
-                    CargarProducto(idProducto);
-
-                    if (Session["Usuario"] != null)
-                    {
-                        int idUsuario = ((Usuarios)Session["Usuario"]).Id;
-                        FavoritoManager favoritoManager = new FavoritoManager();
-
-                        favoritoRepetido = favoritoManager.favoritoRepetido(idProducto, idUsuario);
-
-                        if (Request.QueryString["fav"] != null)
-                        {
-                            string accion = Request.QueryString["fav"];
-                            int idFavorito;
-
-                            if (int.TryParse(Request.QueryString["id"], out idFavorito))
-                            {
-                                if (accion == "agregar" && !favoritoRepetido)
-                                {
-                                    favoritoManager.agregarFavorito(idFavorito, idUsuario);
-                                }
-                                else if (accion == "quitar" && favoritoRepetido)
-                                {
-                                    favoritoManager.eliminarFavorito(idFavorito, idUsuario);
-                                }
-
-                                Response.Redirect($"ProductoDetalle.aspx?id={idProducto}");
-                                return;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    Response.Redirect("Inicio.aspx");
-                }
-            }
-            else
-            {
+            if (Request.QueryString["id"] == null)
                 Response.Redirect("Inicio.aspx");
+
+            int idProducto;
+            if (!int.TryParse(Request.QueryString["id"], out idProducto))
+                Response.Redirect("Inicio.aspx");
+
+            CargarProducto(idProducto);
+            if (producto.Id == 0)
+                Response.Redirect("Inicio.aspx");
+
+            if (Session["Usuario"] != null)
+            {
+                int idUsuario = ((Usuarios)Session["Usuario"]).Id;
+                FavoritoManager favoritoManager = new FavoritoManager();
+
+                favoritoRepetido = favoritoManager.favoritoRepetido(idProducto, idUsuario);
+
+                if (Request.QueryString["fav"] != null)
+                {
+                    string accion = Request.QueryString["fav"];
+                    if (accion == "agregar" && !favoritoRepetido)
+                    {
+                        favoritoManager.agregarFavorito(idProducto, idUsuario);
+                    }
+                    else if (accion == "quitar" && favoritoRepetido)
+                    {
+                        favoritoManager.eliminarFavorito(idProducto, idUsuario);
+                    }
+
+                    Response.Redirect($"ProductoDetalle.aspx?id={idProducto}");
+                    return;
+                }
             }
         }
 
@@ -80,6 +69,9 @@ namespace UI
             }
             else
             {
+                producto = new Producto();
+                producto.Id = 0;
+
                 Response.Redirect("Inicio.aspx");
             }
         }
@@ -109,7 +101,7 @@ namespace UI
             }
             else
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("Logearse.aspx");
             }
         }
     }

@@ -11,23 +11,44 @@ namespace UI.Usuario
 {
     public partial class PedidoDetalle : UI.ClaseMaster.BasePage
     {
-        public Pedido PedidoSeleccionado { get; set; }
-        public Usuarios UsuarioPedido { get; set; }
+        protected Pedido PedidoSeleccionado { get; set; }
+        protected Usuarios UsuarioPedido { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["Usuario"] == null)
-                Response.Redirect("Login.aspx");
+                Response.Redirect("Logearse.aspx");
 
             if (!IsPostBack)
             {
-                int idPedido = int.Parse(Request.QueryString["id"]);
+                int idPedido;
+
+                if (!int.TryParse(Request.QueryString["id"], out idPedido))
+                {
+                    Response.Redirect("Pedidos.aspx");
+                    return;
+                }
 
                 PedidoManager pedidoManager = new PedidoManager();
-                PedidoSeleccionado = pedidoManager.obtenerPedidoFactura(idPedido);
+                Pedido pedidoValido = pedidoManager.obtenerPedidoFactura(idPedido);
 
-                UsuarioPedido = PedidoSeleccionado.Usuario;
-                Session["PedidoSeleccionado"] = PedidoSeleccionado;
+                if (pedidoValido == null)
+                {
+                    Response.Redirect("Pedidos.aspx");
+                    return;
+                }
+
+                int idUsuarioLogueado = ((Usuarios)Session["Usuario"]).Id;
+
+                if (pedidoValido.Usuario.Id != idUsuarioLogueado)
+                {
+                    Response.Redirect("Pedidos.aspx");
+                    return;
+                }
+
+                PedidoSeleccionado = pedidoValido;
+                UsuarioPedido = pedidoValido.Usuario;
+                Session["PedidoSeleccionado"] = pedidoValido;
             }
             else
             {

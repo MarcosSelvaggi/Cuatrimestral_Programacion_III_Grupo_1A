@@ -10,6 +10,9 @@ namespace UI.Usuario
         public List<Pedido> listaPedidos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["Usuario"] == null)
+                Response.Redirect("Logearse.aspx");
+
             if (!IsPostBack)
             {
                 int idUsuario = ((Usuarios)Session["Usuario"]).Id;

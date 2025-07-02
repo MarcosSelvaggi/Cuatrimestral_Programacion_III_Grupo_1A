@@ -17,7 +17,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/Inicio.aspx">
-                    <i class="bi bi-house"></i>Inicio
+                    <i class="bi bi-house"></i> Inicio
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarUser" aria-controls="navbarUser" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -27,7 +27,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="/Productos.aspx">
-                                <i class="bi bi-bag"></i>Productos
+                                <i class="bi bi-bag"></i> Productos
                             </a>
                         </li>
                         <!--
@@ -47,27 +47,27 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="dropdown" data-bs-theme="dark">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <i class="bi bi-person-circle"></i>Cuenta
+                                <i class="bi bi-person-circle"></i> Cuenta
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
                                     <a class="dropdown-item" href="/Perfil.aspx">
-                                        <i class="bi bi-person-fill-gear"></i>Perfil
+                                        <i class="bi bi-person-fill-gear"></i> Perfil
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="/Usuario/Pedidos.aspx">
-                                        <i class="bi bi-archive-fill"></i>Pedidos
+                                        <i class="bi bi-archive-fill"></i> Pedidos
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="/Usuario/Favoritos.aspx">
-                                        <i class="bi bi-star-fill"></i>Favoritos
+                                        <i class="bi bi-star-fill"></i> Favoritos
                                     </a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="/Contacto/Contacto.aspx">
-                                        <i class="bi bi-star-fill"></i>Contactanos
+                                        <i class="bi bi-envelope-fill"></i> Contactanos
                                     </a>
                                 </li>
                                 <li>
@@ -75,14 +75,14 @@
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="/Usuario/CerrarSesion.aspx">
-                                        <i class="bi bi-escape"></i>Cerrar Sesión
+                                        <i class="bi bi-escape"></i> Cerrar Sesión
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/Usuario/Carrito.aspx">
-                                <i class="bi bi-cart"></i>Carrito
+                                <i class="bi bi-cart"></i> Carrito
                             </a>
                         </li>
                     </ul>

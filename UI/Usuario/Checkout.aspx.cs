@@ -15,7 +15,10 @@ namespace UI.Usuario
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["Usuario"] == null)
-                Response.Redirect("Login.aspx");
+                Response.Redirect("Logearse.aspx");
+
+            if (Request.QueryString.Count > 0)
+                Response.Redirect("Inicio.aspx");
 
             UsuarioLogeado = (Usuarios)Session["Usuario"];
 
@@ -27,6 +30,9 @@ namespace UI.Usuario
 
                 int idCarrito = carritoManager.carritoDisponible(UsuarioLogeado.Id);
                 listaDetalles = detalleManager.listarDetallesCarrito(idCarrito);
+
+                if (listaDetalles == null || listaDetalles.Count == 0)
+                    Response.Redirect("Inicio.aspx");
 
                 Session["DetallesCarrito"] = listaDetalles;
             }
@@ -40,9 +46,7 @@ namespace UI.Usuario
         protected void btnConfirmarCompra_Click(object sender, EventArgs e)
         {
             if (listaDetalles == null || listaDetalles.Count == 0)
-            {
                 Response.Redirect("/Inicio.aspx");
-            }
 
             int idUsuario = UsuarioLogeado.Id;
 
@@ -64,20 +68,37 @@ namespace UI.Usuario
                 nuevoPedido.MetodoPago.Id = int.Parse(ddlMetodoPago.SelectedValue);
                 nuevoPedido.MetodoPago.Descripcion = ddlMetodoPago.SelectedItem.Text;
 
-                // Momentaneamente queda asi hasta siguiente push
-                nuevoPedido.DetallePago.IdDetallePago = 0;
                 nuevoPedido.DetallePago.Metodo = ddlMetodoPago.SelectedItem.Text;
                 nuevoPedido.DetallePago.Fecha = DateTime.Now;
-                nuevoPedido.DetallePago.Descripcion = "Pagado";
 
-                nuevoPedido.EstadoPago.IdEstadoPago = 1;
-                nuevoPedido.EstadoPago.Descripcion = "Aprobado";
+                switch (nuevoPedido.MetodoPago.Id)
+                {
+                    // Tarjeta y Mp
+                    case 1:
+                    case 2:
+                        nuevoPedido.DetallePago.Descripcion = "Pagado";
 
-                nuevoPedido.EstadoPedido.IdEstadoPedido = 1;
-                nuevoPedido.EstadoPedido.Descripcion = "Creado";
+                        nuevoPedido.EstadoPedido = pedidoManager.obtenerEstadoPedidoPorId(1);
+                        nuevoPedido.EstadoPago = pedidoManager.obtenerEstadoPagoPorId(1);
+                        nuevoPedido.EstadoEnvio = pedidoManager.obtenerEstadoEnvioPorId(1);
+                        break;
+                    // Efectivo y Transferencia
+                    case 3:
+                    case 4:
+                        nuevoPedido.DetallePago.Descripcion = "En proceso";
 
-                nuevoPedido.EstadoEnvio.IdEstadoEnvio = 1;
-                nuevoPedido.EstadoEnvio.Descripcion = "No enviado";
+                        nuevoPedido.EstadoPedido = pedidoManager.obtenerEstadoPedidoPorId(3);
+                        nuevoPedido.EstadoPago = pedidoManager.obtenerEstadoPagoPorId(2);
+                        nuevoPedido.EstadoEnvio = pedidoManager.obtenerEstadoEnvioPorId(1);
+                        break;
+                    default:
+                        nuevoPedido.DetallePago.Descripcion = "Error de transacción";
+
+                        nuevoPedido.EstadoPedido = pedidoManager.obtenerEstadoPedidoPorId(5);
+                        nuevoPedido.EstadoPago = pedidoManager.obtenerEstadoPagoPorId(3);
+                        nuevoPedido.EstadoEnvio = pedidoManager.obtenerEstadoEnvioPorId(6);
+                        break;
+                }
 
                 nuevoPedido.FechaPedido = DateTime.Now;
                 nuevoPedido.ListaDetalles = listaDetalles;
@@ -88,7 +109,7 @@ namespace UI.Usuario
 
                 int idCarrito = carritoManager.carritoDisponible(idUsuario);
                 detalleManager.limpiarCarrito(idCarrito);
-                
+
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "mostrarModal",
                     "var myModal = new bootstrap.Modal(document.getElementById('compraExitosa')); myModal.show();", true);
             }
