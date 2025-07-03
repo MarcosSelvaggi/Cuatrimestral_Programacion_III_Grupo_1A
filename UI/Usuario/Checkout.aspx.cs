@@ -87,7 +87,7 @@ namespace UI.Usuario
                     case 4:
                         nuevoPedido.DetallePago.Descripcion = "En proceso";
 
-                        nuevoPedido.EstadoPedido = pedidoManager.obtenerEstadoPedidoPorId(3);
+                        nuevoPedido.EstadoPedido = pedidoManager.obtenerEstadoPedidoPorId(1);
                         nuevoPedido.EstadoPago = pedidoManager.obtenerEstadoPagoPorId(2);
                         nuevoPedido.EstadoEnvio = pedidoManager.obtenerEstadoEnvioPorId(1);
                         break;

@@ -14,7 +14,7 @@ namespace UI.Admin
 
         private readonly Dictionary<int, List<int>> estadosPagoPermitidosPorEstadoPedido = new Dictionary<int, List<int>>
         {
-            { 1, new List<int> { 2 } },                  // Creado -> Pendiente
+            { 1, new List<int> { 1, 2 } },               // Creado -> Aprobado, Pendiente
             { 2, new List<int> { 1, 2 } },               // Confirmado -> Aprobado, Pendiente
             { 3, new List<int> { 1 } },                  // Procesando -> Aprobado
             { 4, new List<int> { 1, 4 } },               // Completado -> Aprobado, Reembolsado
@@ -66,6 +66,7 @@ namespace UI.Admin
                 {
                     lblDetallePedido.Text = $"Pedido N° {pedido.IdPedido}<br/>Cliente: {pedido.Cliente}<br/>Fecha: {pedido.FechaPedido:dd/MM/yyyy}<br/>Estado: {pedido.EstadoPedido.Descripcion}<br/>Total: ${pedido.PrecioTotal:N2}";
                     lblDetallePago.Text = $"Método: {pedido.DetallePago.Metodo}<br/>" +
+                      $"Estado: {pedido.EstadoPago.Descripcion}<br/>" +
                       $"Fecha: {pedido.DetallePago.Fecha:dd/MM/yyyy HH:mm}<br/>";
 
                     var detalles = managerPedido.obtenerDetallesPorPedido(idPedido);

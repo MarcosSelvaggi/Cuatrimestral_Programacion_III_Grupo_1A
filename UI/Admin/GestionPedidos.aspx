@@ -15,6 +15,7 @@
                     <th>Fecha</th>
                     <th>Estado Pedido</th>
                     <th>Estado Envío</th>
+                    <th>Estado Pago</th>
                     <th>Total</th>
                     <th style="text-align: right;">Acciones</th>
                 </tr>
@@ -28,6 +29,7 @@
                             <td><%# Eval("FechaPedido", "{0:dd-MM-yyyy HH:mm}") %></td>
                             <td><%# Eval("EstadoPedido.Descripcion") %></td>
                             <td><%# Eval("EstadoEnvio.Descripcion") %></td>
+                            <td><%# Eval("EstadoPago.Descripcion") %></td>
                             <td>$<%# Eval("PrecioTotal", "{0:N2}") %></td>
                             <td style="text-align: right;">
                                 <asp:LinkButton runat="server" CssClass="btn btn-outline-primary me-1"

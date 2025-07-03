@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Dominio;
 
 namespace Negocio
@@ -19,11 +20,13 @@ namespace Negocio
                                         P.FechaDePedido, 
                                         EP.Descripcion AS Estado,
                                         EE.Descripcion AS EstadoEnvio,
+                                        EPa.Descripcion AS EstadoPago,
                                         P.PrecioTotal 
                                  From Pedidos P
                                  Inner Join Usuarios U ON P.IDCliente = U.IdUsuario
                                  Inner Join EstadoDePedidos EP ON P.IDEstadoPedido = EP.IDEstadoPedido
-                                 Inner Join EstadoDeEnvios EE ON P.IDEnvio = EE.IDEnvio";
+                                 Inner Join EstadoDeEnvios EE ON P.IDEnvio = EE.IDEnvio
+                                 Inner Join EstadoDePagos EPa ON P.IdEstadoPago = EPa.IdEstadoPago";
                 conexion.setearConsulta(query);
                 conexion.ejecutarQuery();
 
@@ -36,6 +39,8 @@ namespace Negocio
                     aux.EstadoPedido.Descripcion = conexion.Lector["Estado"].ToString();
                     aux.EstadoEnvio = new EstadoEnvio();
                     aux.EstadoEnvio.Descripcion = conexion.Lector["EstadoEnvio"].ToString();
+                    aux.EstadoPago = new EstadoPago();
+                    aux.EstadoPago.Descripcion = conexion.Lector["EstadoPago"].ToString();
                     aux.PrecioTotal = conexion.Lector["PrecioTotal"] != DBNull.Value ? (decimal)conexion.Lector["PrecioTotal"] : 0;
 
                     listaPedidos.Add(aux);
