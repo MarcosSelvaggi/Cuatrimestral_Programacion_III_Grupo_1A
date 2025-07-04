@@ -108,6 +108,7 @@
     <Content Include="Admin\GestionProductos.aspx" />
     <Content Include="Admin\Inicio.aspx" />
     <Content Include="Contacto\Contacto.aspx" />
+    <Content Include="Contacto\Imagenes\imgUbicacion.jpg" />
     <Content Include="Contacto\Styles\StyleContacto.css" />
     <Content Include="Inicio.aspx" />
     <Content Include="Inicio\Estilos\EstiloImagenes.css" />

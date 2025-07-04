@@ -47,6 +47,34 @@ namespace Services
                 "<p>Tu código para cambiar la contraseña es el siguiente " + codigoCambioContrasena + "</p>";
         }
 
+        public void correoConsulta(string emailDestino, string nombreConsulta, string descripciónConsulta)
+        {
+            email = new MailMessage();
+            email.From = new MailAddress("correoprogramaciontp@gmail.com", "Tienda Electronics Store");
+            email.To.Add(emailDestino);
+            email.Subject = "Copia de consulta";
+            email.IsBodyHtml = true;
+            email.Body = "<img src='https://i.ibb.co/7qTWCSz/logo.png' alt='Logo' style='width:150px;' /><br/>"+
+                         "<H1>Buenas " + nombreConsulta + "</H1>" +
+                         "<H2>A continuación se deja la constancia de su consulta, en breve nos contactaremos con usted</H2>" +
+                         "<P></P><P></P><P></P>" +
+                         "<H3>" + descripciónConsulta + "</H3>";
+        }   
+
+        public void correoConsultaInterno(string nombreConsulta, string descripciónConsulta)
+        {
+            email = new MailMessage();
+            email.From = new MailAddress("correoprogramaciontp@gmail.com", "Tienda Electronics Store");
+            email.To.Add("correoprogramaciontp@gmail.com");
+            email.Subject = "Copia de consulta";
+            email.IsBodyHtml = true;
+            email.Body = "<img src='https://i.ibb.co/7qTWCSz/logo.png' alt='Logo' style='width:150px;' /><br/>" +
+                         "<H1>Buenas " + nombreConsulta + "</H1>" +
+                         "<H2>A continuación se deja la constancia de su consulta, en breve nos contactaremos con usted</H2>" +
+                         "<P></P><P></P><P></P>" +
+                         "<H3>" + descripciónConsulta + "</H3>";
+        }
+
         public void enviarEmail()
         {
             try

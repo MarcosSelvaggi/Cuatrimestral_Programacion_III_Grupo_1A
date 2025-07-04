@@ -12,15 +12,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
     <br />
     <div class="row">
         <!-- Banner izquierdo -->
         <aside class="col-2" style="padding-left: 50px">
-            <a href="/Productos.aspx?Marca=Nvidia">
-                <img src="/Inicio/Imagenes/Banners/banner-vertical-small-0.jpg" class="img-fluid" style="width: 227px; height: auto" alt="Banner lateral" />
-            </a>
-            <p></p>
             <a href="/Productos.aspx?Marca=MSI">
                 <img src="/Inicio/Imagenes/Banners/banner-vertical-large-2.jpg" class="img-fluid" style="width: 227px; height: 1008px" alt="Banner lateral" />
             </a>
@@ -129,11 +124,6 @@
         <aside class="col-2" style="padding-left: 30px">
             <a href="/Productos.aspx?Marca=Nvidia">
                 <img src="/Inicio/Imagenes/Banners/banner-vertical-large-1.jpg" class="img-fluid" style="width: 227px; height: 1008px" alt="Banner lateral" />
-            </a>
-            <!-- Separado de banners-->
-            <p></p>
-            <a href="/Productos.aspx?Marca=Nvidia">
-                <img src="/Inicio/Imagenes/Banners/banner-vertical-small-1.jpg" class="img-fluid" style="width: 227px; height: auto" alt="Banner lateral" />
             </a>
         </aside>
         <!-- Fin banner derecho -->

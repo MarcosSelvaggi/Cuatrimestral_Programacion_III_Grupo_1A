@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Registro.aspx.cs" Inherits="UI.Registro" async="true"%>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Registro.aspx.cs" Inherits="UI.Registro" Async="true" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="/Contacto/Styles/StyleContacto.css" rel="stylesheet" />
@@ -19,18 +19,6 @@
                 <div class="col-md-6">
                     <label class="form-label">Apellido</label>
                     <asp:TextBox ID="txtApellido" CssClass="form-control" runat="server"></asp:TextBox>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label">Email</label>
-                    <div class="input-group">
-                        <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" TextMode="Email"></asp:TextBox>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <label class="form-label">Contraseña</label>
-                    <asp:TextBox ID="txtContraseña" CssClass="form-control" runat="server" TextMode="Password"></asp:TextBox>
                 </div>
 
                 <div class="col-md-6">
@@ -66,6 +54,18 @@
                 <div class="col-md-4">
                     <label class="form-label">Código Postal</label>
                     <asp:TextBox ID="txtCodigoPostal" CssClass="form-control" runat="server"></asp:TextBox>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    <div class="input-group">
+                        <asp:TextBox ID="txtEmail" CssClass="form-control" runat="server" TextMode="Email"></asp:TextBox>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Contraseña</label>
+                    <asp:TextBox ID="txtContraseña" CssClass="form-control" runat="server" TextMode="Password"></asp:TextBox>
                 </div>
 
                 <div class="col-12 text-center mt-4">
